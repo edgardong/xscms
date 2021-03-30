@@ -1,0 +1,6 @@
+node_modules/
+logs/
+dist/
+.idea/
+config/config.js
+wec-tools/

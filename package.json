@@ -1,0 +1,62 @@
+{
+  "name": "xs-cms",
+  "version": "1.0.0",
+  "description": "A cms system based on koa2 & koa-router",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "dev1": "nodemon index.js",
+    "prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json",
+    "start": "concurrently \"npm run admin\"  \"npm run blog\" \"npm run dev\""
+  },
+  "keywords": [
+    "koa2",
+    "nodejs",
+    "edgarhao",
+    "pug",
+    "xs-cms"
+  ],
+  "author": "edgarhao",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "babel-cli": "^6.26.0",
+    "basic-auth": "^2.0.1",
+    "bcryptjs": "^2.4.3",
+    "child_process": "^1.0.2",
+    "cross-env": "^7.0.2",
+    "crypto": "^1.0.1",
+    "github-webhook-handler": "^1.0.0",
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-static-router": "^1.5.0",
+    "koa-swagger-decorator": "^1.6.1",
+    "koa-views": "^7.0.1",
+    "koa-xml-body": "^2.1.0",
+    "lodash": "^4.17.15",
+    "log4js": "^6.3.0",
+    "mysql2": "^1.6.5",
+    "node-github-webhook": "^1.0.7",
+    "nodemon": "^2.0.2",
+    "npm-check": "^5.9.0",
+    "qiniu": "^7.3.0",
+    "require-directory": "^2.1.1",
+    "sequelize": "^5.12.2",
+    "validator": "^11.1.0",
+    "wec-tools": "^0.1.0",
+    "xmlreader": "^0.2.3"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "concurrently": "^6.0.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
