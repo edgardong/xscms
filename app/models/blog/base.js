@@ -60,7 +60,8 @@ BlogBase.initModel({
     comment: 'Bing推送的key'
   },
 }, {
-  tableName: 'blog_base',
+  tableName: 'xs_site',
+  sequelize,
   comment:'博客基本信息'
 })
 

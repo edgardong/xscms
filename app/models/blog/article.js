@@ -3,6 +3,7 @@ const {
   DataTypes,
   Op,
   Model,
+  BaseModel,
   getPaginationList
 } = require('../baseModel')
 
@@ -10,7 +11,7 @@ const generatetSitemap = require('../../../core/sitemap')
 const ArticleRelation = require('./article_relations')
 const { pushPost } = require('../../services/push/baidu')
 
-class Article extends Model {
+class Article extends BaseModel {
   static async getPaginationArticle(params) {
     const result = await getPaginationList(params, Article, params.type ? {} : {
       type: 0
@@ -177,7 +178,7 @@ class Article extends Model {
   }
 }
 
-Article.init({
+Article.initModel({
   id: {
     type: DataTypes.INTEGER,
     comment: '主键',
@@ -256,8 +257,8 @@ Article.init({
     comment: '发布时间'
   }
 }, {
-  sequelize,
-  tableName: 'blog_article'
+  tableName: 'xs_article',
+  comment:'文章表'
 })
 
 // Article.hasOne(ArticleCategory, {
@@ -265,9 +266,5 @@ Article.init({
 //   sourceKey: 'id',
 //   as: 'categorys'
 // })
-
-Article.sync({
-  alter: true
-})
 
 module.exports = Article

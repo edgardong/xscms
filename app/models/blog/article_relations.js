@@ -168,7 +168,7 @@ ArticleRelations.initModel({
     comment: '值，以,隔开'
   }
 }, {
-  tableName: 'blog_relations',
+  tableName: 'xs_article_relations',
   comment: '文章分类关系表'
 })
 

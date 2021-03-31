@@ -38,12 +38,12 @@ Tag.initModel({
     comment: '使用这个tag的文章'
   }
 }, {
-  tableName: 'blog_tag',
-  comment: '博客标签'
+  tableName: 'xs_tag',
+  comment: '标签',
 })
 
-Tag.sync({
-  alter: true
-})
+// Tag.sync({
+//   alter: true
+// })
 
 module.exports = Tag

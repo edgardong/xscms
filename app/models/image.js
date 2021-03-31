@@ -76,7 +76,8 @@ Image.init({
   }
 }, {
   sequelize,
-  tableName: 'xs_image'
+  tableName: 'xs_image',
+  comment:'图片表'
 })
 
 module.exports = {

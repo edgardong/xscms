@@ -1,6 +1,6 @@
 {
   "tables": [],
-  "prefix": "at_sys_",
+  "prefix": "xs_sys_",
   "models": [{
       "enable": true,
       "name": "operate",
@@ -20,7 +20,7 @@
     {
       "enable": true,
       "name": "department",
-      "prefix": "wec_sys_",
+      "prefix": "xs_sys_",
       "className": "Department",
       "text": "系统部门",
       "comment": "操作类型配置模块",
@@ -59,7 +59,7 @@
     {
       "enable": true,
       "name": "organization",
-      "prefix": "wec_sys_",
+      "prefix": "xs_sys_",
       "className": "Organization",
       "text": "系统组织",
       "comment": "系统组织模块",
@@ -82,7 +82,7 @@
     {
       "enable": true,
       "name": "xyorder",
-      "prefix": "wec_sys_",
+      "prefix": "xs_sys_",
       "className": "Xyorder",
       "text": "咸鱼订单",
       "comment": "针对咸鱼的订单处理",

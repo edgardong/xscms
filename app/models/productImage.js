@@ -34,7 +34,8 @@ ProductImage.init({
   }
 }, {
   sequelize,
-  tableName: 'product_image'
+  tableName: 'xs_product_image',
+  comment:'产品表'
 })
 
 ProductImage.hasOne(Image, {

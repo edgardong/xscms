@@ -1,10 +1,4 @@
-const {
-  Sequelize,
-  Model,
-  DataTypes,
-  BuildOptions,
-  Op
-} = require('sequelize')
+const { Sequelize, Model, DataTypes, BuildOptions, Op } = require('sequelize')
 
 const {
   getPaginationList,
@@ -12,12 +6,10 @@ const {
   deleteById,
   updateData,
   getData,
-  getAll
+  getAll,
 } = require('./EntityUtil')
 
-const {
-  sequelize
-} = require('../../core/db')
+const { sequelize } = require('../../core/db')
 
 function getLastPage(total, size) {
   let last = 0
@@ -31,56 +23,56 @@ const base_attrs = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,
     comment: '名称',
-    allowNull: false
+    allowNull: false,
   },
   remark: {
     type: DataTypes.STRING,
     comment: '说明',
-    allowNull: true
+    allowNull: true,
   },
   status: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
-    comment: '用户状态，0可用，1禁用'
+    comment: '用户状态，0可用，1禁用',
   },
   code: {
     type: DataTypes.STRING,
-    comment: '编码'
+    comment: '编码',
   },
   order: {
     type: DataTypes.INTEGER,
-    defaultValue:9999,
-    comment: '顺序'
+    defaultValue: 9999,
+    comment: '顺序',
   },
   owner: {
     type: DataTypes.INTEGER,
-    comment: '拥有人'
+    comment: '拥有人',
   },
   owner_name: {
     type: DataTypes.STRING,
-    comment: '拥有人名称'
+    comment: '拥有人名称',
   },
   orginazation: {
     type: DataTypes.INTEGER,
-    comment: '组织'
+    comment: '组织',
   },
   orginazation_name: {
     type: DataTypes.STRING,
-    comment: '组织名称'
+    comment: '组织名称',
   },
   business: {
     type: DataTypes.INTEGER,
-    comment: '部门'
+    comment: '部门',
   },
   business_name: {
     type: DataTypes.STRING,
-    comment: '部门名称'
-  }
+    comment: '部门名称',
+  },
 }
 
 class BaseModel extends Model {
@@ -92,7 +84,7 @@ class BaseModel extends Model {
     return await getPaginationList(params, this, where, options)
   }
 
-  static async getAll(where,options={}) {
+  static async getAll(where, options = {}) {
     return await getAll(where, this, options)
   }
 
@@ -110,11 +102,12 @@ class BaseModel extends Model {
 
   static initModel(models, args) {
     args.sequelize = sequelize
-    this.init({
+    this.init(
+      {
         ...base_attrs,
-        ...models
+        ...models,
       },
-      args
+      { ...args, sequelize }
     )
   }
 }
@@ -128,5 +121,5 @@ module.exports = {
   BaseModel,
   Op,
   getLastPage,
-  getPaginationList
+  getPaginationList,
 }

@@ -75,13 +75,14 @@ Category.initModel({
     defaultValue: 0
   }
 }, {
-  tableName: 'blog_category',
-  comment:'博客分类'
+  tableName: 'xs_category',
+  comment:'博客分类',
+  sequelize
 })
 
-Category.sync({
-  alter: true
-})
+// Category.sync({
+//   alter: true
+// })
 
 Category.hasMany(Category, {
   foreignKey: 'parent',
