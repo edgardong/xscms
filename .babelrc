@@ -1,19 +1,26 @@
 {
   "presets": [
-    [
-      "es2015",
-      "stage-0"
-    ]
+    "@babel/preset-env",
+    "@babel/react"
   ],
   "plugins": [
     [
-      "transform-runtime",
+      "@babel/plugin-transform-runtime",
       {
         "helpers": false,
-        "polyfill": false,
         "regenerator": true,
-        "moduleName": "babel-runtime"
       }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "lib",
+        "style": "css" // `style: true` 会加载 less 文件
+      }
+    ],
+    [
+      "@babel/plugin-proposal-decorators", { "legacy": true }
     ]
   ]
 }
