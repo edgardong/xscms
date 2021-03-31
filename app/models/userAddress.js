@@ -76,7 +76,8 @@ UserAddress.init({
   }
 }, {
   sequelize,
-  tableName: 'xs_user_address'
+  tableName: 'xs_user_address',
+  comment:'用户地址表'
 })
 
 module.exports = {

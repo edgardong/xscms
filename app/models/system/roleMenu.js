@@ -61,7 +61,8 @@ RoleMenu.initModel({
     comment: '顺序'
   }
 }, {
-  tableName: 'xs_sys_role_menu'
+  tableName: 'xs_sys_role_menu',
+  comment:'系统角色菜单'
 })
 
 module.exports = {

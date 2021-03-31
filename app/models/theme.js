@@ -66,7 +66,8 @@ Theme.init({
   }
 }, {
   sequelize,
-  tableName: 'xs_theme'
+  tableName: 'xs_theme',
+  comment:'专题'
 })
 
 Theme.hasOne(Image, {

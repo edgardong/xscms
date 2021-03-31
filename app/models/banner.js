@@ -35,7 +35,8 @@ Banner.init({
   }
 }, {
   sequelize,
-  tableName: 'banner'
+  tableName: 'xs_banner',
+  comment:'轮播图'
 })
 
 module.exports = {

@@ -65,8 +65,9 @@ ThemeProduct.init({
   }
 }, {
   sequelize,
-  modelName: 'theme_product',
-  tableName: 'theme_product'
+  modelName: 'xs_theme_product',
+  tableName: 'xs_theme_product',
+  comment:'主题产品'
 })
 
 ThemeProduct.belongsTo(Product, {

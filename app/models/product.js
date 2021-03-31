@@ -121,7 +121,8 @@ Product.init({
   }
 }, {
   sequelize,
-  tableName: 'xs_product'
+  tableName: 'xs_product',
+  comment:'产品表'
 })
 
 Product.hasMany(ProductImage, {

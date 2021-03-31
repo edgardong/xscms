@@ -36,7 +36,8 @@ AppToken.init({
   }
 }, {
   sequelize,
-  tableName: 'app_token'
+  tableName: 'xs_app_token',
+  comment:'第三方APP的授权信息'
 })
 
 module.exports = AppToken

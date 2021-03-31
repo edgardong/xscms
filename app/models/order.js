@@ -4,22 +4,15 @@ const {
   sequelize,
   getLastPage,
   DataTypes,
-  Op
+  Op,
 } = require('./baseModel')
 
 const OrderService = require('../services/order')
-const {
-  UserAddress
-} = require('./userAddress')
-const {
-  Product
-} = require('./product')
-const {
-  User
-} = require('./user')
+const { UserAddress } = require('./userAddress')
+const { Product } = require('./product')
+const { User } = require('./user')
 
 class Order extends Model {
-
   /**
    * 分页获取用户的订单
    * @param {Integer} user_id 用户id
@@ -30,10 +23,10 @@ class Order extends Model {
     // console.log(user_id, page, limit)
     const orders = Order.findAll({
       where: {
-        user_id
+        user_id,
       },
       limit,
-      offset: (page - 1) * limit
+      offset: (page - 1) * limit,
     })
 
     return orders
@@ -49,15 +42,13 @@ class Order extends Model {
       total: 0,
       per_page: params.size,
       current_page: params.page,
-      last_page: 0
+      last_page: 0,
     }
 
     const products = await Order.findAndCountAll({
       limit: params.size,
       offset: (params.page - 1) * params.size,
-      order: [
-        ['create_time', 'desc']
-      ]
+      order: [['create_time', 'desc']],
     })
 
     result.data = products.rows
@@ -73,7 +64,7 @@ class Order extends Model {
    * @param {Array} products 下单的产品
    */
   static async placeOrder(userId, products) {
-    const proIds = products.map(p => p.product_id)
+    const proIds = products.map((p) => p.product_id)
     const result = await this.checkStockByIds(proIds, products)
     if (result.pass) {
       // 生成订单快照
@@ -86,9 +77,9 @@ class Order extends Model {
     const dbProducts = await Product.findAll({
       where: {
         id: {
-          [Op.in]: ids
-        }
-      }
+          [Op.in]: ids,
+        },
+      },
     })
 
     // 核对库存
@@ -104,16 +95,16 @@ class Order extends Model {
   static async snapOrder(userId, data) {
     const address = await UserAddress.findOne({
       where: {
-        user_id: userId
-      }
+        user_id: userId,
+      },
     })
     if (!address) {
       throw new Error('用户地址不存在,无法下单')
     }
     const user = await User.findOne({
       where: {
-        id: userId
-      }
+        id: userId,
+      },
     })
     let order_no = this.makeOrderNo()
     let snap = {
@@ -125,8 +116,8 @@ class Order extends Model {
       snap_img: data.products[0].main_img_url,
       order_no: order_no,
       user_id: userId,
-      open_id: user.openid
-    };
+      open_id: user.openid,
+    }
     if (data.products.length > 1) {
       snap.snap_name += '等'
     }
@@ -137,9 +128,8 @@ class Order extends Model {
       order_no,
       order_id: result.id,
       create_time: result.create_time,
-      pass: true
+      pass: true,
     }
-
   }
 
   /**
@@ -147,7 +137,7 @@ class Order extends Model {
    * @return string
    */
   static makeOrderNo() {
-    const yCode = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    const yCode = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
     //   根据当前时间和随机数生成流水号
     const now = new Date()
     let year = now.getFullYear()
@@ -160,7 +150,16 @@ class Order extends Model {
     day = day < 10 ? '0' + day : day
     minutes = minutes < 10 ? '0' + minutes : minutes
     seconds = seconds < 10 ? '0' + seconds : seconds
-    return yCode[(year - 2019) % yCode.length] + year.toString() + month.toString() + day + hour + minutes + seconds + (Math.round(Math.random() * 89 + 100)).toString()
+    return (
+      yCode[(year - 2019) % yCode.length] +
+      year.toString() +
+      month.toString() +
+      day +
+      hour +
+      minutes +
+      seconds +
+      Math.round(Math.random() * 89 + 100).toString()
+    )
   }
 
   /**
@@ -175,10 +174,10 @@ class Order extends Model {
       data: {
         products: [],
         totalCount: 0,
-        totalPrice: 0
-      }
+        totalPrice: 0,
+      },
     }
-    products.forEach(pro => {
+    products.forEach((pro) => {
       let pid = pro.id || pro.product_id
       // 单品状态
       let singleStatus = {
@@ -188,10 +187,10 @@ class Order extends Model {
         price: 0,
         name: '',
         totalPrice: 0,
-        main_img_url: ''
+        main_img_url: '',
       }
 
-      let dbPro = dbProducts.filter(dbp => dbp.id === pid)[0]
+      let dbPro = dbProducts.filter((dbp) => dbp.id === pid)[0]
       if (dbPro) {
         // 库存不足
         if (dbPro.stock < pro.count) {
@@ -217,7 +216,6 @@ class Order extends Model {
         result.data.totalCount += pro.count
         result.data.totalPrice += singleStatus.totalPrice
         result.data.products.push(singleStatus)
-
       } else {
         // 没有找到产品
         result.pass = false
@@ -232,67 +230,72 @@ class Order extends Model {
   }
 }
 
-Order.init({
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    comment: '主键'
+Order.init(
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      comment: '主键',
+    },
+    order_no: {
+      type: Sequelize.STRING(20),
+      comment: '订单号',
+    },
+    user_id: {
+      type: Sequelize.STRING(32),
+      comment: '外键，用户ID',
+    },
+    total_price: {
+      type: Sequelize.DECIMAL(6, 2),
+      comment: '订单总金额',
+    },
+    status: {
+      type: Sequelize.INTEGER,
+      defaultValue: 1,
+      comment: '订单状态 1:未支付，2:已支付，3:已发货，4:已支付，但库存不足',
+    },
+    snap_img: {
+      type: Sequelize.STRING(255),
+      comment: '订单快照图片',
+    },
+    snap_name: {
+      type: Sequelize.STRING(80),
+      comment: '订单快照名称',
+    },
+    total_count: {
+      type: Sequelize.INTEGER,
+      comment: '订单总数量',
+    },
+    snap_items: {
+      type: Sequelize.TEXT,
+      comment: '订单其他快照信息，json形式',
+    },
+    snap_address: {
+      type: Sequelize.STRING(500),
+      comment: '地址快照',
+    },
+    prepay_id: {
+      type: Sequelize.STRING(100),
+      comment: '支付与订单ID',
+    },
+    type: {
+      type: Sequelize.INTEGER,
+      comment:
+        '订单类型 1：支付宝APP, 2:支付宝WEB，3:微信APP，4:微信WEB, 5:微信小程序',
+    },
+    open_id: {
+      type: DataTypes.STRING,
+      comment: '用户openid',
+    },
   },
-  order_no: {
-    type: Sequelize.STRING(20),
-    comment: '订单号'
-  },
-  user_id: {
-    type: Sequelize.STRING(32),
-    comment: '外键，用户ID'
-  },
-  total_price: {
-    type: Sequelize.DECIMAL(6, 2),
-    comment: '订单总金额'
-  },
-  status: {
-    type: Sequelize.INTEGER,
-    defaultValue: 1,
-    comment: '订单状态 1:未支付，2:已支付，3:已发货，4:已支付，但库存不足'
-  },
-  snap_img: {
-    type: Sequelize.STRING(255),
-    comment: '订单快照图片'
-  },
-  snap_name: {
-    type: Sequelize.STRING(80),
-    comment: '订单快照名称'
-  },
-  total_count: {
-    type: Sequelize.INTEGER,
-    comment: '订单总数量'
-  },
-  snap_items: {
-    type: Sequelize.TEXT,
-    comment: '订单其他快照信息，json形式'
-  },
-  snap_address: {
-    type: Sequelize.STRING(500),
-    comment: '地址快照'
-  },
-  prepay_id: {
-    type: Sequelize.STRING(100),
-    comment: '支付与订单ID'
-  },
-  type: {
-    type: Sequelize.INTEGER,
-    comment: '订单类型 1：支付宝APP, 2:支付宝WEB，3:微信APP，4:微信WEB, 5:微信小程序'
-  },
-  open_id: {
-    type: DataTypes.STRING,
-    comment: '用户openid'
+  {
+    sequelize,
+    tableName: 'xs_order',
+    comment: '用户订单',
   }
-}, {
-  sequelize,
-  tableName: 'xs_order'
-})
+)
 
 module.exports = {
-  Order
+  Order,
 }

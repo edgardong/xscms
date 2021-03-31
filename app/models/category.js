@@ -82,7 +82,8 @@ Category.init({
   }
 }, {
   sequelize,
-  tableName: 'category'
+  tableName: 'xs_category',
+  comment:'产品分类'
 })
 
 Category.hasOne(Image, {

@@ -188,7 +188,8 @@ Role.initModel({
     comment: '菜单类型，1:路由，2:权限'
   }
 }, {
-  tableName: 'xs_sys_role'
+  tableName: 'xs_sys_role',
+  comment:'用户角色'
 })
 
 module.exports = {

@@ -82,7 +82,8 @@ Area.init({
 }, {
   sequelize,
   tableName: 'xs_area',
-  modelName: 'xs_area'
+  modelName: 'xs_area',
+  comment:'省市区域表'
 })
 
 Area.belongsToMany(Area, {

@@ -49,7 +49,8 @@ BannerItem.init({
   }
 }, {
   sequelize,
-  tableName: 'banner_item'
+  tableName: 'xs_banner_item',
+  comment:'轮播图详情'
 })
 
 BannerItem.hasOne(Image, {

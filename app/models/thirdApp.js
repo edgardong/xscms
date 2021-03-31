@@ -56,7 +56,8 @@ ThirdApp.init({
   }
 }, {
   sequelize,
-  tableName: 'third_app'
+  tableName: 'xs_third_app',
+  comment:'第三方APP'
 })
 
 module.exports = ThirdApp
