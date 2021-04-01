@@ -104,6 +104,9 @@ class Article extends BaseModel {
     data.article.half_categorys = data.halfcategorys.join(',')
     data.article.tags = data.tags.join(',')
 
+    //
+    data.article.name = data.article.name || data.article.title
+
     let _id = null
     if (data.article.id) {
       // 更新文章主要信息

@@ -1,16 +1,14 @@
 import React from 'react'
 import { Button, Input, Form, Tree, Tag, Card, Divider } from 'antd'
-
 // import CKEditor from 'ckeditor4-react'
-
 // CKEditor.editorUrl = '/static/ckeditor/ckeditor.js'
-
+import E from 'wangeditor'
 import { getArticle, saveArticle, publishArticle } from '@/api/blog/article'
 import categoryAPI from '@/api/blog/category'
-
 import utils from '@/utils/utils'
-
 import style from './style.less'
+
+let editor = null
 
 class ArticleDetail extends React.Component {
   constructor(props) {
@@ -101,6 +99,7 @@ class ArticleDetail extends React.Component {
   }
 
   componentDidMount() {
+    let _this = this
     this.getCategory()
     this.getHotTagsFormServer()
     let { id } = this.props.match.params
@@ -109,9 +108,28 @@ class ArticleDetail extends React.Component {
       this.setState({
         article: {},
       })
-      return
+    } else {
+      this.getArticleDetail(id)
     }
-    this.getArticleDetail(id)
+
+    setTimeout(() => {
+      this.editor = new E('#myeditor')
+      this.editor.config.placeholder = '自定义 placeholder 提示文字'
+      // this.editor.config.height = 500
+      this.editor.config.uploadImgServer = '/upload-img'
+      this.editor.config.onchange = (newHtml) => {
+        // setContent(newHtml)
+
+        _this.handleDataChange('content', newHtml)
+      }
+      this.editor.create()
+
+      this.editor.txt.html(this.state.article.content) // 重新设置编辑器内容
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    this.editor.destroy()
   }
 
   getArticleDetail(id) {
@@ -208,8 +226,10 @@ class ArticleDetail extends React.Component {
             </Form.Item>
           </Form>
 
-          <div>
-            {/* <CKEditor
+          <div id="myeditor" className={style.editor}></div>
+
+          {/* <div id="myeditor" className={style.editor}>
+             <CKEditor
               onChange={(e) =>
                 this.handleDataChange(
                   'content',
@@ -219,8 +239,8 @@ class ArticleDetail extends React.Component {
               }
               data={article.content}
               readOnly={this.state.readOnly}
-            /> */}
-          </div>
+            />
+          </div> */}
         </div>
         <div className={style.rightBox}>
           <div className={style.buttonBox}>

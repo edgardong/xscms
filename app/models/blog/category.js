@@ -77,7 +77,6 @@ Category.initModel({
 }, {
   tableName: 'xs_aritcle_category',
   comment:'博客分类',
-  sequelize
 })
 
 // Category.sync({

@@ -41,6 +41,16 @@ router.get('', async (ctx, next) => {
   }
 })
 
+router.get('post/:id', async (ctx, next) => {
+  let hasDist = await fileExist('dist/index.html')
+  // 不存在，使用模版文件，否则访问已存在的文件
+  if (!hasDist) {
+    await ctx.render('template/default/post.pug', { id: ctx.params.id })
+  } else {
+    ctx.redirect(`/html/${ctx.params.id}.html`)
+  }
+})
+
 router.get('sys/build', async (ctx, next) => {
   const html = pug.renderFile('template/default/index.pug', {})
   fs.writeFile('dist/index.html', html, (err) => {
