@@ -13,22 +13,22 @@ class SystemMenu extends React.Component {
       showModal: false,
       readOnly: false,
       formData: {},
-      FormItems: this.FormItems
+      FormItems: this.FormItems,
     }
     this.getMenuTree()
   }
 
   getMenuTree() {
     let treeData = []
-    menuApi.getAll().then(resp => {
-      treeData = resp.data.map(v => ({
+    menuApi.getAll().then((resp) => {
+      treeData = resp.data.map((v) => ({
         title: v.name,
         id: v.id,
         pId: v.pid,
-        value: v.id
+        value: v.id,
       }))
       let item = this.FormItems.items.find(
-        i => i.type === 'treeselect' && i.key === 'pid'
+        (i) => i.type === 'treeselect' && i.key === 'pid'
       )
       item.treeData = treeData
     })
@@ -47,7 +47,7 @@ class SystemMenu extends React.Component {
         key: 'id',
         value: '',
         required: false,
-        rules: []
+        rules: [],
       },
       {
         type: 'treeselect',
@@ -59,9 +59,9 @@ class SystemMenu extends React.Component {
         option: {
           key: 'id',
           title: 'name',
-          key: 'id'
+          key: 'id',
         },
-        treeData: []
+        treeData: [],
       },
       {
         type: 'input',
@@ -69,7 +69,7 @@ class SystemMenu extends React.Component {
         key: 'name',
         value: '',
         required: true,
-        rules: []
+        rules: [],
       },
       {
         type: 'input',
@@ -77,7 +77,7 @@ class SystemMenu extends React.Component {
         key: 'code',
         value: '',
         required: true,
-        rules: []
+        rules: [],
       },
       {
         type: 'select',
@@ -86,17 +86,17 @@ class SystemMenu extends React.Component {
         options: [
           {
             id: 1,
-            name: '路由'
+            name: '路由',
           },
           {
             id: 2,
-            name: '权限'
-          }
+            name: '权限',
+          },
         ],
         key: 'type',
         value: '1',
         required: true,
-        rules: []
+        rules: [],
       },
       {
         type: 'input',
@@ -104,7 +104,7 @@ class SystemMenu extends React.Component {
         key: 'url',
         value: '',
         required: true,
-        rules: []
+        rules: [],
       },
       {
         type: 'input',
@@ -112,7 +112,7 @@ class SystemMenu extends React.Component {
         key: 'order',
         value: '',
         required: true,
-        rules: []
+        rules: [],
       },
       {
         type: 'input',
@@ -120,9 +120,9 @@ class SystemMenu extends React.Component {
         key: 'icon',
         value: '',
         required: false,
-        rules: []
-      }
-    ]
+        rules: [],
+      },
+    ],
   }
 
   loadData(params) {
@@ -133,7 +133,7 @@ class SystemMenu extends React.Component {
     this.setState({
       formData: row.record,
       showModal: true,
-      readOnly: true
+      readOnly: true,
     })
   }
 
@@ -141,7 +141,7 @@ class SystemMenu extends React.Component {
     this.setState({
       formData: row.record,
       showModal: true,
-      readOnly: false
+      readOnly: false,
     })
   }
 
@@ -150,10 +150,11 @@ class SystemMenu extends React.Component {
    * @param {Object} row 用户数据
    */
   handleDelete(row) {
+    let data = { id: row.record.id }
     utils
       .deleteConfirm()
       .then(() => {
-        menuApi.delete({ id: row.record.id }).then(resp => {
+        menuApi.delete(data).then((resp) => {
           utils.successToast(resp.msg)
           this.refs.table.refreshTable()
           this.getMenuTree()
@@ -164,7 +165,7 @@ class SystemMenu extends React.Component {
 
   handleModalCancel() {
     this.setState({
-      showModal: false
+      showModal: false,
     })
   }
 
@@ -180,36 +181,36 @@ class SystemMenu extends React.Component {
     {
       title: '菜单名称',
       dataIndex: 'name',
-      width: 150
+      width: 150,
     },
     {
       title: '菜单编码',
       dataIndex: 'code',
-      width: 150
+      width: 150,
     },
     {
       title: '菜单类型',
       width: 100,
       render: (row, record) => {
         return <div>{record.type == 1 ? '路由' : '权限'}</div>
-      }
+      },
     },
     {
       title: '菜单状态',
       width: 90,
       render: (row, record) => {
         return <div>{record.status ? '禁用' : '启用'}</div>
-      }
+      },
     },
     {
       title: '菜单排序',
       dataIndex: 'order',
-      width: 100
+      width: 100,
     },
     {
       title: '创建时间',
       dataIndex: 'create_time',
-      width: 200
+      width: 200,
     },
     {
       title: '操作',
@@ -219,17 +220,17 @@ class SystemMenu extends React.Component {
         let row = { text, record, index }
         return (
           <Button.Group size="small">
-            <Button onClick={e => this.handleDetial(row)}>查看</Button>
-            <Button onClick={e => this.handleEdit(row)} type="primary">
+            <Button onClick={(e) => this.handleDetial(row)}>查看</Button>
+            <Button onClick={(e) => this.handleEdit(row)} type="primary">
               编辑
             </Button>
-            <Button ghost onClick={e => this.handleDelete(row)} type="danger">
+            <Button ghost onClick={(e) => this.handleDelete(row)} type="danger">
               删除
             </Button>
           </Button.Group>
         )
-      }
-    }
+      },
+    },
   ])
 
   /**
@@ -239,23 +240,23 @@ class SystemMenu extends React.Component {
     this.setState({
       formData: {},
       showModal: true,
-      readOnly: false
+      readOnly: false,
     })
   }
 
   handleSubmit(form) {
     if (form.id) {
-      menuApi.update(form).then(resp => {
+      menuApi.update(form).then((resp) => {
         this.setState({
-          showModal: false
+          showModal: false,
         })
         this.refs.table.refreshTable()
         this.getMenuTree()
       })
     } else {
-      menuApi.add(form).then(resp => {
+      menuApi.add(form).then((resp) => {
         this.setState({
-          showModal: false
+          showModal: false,
         })
         this.refs.table.refreshTable()
         this.getMenuTree()
@@ -265,7 +266,7 @@ class SystemMenu extends React.Component {
   expandedRowRender = (record, index) => {
     return record.children && record.children.length > 0 ? (
       <Table
-        rowKey={r => r.id}
+        rowKey={(r) => r.id}
         columns={this.columns}
         showHeader={false}
         ellipsis={true}
@@ -290,7 +291,7 @@ class SystemMenu extends React.Component {
 
         <BaseForm
           formData={this.state.formData}
-          handleSubmit={vals => this.handleSubmit(vals)}
+          handleSubmit={(vals) => this.handleSubmit(vals)}
           handleCancel={() => this.handleModalCancel()}
           readonly={this.state.readOnly}
           showModal={this.state.showModal}

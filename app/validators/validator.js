@@ -14,7 +14,6 @@ const {
 class PositiveIntegerValidator extends WecValidator {
   constructor() {
     super()
-
     this.id = [
       new WecRule('isInt', '需要为正整数', {
         min: 1

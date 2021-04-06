@@ -63,7 +63,7 @@ router.get('/hottag', async (ctx, next)=> {
 })
 
 /**
- * 添加博客分类
+ * 添加文章分类
  */
 router.post('/', async (ctx, next) => {
   const data = {

@@ -9,6 +9,8 @@ html
       include ./includes/header.pug
       a(href='/post/2') 新的文章
       a(href='/post/3') 再来一篇文章
+      each item in data
+        span= item.title
   script.
     new Vue({
       el: '#app',

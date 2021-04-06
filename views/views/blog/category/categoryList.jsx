@@ -50,8 +50,38 @@ class Category extends React.Component {
         rules: [],
       },
       {
+        type: 'select',
+        label: '类型',
+        value: '',
+        key:'type',
+        required: true,
+        rules: [],
+        option: {
+          key: 'id',
+          title: 'name',
+        },
+        options: [
+          {
+            id: 1,
+            name: '栏目',
+          },
+          {
+            id: 2,
+            name: '频道',
+          },
+          {
+            id: 3,
+            name: '链接',
+          },
+          {
+            id: 4,
+            name: '单页',
+          },
+        ],
+      },
+      {
         type: 'treeselect',
-        label: '上级菜单',
+        label: '上级分类',
         key: 'parent',
         value: '',
         required: false,
@@ -71,6 +101,15 @@ class Category extends React.Component {
         rules: [],
       },
       {
+        type: 'switch',
+        label: '是否在菜单栏显示',
+        key: 'show',
+        text:['否','是'],
+        value: '',
+        required: false,
+        rules: [],
+      },
+      {
         type: 'input',
         label: '编码',
         key: 'code',
@@ -85,8 +124,8 @@ class Category extends React.Component {
         value: '',
         required: true,
         rules: [],
-      }
-    ]
+      },
+    ],
   }
 
   loadData(params) {
@@ -156,6 +195,13 @@ class Category extends React.Component {
       width: 90,
       render: (row, record) => {
         return <div>{record.status ? '禁用' : '启用'}</div>
+      },
+    },
+    {
+      title: '是否在菜单栏显示',
+      width: 100,
+      render: (row, record) => {
+        return <div>{record.show ? '显示' : '不显示'}</div>
       },
     },
     {

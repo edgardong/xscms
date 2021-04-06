@@ -24,7 +24,8 @@ router.get('/pagination', async (ctx, next) => {
   const params = await new PaginationValidator().validate(ctx)
   params.order = ['order']
   const result = await Menu.getPagination(params, {
-    pid: null
+    pid: null,
+    status:0
   }, {
     include: [{
       model: Menu,

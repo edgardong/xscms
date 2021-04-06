@@ -4,6 +4,7 @@ const router = new Router({
 })
 const fs = require('fs')
 const pug = require('pug')
+const Category = require('../../models/blog/category')
 
 /**
  * 重定向到管理员页面
@@ -33,9 +34,12 @@ const fileExist = (file) =>
  */
 router.get('', async (ctx, next) => {
   let hasDist = await fileExist('dist/index.html')
+  // 获取数据库中的栏目
+  const data = await (await Category.getShowData()).map(v=>v.dataValues)
+  console.log('...',data)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/index.pug', {})
+    await ctx.render('template/default/index.pug', {data})
   } else {
     ctx.redirect('/html/index.html')
   }

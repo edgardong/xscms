@@ -27,19 +27,20 @@ app.use(async (ctx, next) => {
   }
 })
 
+app.use(views(__dirname, { extension: 'pug' }))
+
 app.use(catchError)
 app.use(xmlParser())
 // app.use(parser())
 app.use(
   koaBody({
     multipart: true,
+    strict:false,//设为false
     formidable: {
       maxFileSize: 200 * 1024 * 1024, // 设置上传文件大小最大限制，默认2M
     },
   })
 )
-
-app.use(views(__dirname, { extension: 'pug' }))
 
 /**
  * 设置静态资源目录
