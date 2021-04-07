@@ -1,4 +1,4 @@
-### wecnode
+### xs-cms
 
 ### 说明
 
