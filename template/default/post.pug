@@ -9,7 +9,7 @@ html
       include ./includes/header.pug
       .content 这是第几片文章 #{id}
   script.
-    new Vue({
+    window.vue = new Vue({
       el: '#app',
       data: function() {
         return { activeIndex: '1' }

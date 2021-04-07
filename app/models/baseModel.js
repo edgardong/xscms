@@ -23,10 +23,11 @@ const base_attrs = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
+    comment: '主键',
     autoIncrement: true,
   },
   name: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     comment: '名称',
     allowNull: false,
   },

@@ -40,6 +40,7 @@ class Category extends BaseModel {
       attributes: [
         ['id', 'key'],
         ['name', 'title'],
+        ['code', 'code'],
       ],
       include: [
         {
@@ -48,6 +49,7 @@ class Category extends BaseModel {
           attributes: [
             ['id', 'key'],
             ['name', 'title'],
+            ['code', 'code'],
           ],
         },
       ],
@@ -76,16 +78,6 @@ class Category extends BaseModel {
 
 Category.initModel(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      comment: '主键',
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      comment: '分类名称',
-    },
     order: {
       type: DataTypes.INTEGER,
       comment: '分类排序',
@@ -118,9 +110,9 @@ Category.initModel(
   }
 )
 
-Category.sync({
-  alter: true,
-})
+// Category.sync({
+//   alter: true,
+// })
 
 Category.hasMany(Category, {
   foreignKey: 'parent',

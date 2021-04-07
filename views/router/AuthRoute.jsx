@@ -12,6 +12,12 @@ class Auth extends React.Component {
     // console.log(this.props)
     let isLogined = this.props.user.token != ''
     const { path, component } = this.props
+
+    const installed = false // ||  utils.checkInstalled()
+    if(!installed){
+      return <Redirect to="install"/>
+    }
+
     if (!isLogined) {
       return <Redirect to="/login" />
     }
