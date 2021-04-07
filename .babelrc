@@ -8,7 +8,7 @@
       "@babel/plugin-transform-runtime",
       {
         "helpers": false,
-        "regenerator": true,
+        "regenerator": true
       }
     ],
     [
@@ -20,7 +20,10 @@
       }
     ],
     [
-      "@babel/plugin-proposal-decorators", { "legacy": true }
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
     ]
   ]
 }
