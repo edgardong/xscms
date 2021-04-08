@@ -38,6 +38,23 @@ class Category extends React.Component {
     // this.getMenuTree()
   }
 
+  TypeOptions = [{
+    id: 1,
+    name: '栏目',
+  },
+  {
+    id: 2,
+    name: '频道',
+  },
+  {
+    id: 3,
+    name: '链接',
+  },
+  {
+    id: 4,
+    name: '单页',
+  },]
+
   FormItems = {
     items: [
       {
@@ -60,24 +77,7 @@ class Category extends React.Component {
           key: 'id',
           title: 'name',
         },
-        options: [
-          {
-            id: 1,
-            name: '栏目',
-          },
-          {
-            id: 2,
-            name: '频道',
-          },
-          {
-            id: 3,
-            name: '链接',
-          },
-          {
-            id: 4,
-            name: '单页',
-          },
-        ],
+        options: this.TypeOptions,
       },
       {
         type: 'treeselect',
@@ -195,6 +195,13 @@ class Category extends React.Component {
       width: 90,
       render: (row, record) => {
         return <div>{record.status ? '禁用' : '启用'}</div>
+      },
+    },
+    {
+      title: '类型',
+      width: 90,
+      render: (row, record) => {
+        return <div>{this.TypeOptions.find(t=>t.id==record.type).name}</div>
       },
     },
     {

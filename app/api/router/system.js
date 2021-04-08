@@ -29,17 +29,29 @@ const fileExist = (file) =>
     })
   })
 
+function parseModel2Json(data) {
+  let tmpData = data.map((v) => v.dataValues)
+  tmpData.forEach(function (d, i) {
+    if (d.children) {
+      d.children = d.children.map((dd) => dd.dataValues)
+    }
+  })
+
+  return tmpData
+}
+
 /**
  * 重定向到默认页面
  */
 router.get('', async (ctx, next) => {
   let hasDist = await fileExist('dist/index.html')
   // 获取数据库中的栏目
-  const data = await (await Category.getShowData()).map(v=>v.dataValues)
-  console.log('...',data)
+  const dataModel = await Category.getShowData()
+  let data = parseModel2Json(dataModel)
+  // console.log('...', data)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/index.pug', {data})
+    await ctx.render('template/default/index.pug', { data })
   } else {
     ctx.redirect('/html/index.html')
   }

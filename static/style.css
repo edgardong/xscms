@@ -1,1 +1,8 @@
 @charset "UTF-8";
+.el-menu-item a {
+  text-decoration: none;
+  color: #909399;
+}
+.el-menu-item a:hover {
+  color: #303133;
+}

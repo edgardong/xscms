@@ -32,7 +32,7 @@ class Category extends BaseModel {
     let where = {
       status: 0,
       parent: null,
-      show: 1,
+      show: true,
     }
     const result = await Category.findAll({
       where,
@@ -41,6 +41,8 @@ class Category extends BaseModel {
         ['id', 'key'],
         ['name', 'title'],
         ['code', 'code'],
+        ['status', 'status'],
+        ['show', 'show'],
       ],
       include: [
         {
@@ -50,6 +52,8 @@ class Category extends BaseModel {
             ['id', 'key'],
             ['name', 'title'],
             ['code', 'code'],
+            ['status', 'status'],
+            ['show', 'show'],
           ],
         },
       ],

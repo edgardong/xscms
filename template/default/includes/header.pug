@@ -1,15 +1,25 @@
-el-menu.el-menu-demo(:default-active='activeIndex' mode='horizontal' @select='handleSelect')
-  el-menu-item(index='1') 处理中心
-  el-submenu(index='2')
-    template(slot='title') 我的工作台
-    el-menu-item(index='2-1') 选项1
-    el-menu-item(index='2-2') 选项2
-    el-menu-item(index='2-3') 选项3
-    el-submenu(index='2-4')
-      template(slot='title') 选项4
-      el-menu-item(index='2-4-1') 选项1
-      el-menu-item(index='2-4-2') 选项2
-      el-menu-item(index='2-4-3') 选项3
-  el-menu-item(index='3') 消息中心
-  el-menu-item(index='4')
-    a(href='https://www.quzhaota.cn' target='_blank') 前沿技术网
+el-menu(:default-active='activeIndex' mode='horizontal' @select='handleSelect')
+  //- el-menu-item(index='1') 处理中心
+  //- el-submenu(index='2')
+  //-   template(slot='title') 我的工作台
+  //-   el-menu-item(index='2-1') 选项1
+  //-   el-menu-item(index='2-2') 选项2
+  //-   el-menu-item(index='2-3') 选项3
+  //-   el-submenu(index='2-4')
+  //-     template(slot='title') 选项4
+  //-     el-menu-item(index='2-4-1') 选项1
+  //-     el-menu-item(index='2-4-2') 选项2
+  //-     el-menu-item(index='2-4-3') 选项3
+  //- el-menu-item(index='3') 消息中心
+  //- el-menu-item(index='4')
+  //- a(href='https://www.quzhaota.cn' target='_blank') 前沿技术网
+  each item in data
+    if item.children.length<=0
+      el-menu-item(index=item.key href= item.code)
+        a(href= item.code target='_blank') #{item.title}
+    else
+      el-submenu(index=item.key)
+        template(slot='title') #{item.title}
+        each sub in item.children
+          el-menu-item(index=sub.key )
+            a(href= sub.code target='_blank') #{sub.title}

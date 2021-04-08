@@ -13,7 +13,7 @@ html
         a(href= item.code)
           span= item.title
   script.
-    new Vue({
+    window.vue = new Vue({
       el: '#app',
       data: function() {
         return { activeIndex: '1' }
