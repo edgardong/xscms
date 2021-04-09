@@ -7,12 +7,40 @@ html
   body
     #app
       include ./includes/header.pug
-      include ./includes/content.pug
-      a(href='/post/2') 新的文章
-      a(href='/post/3') 再来一篇文章
-      each item in data
-        a(href= item.code)
-          span= item.title
+      .container
+        include ./includes/content.pug
+        //- a(href='/post/2') 新的文章
+        //- a(href='/post/3') 再来一篇文章
+        .content
+          .left-wrapper
+            each item in data
+              el-card.box-card
+                .clearfix(slot='header')
+                  span #{item.title}
+                  a(href= item.code style='float: right;') 查看更多
+                .text.item
+                  | 列表内容 ' #{JSON.stringify(item)}
+          .right-wrapper
+            el-card.box-card
+                .clearfix(slot='header')
+                  span 阅读总榜
+                .text.item
+                  | 列表内容
+            el-card.box-card
+                .clearfix(slot='header')
+                  span 阅读本月榜
+                .text.item
+                  | 列表内容
+            el-card.box-card
+                .clearfix(slot='header')
+                  span 阅读本周榜
+                .text.item
+                  | 列表内容
+            el-card.box-card
+                .clearfix(slot='header')
+                  span 阅读本日榜
+                .text.item
+                  | 列表内容
   script.
     window.vue = new Vue({
       el: '#app',

@@ -1,4 +1,4 @@
-const { sequelize, DataTypes, BaseModel } = require('../baseModel')
+const { Sequelize, DataTypes, BaseModel } = require('../baseModel')
 
 class Category extends BaseModel {
   static async getTreeData() {
@@ -41,7 +41,7 @@ class Category extends BaseModel {
         ['id', 'key'],
         ['name', 'title'],
         ['code', 'code'],
-        ['status', 'status'],
+        ['type', 'type'],
       ],
       include: [
         {
@@ -53,8 +53,30 @@ class Category extends BaseModel {
             ['id', 'key'],
             ['name', 'title'],
             ['code', 'code'],
-            ['status', 'status'],
+            ['type', 'type'],
           ],
+        },
+      ],
+    })
+
+    return result
+  }
+
+  static async getMainCategory() {
+    const result = await Category.findAll({
+      attributes: ['id', 'name', 'code', 'type'],
+      where: {
+        status: 0,
+        parent: null,
+        [Sequelize.Op.or]: [{ type: 1 }, { type: 2 }],
+      },
+      include: [
+        {
+          model: Category,
+          where: { show: true, status: 0 },
+          as: 'children',
+          required: false,
+          attributes: ['id', 'name', 'code', 'type'],
         },
       ],
     })

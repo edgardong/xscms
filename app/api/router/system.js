@@ -47,11 +47,12 @@ router.get('', async (ctx, next) => {
   let hasDist = await fileExist('dist/index.html')
   // 获取数据库中的栏目
   const dataModel = await Category.getShowData()
+  const categoryPost = await Category.getMainCategory()
   let data = parseModel2Json(dataModel)
   console.log('...', data)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/index.pug', { data })
+    await ctx.render('template/default/index.pug', { data, categoryPost })
   } else {
     ctx.redirect('/html/index.html')
   }

@@ -1,8 +1,46 @@
 @charset "UTF-8";
-.el-menu-item a {
+a {
   text-decoration: none;
+}
+.el-menu-item a {
   color: #909399;
 }
 .el-menu-item a:hover {
   color: #303133;
+}
+
+.breadcrumb {
+  padding: 15px 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+}
+
+.left-wrapper {
+  width: 72%;
+  margin-right: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.left-wrapper .box-card {
+  width: 48%;
+  margin-bottom: 15px;
+}
+
+.right-wrapper {
+  flex: 1;
+}
+
+.right-wrapper .box-card {
+  width: 100%;
+  margin-bottom: 15px;
 }
