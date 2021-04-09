@@ -42,18 +42,18 @@ class Category extends BaseModel {
         ['name', 'title'],
         ['code', 'code'],
         ['status', 'status'],
-        ['show', 'show'],
       ],
       include: [
         {
           model: Category,
           as: 'children',
+          required: false,
+          where: { show: true, status: 0 },
           attributes: [
             ['id', 'key'],
             ['name', 'title'],
             ['code', 'code'],
             ['status', 'status'],
-            ['show', 'show'],
           ],
         },
       ],

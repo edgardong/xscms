@@ -48,7 +48,7 @@ router.get('', async (ctx, next) => {
   // 获取数据库中的栏目
   const dataModel = await Category.getShowData()
   let data = parseModel2Json(dataModel)
-  // console.log('...', data)
+  console.log('...', data)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
     await ctx.render('template/default/index.pug', { data })

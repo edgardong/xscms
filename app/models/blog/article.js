@@ -159,7 +159,7 @@ class Article extends BaseModel {
           }
         })
         // 第一次发布的时候，做百度推送（后续会用开关控制）
-       await pushPost(['http://quzhaota.cn/article/'+ data.id+'.html'])
+      //  await pushPost(['http://quzhaota.cn/article/'+ data.id+'.html'])
       }
     } else {
       result.msg = '发布失败'
