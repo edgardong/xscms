@@ -103,6 +103,7 @@ class BaseModel extends Model {
 
   static initModel(models, args) {
     args.sequelize = sequelize
+    // console.log('查看信息', this.name)
     this.init(
       {
         ...base_attrs,

@@ -2,12 +2,12 @@ const {
   sequelize,
   DataTypes,
   Op,
-  Model
+  BaseModel
 } = require('./baseModel')
 
-class AppToken extends Model {}
+class AppToken extends BaseModel {}
 
-AppToken.init({
+AppToken.initModel({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -35,7 +35,6 @@ AppToken.init({
     comment: '描述'
   }
 }, {
-  sequelize,
   tableName: 'xs_app_token',
   comment:'第三方APP的授权信息'
 })

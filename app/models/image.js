@@ -80,6 +80,4 @@ Image.init({
   comment:'图片表'
 })
 
-module.exports = {
-  Image
-}
+module.exports = Image

@@ -21,6 +21,4 @@ UserRole.initModel({
   tableName: 'xs_sys_user_role'
 })
 
-module.exports = {
-  UserRole
-}
+module.exports =  UserRole

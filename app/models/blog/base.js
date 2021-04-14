@@ -61,7 +61,6 @@ BlogBase.initModel({
   },
 }, {
   tableName: 'xs_site',
-  sequelize,
   comment:'博客基本信息'
 })
 

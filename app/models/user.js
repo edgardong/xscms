@@ -268,6 +268,4 @@ User.init({
   comment:'系统用户表'
 })
 
-module.exports = {
-  User
-}
+module.exports =  User

@@ -1,12 +1,34 @@
 const Router = require('koa-router')
 const requireDirectory = require('require-directory')
+const { Model } = require('../app/models/baseModel')
 
 class InitManager {
   static initCore(app) {
     InitManager.app = app
+    InitManager.initEntity()
     InitManager.initLoadRouters(app)
     InitManager.loadHttpException()
     InitManager.loadConfig()
+  }
+
+  static initEntity() {
+    const modelDirectory = `${process.cwd()}/app/models`
+    requireDirectory(module, modelDirectory, {
+      visit: whenLoadModel,
+    })
+
+    function whenLoadModel(obj) {
+      if (obj && obj.prototype && obj.prototype instanceof Model) {
+        // console.log('到这里来了', obj.name)
+        obj.initData && obj.initData()
+      }
+    }
+
+    // console.log('执行完毕了')
+
+    const relations = require('../app/models/index')
+    relations.init && relations.init()
+
   }
 
   /**
@@ -16,7 +38,7 @@ class InitManager {
     // api directory absolute path
     const apiDirectory = `${process.cwd()}/app/api`
     requireDirectory(module, apiDirectory, {
-      visit: whenLoadModule
+      visit: whenLoadModule,
     })
 
     function whenLoadModule(obj) {
@@ -40,7 +62,6 @@ class InitManager {
     const config = require(configPath)
     global.config = config
   }
-
 }
 
 module.exports = InitManager

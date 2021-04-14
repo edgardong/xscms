@@ -39,6 +39,4 @@ Banner.init({
   comment:'轮播图'
 })
 
-module.exports = {
-  Banner
-}
+module.exports = Banner

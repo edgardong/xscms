@@ -2,10 +2,10 @@ const {
   Sequelize,
   DataTypes,
   sequelize,
-  Model
+  BaseModel
 } = require('./baseModel')
 
-class Area extends Model {
+class Area extends BaseModel {
 
   /**
    * 获取所有系统中的所有区域数据
@@ -49,7 +49,7 @@ class Area extends Model {
 
 }
 
-Area.init({
+Area.initModel({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -80,9 +80,7 @@ Area.init({
     comment: '地区父节点'
   }
 }, {
-  sequelize,
   tableName: 'xs_area',
-  modelName: 'xs_area',
   comment:'省市区域表'
 })
 

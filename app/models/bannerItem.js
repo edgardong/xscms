@@ -1,7 +1,7 @@
 const { sequelize } = require('../../core/db')
 const { Sequelize, Model } = require('sequelize')
 
-const { Image } = require('../models/image')
+const  Image  = require('../models/image')
 
 Image.prototype.exclude = ['create_time']
 
@@ -56,6 +56,4 @@ BannerItem.hasOne(Image, {
   as: 'img',
 })
 
-module.exports = {
-  BannerItem,
-}
+module.exports = BannerItem

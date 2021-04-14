@@ -1,0 +1,31 @@
+// 按顺序加载数据库的model类
+
+const ArticleRelations = require('./blog/article_relations')
+const Article = require('./blog/article')
+const BlogBase = require('./blog/base')
+const CategoryPosts = require('./blog/category_posts')
+const Category = require('./blog/category')
+const Tags = require('./blog/tags')
+
+/**
+ * 初始化表格之间的关系
+ */
+function init() {
+  // console.log('我来初始化表格关系了')
+
+  Category.belongsToMany(Article, {
+    through: 'xs_category_posts',
+    foreignKey: 'category_id',
+    otherKey: 'post_id',
+  })
+
+  Tags.belongsToMany(Article, {
+    through: 'xs_tag_posts',
+    foreignKey: 'tag_id',
+    otherKey: 'post_id',
+  })
+}
+
+module.exports = {
+  init,
+}

@@ -73,6 +73,4 @@ config.models.forEach(function (m) {
 })
 
 
-module.exports = {
-  Entitys
-}
+module.exports = Entitys

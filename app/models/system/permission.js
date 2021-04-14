@@ -41,6 +41,4 @@ Permission.initModel({
   comment: '系统权限表'
 })
 
-module.exports = {
-  Permission
-}
+module.exports =  Permission

@@ -80,6 +80,4 @@ UserAddress.init({
   comment:'用户地址表'
 })
 
-module.exports = {
-  UserAddress
-}
+module.exports =  UserAddress

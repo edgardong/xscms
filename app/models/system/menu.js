@@ -111,6 +111,4 @@ Menu.hasMany(Menu, {
   as: 'children'
 })
 
-module.exports = {
-  Menu
-}
+module.exports =  Menu

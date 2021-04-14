@@ -1,22 +1,10 @@
-const {
-  Sequelize,
-  Op,
-  Model,
-  sequelize
-} = require('./baseModel')
+const { Sequelize, Op, BaseModel, sequelize } = require('./baseModel')
 
-const {
-  Theme
-} = require('./theme')
-const {
-  Image
-} = require('./image')
-const {
-  Product
-} = require('./product')
+const Theme = require('./theme')
+const Image = require('./image')
+const Product = require('./product')
 
-class ThemeProduct extends Model {
-
+class ThemeProduct extends BaseModel {
   /**
    * 获取主题下的产品
    * @param {Integer} id 主题Id
@@ -25,71 +13,75 @@ class ThemeProduct extends Model {
     Product.prototype.exclude = ['from', 'create_time', 'category_id']
     const products = Theme.findOne({
       where: {
-        id
+        id,
       },
-      include: [{
+      include: [
+        {
           model: Image,
-          as: 'head_img'
+          as: 'head_img',
         },
         {
           model: Image,
-          as: 'topic_img'
-        }, {
+          as: 'topic_img',
+        },
+        {
           model: Product,
           as: 'products',
           through: {
-            attributes: []
-          }
-        }
-      ]
+            attributes: [],
+          },
+        },
+      ],
     })
 
     return products
   }
 }
 
-ThemeProduct.init({
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-    comment: '主键'
+ThemeProduct.initModel(
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      comment: '主键',
+    },
+    theme_id: {
+      type: Sequelize.INTEGER,
+      comment: '主题id',
+    },
+    product_id: {
+      type: Sequelize.INTEGER,
+      comment: '产品id',
+    },
   },
-  theme_id: {
-    type: Sequelize.INTEGER,
-    comment: '主题id'
-  },
-  product_id: {
-    type: Sequelize.INTEGER,
-    comment: '产品id'
+  {
+    sequelize,
+    tableName: 'xs_theme_product',
+    comment: '主题产品',
   }
-}, {
-  sequelize,
-  modelName: 'xs_theme_product',
-  tableName: 'xs_theme_product',
-  comment:'主题产品'
-})
+)
 
 ThemeProduct.belongsTo(Product, {
-  foreignKey: 'product_id'
+  foreignKey: 'product_id',
 })
 
 ThemeProduct.belongsTo(Theme, {
-  foreignKey: 'theme_id'
+  foreignKey: 'theme_id',
 })
 
 Theme.belongsToMany(Product, {
   through: ThemeProduct,
   foreignKey: 'theme_id',
   as: 'products',
-  constraints: false
+  constraints: false,
 })
 
 Product.belongsToMany(Theme, {
   through: ThemeProduct,
   foreignKey: 'product_id',
   as: 'themes',
-  constraints: false
+  constraints: false,
 })
 
 module.exports = ThemeProduct

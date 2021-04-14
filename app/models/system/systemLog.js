@@ -25,6 +25,4 @@ SystemLog.initModel({
   tableName: 'xs_sys_log'
 })
 
-module.exports = {
-  SystemLog
-}
+module.exports = SystemLog

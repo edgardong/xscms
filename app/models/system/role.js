@@ -192,6 +192,4 @@ Role.initModel({
   comment:'用户角色'
 })
 
-module.exports = {
-  Role
-}
+module.exports =Role

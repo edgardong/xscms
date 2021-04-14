@@ -296,6 +296,4 @@ Order.init(
   }
 )
 
-module.exports = {
-  Order,
-}
+module.exports = Order

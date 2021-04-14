@@ -1,5 +1,8 @@
 const { DataTypes, BaseModel } = require('../baseModel')
 
+const Post = require('./article')
+const Category = require('./category')
+
 class CategoryPosts extends BaseModel {}
 
 CategoryPosts.initModel(
@@ -26,9 +29,5 @@ CategoryPosts.initModel(
     comment: '文章和标签关系表',
   }
 )
-
-// CategoryPosts.sync({
-//   alter: true,
-// })
 
 module.exports = CategoryPosts
