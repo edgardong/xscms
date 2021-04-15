@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes, BaseModel } = require('../baseModel')
 
 const CategoryPosts = require('./category_posts')
-const Article = require('./article')
 
 class Category extends BaseModel {
   static async getTreeData() {
@@ -66,6 +65,8 @@ class Category extends BaseModel {
   }
 
   static async getMainCategory() {
+    const Article = require('./article')
+
     const result = await Category.findAll({
       attributes: ['id', 'name', 'code', 'type'],
       where: {
@@ -73,7 +74,6 @@ class Category extends BaseModel {
         parent: null,
         [Sequelize.Op.or]: [{ type: 1 }, { type: 2 }],
       },
-      raw: false,
       include: [
         {
           model: Article,
@@ -90,6 +90,15 @@ class Category extends BaseModel {
           as: 'children',
           required: false,
           attributes: ['id', 'name', 'code', 'type'],
+          include: {
+            model: Article,
+            through: {
+              attributes: [],
+            },
+            as: 'posts',
+            required: false,
+            attributes: ['id', 'name'],
+          },
         },
       ],
     })

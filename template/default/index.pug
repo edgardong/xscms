@@ -18,9 +18,15 @@ html
                 .clearfix(slot='header')
                   span #{item.name}
                   a(href= item.code style='float: right;') 查看更多
+                //- 更多文章部分
                 each post in item.posts
                   .text.postitem.ellipsis
                     a(href='/'+post.id+'.html' target='_blank') #{post.name}
+                //- 频道部分
+                if item.children && item.children.length>0
+                each children in item.children
+                  .text.postitem
+                      a(href= children.code) #{children.name}
           .right-wrapper
             el-card.box-card
               .clearfix(slot='header')

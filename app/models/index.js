@@ -5,7 +5,7 @@ const Article = require('./blog/article')
 const BlogBase = require('./blog/base')
 const CategoryPosts = require('./blog/category_posts')
 const Category = require('./blog/category')
-const Tags = require('./blog/tags')
+const Tag = require('./blog/tags')
 
 /**
  * 初始化表格之间的关系
@@ -29,10 +29,17 @@ function init() {
     constraints: false
   })
 
-  Tags.belongsToMany(Article, {
+  Tag.belongsToMany(Article, {
     through: 'xs_tag_posts',
     foreignKey: 'tag_id',
     otherKey: 'post_id',
+    constraints: false
+  })
+
+  Article.belongsToMany(Tag, {
+    through: 'xs_tag_posts',
+    foreignKey: 'post_id',
+    otherKey: 'tag_id',
     constraints: false
   })
 }

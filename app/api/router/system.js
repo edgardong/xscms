@@ -51,6 +51,7 @@ router.get('', async (ctx, next) => {
   // 获取数据库中的栏目
   const dataModel = await Category.getShowData()
   const posts = parseModel2Json(await Category.getMainCategory())
+  // let posts = {}
   let data = parseModel2Json(dataModel)
   console.log('...', posts)
   // 不存在，使用模版文件，否则访问已存在的文件

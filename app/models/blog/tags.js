@@ -42,8 +42,4 @@ Tag.initModel({
   comment: '标签',
 })
 
-// Tag.sync({
-//   alter: true
-// })
-
 module.exports = Tag

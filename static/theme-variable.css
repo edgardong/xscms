@@ -1,0 +1,9 @@
+:root {
+  --max-content-width: 1000px;
+  --color: #09f;
+  --font-color: #3c4248;
+  --hover-color: #303133;
+
+  --font-size: 14px;
+  --font-family: Dosis, Open Sans, pingfang SC, -apple-system, Helvetica Neue, Helvetica, Arial, PingFang SC, PingFang TC, Hiragino Sans GB, Microsoft Yahei, Microsoft Jhenghei, sans-serif;
+}

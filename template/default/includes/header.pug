@@ -1,13 +1,15 @@
-el-menu(:default-active='activeIndex' mode='horizontal' @select='handleSelect')
-  el-menu-item(index='main' href='/')
-    a(href='/' ) 首页
-  each item in data
-    if item.children.length<=0
-      el-menu-item(index=item.key href= item.code)
-        a(href= item.code target='_blank') #{item.title}
-    else
-      el-submenu(index=item.key)
-        template(slot='title') #{item.title}
-        each sub in item.children
-          el-menu-item(index=sub.key )
-            a(href= sub.code target='_blank') #{sub.title}
+.border
+  .menu-cantainer
+    el-menu(:default-active='activeIndex' mode='horizontal' @select='handleSelect')
+      el-menu-item(index='main' href='/')
+        a(href='/' ) 首页
+      each item in data
+        if item.children.length<=0
+          el-menu-item(index=item.key href= item.code)
+            a(href= item.code target='_blank') #{item.title}
+        else
+          el-submenu(index=item.key)
+            template(slot='title') #{item.title}
+            each sub in item.children
+              el-menu-item(index=sub.key )
+                a(href= sub.code target='_blank') #{sub.title}

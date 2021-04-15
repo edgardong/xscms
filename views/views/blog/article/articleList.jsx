@@ -103,6 +103,7 @@ class ArticleList extends React.Component {
   handleDelete(row) {
     delArticle(row.record.id).then((resp) => {
       console.log('删除结果', resp)
+      this.loadData()
     })
   }
 

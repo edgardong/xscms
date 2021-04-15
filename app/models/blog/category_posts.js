@@ -23,7 +23,7 @@ CategoryPosts.initModel(
   },
   {
     tableName: 'xs_category_posts',
-    comment: '文章和标签关系表',
+    comment: '文章和分类关系表',
   }
 )
 

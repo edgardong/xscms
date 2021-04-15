@@ -1,8 +1,8 @@
 const {
   sequelize,
   DataTypes,
+  Sequelize,
   Op,
-  Model,
   BaseModel,
   getPaginationList,
 } = require('../baseModel')
@@ -11,7 +11,7 @@ const generatetSitemap = require('../../../core/sitemap')
 const ArticleRelation = require('./article_relations')
 const { pushPost } = require('../../services/push/baidu')
 
-const Category = require('./category')
+const Tag = require('./tags')
 
 class Article extends BaseModel {
   static async getPaginationArticle(params) {
@@ -116,18 +116,38 @@ class Article extends BaseModel {
     }
   }
 
+  static async savePostTags(tags) {
+    let _tag = { tag_id: '', name: '' }
+
+    let dbTags = await Tag.findAll({
+      attributes: ['id', 'name'],
+      where: {
+        status: 0,
+        [Sequelize.Op.or]: tags.map((t) => ({ name: t })),
+      },
+    })
+
+    let db_tags = dbTags.map((d) => d.dataValues)
+    let newTagData = tags.filter((t) => db_tags.every((dt) => dt.name !== t)).map((nt) => ({ name: nt, count: 1 }))
+
+    let newTags = await Tag.bulkCreate(newTagData)
+
+    let tagIds = db_tags.map((d) => d.id).concat(newTags.map(n=>n.dataValues.id))
+    return tagIds
+  }
+
   static async saveArticle(data) {
     let result = {
       msg: '保存成功',
       data: '',
     }
 
-    let relations = [...data.categorys, ...data.halfcategorys]
+    let myTags = await this.savePostTags(data.tags)
 
-    data.article.my_categorys = data.categorys.join(',')
-    data.article.categorys = data.categorys.map((c) => ({ id: c }))
+    data.article.categorys = data.categorys.join(',')
+    data.article.categories = data.categorys.map((c) => ({ category_id: c }))
     data.article.half_categorys = data.halfcategorys.join(',')
-    data.article.my_tags = data.tags.join(',')
+    data.article.tags = data.tags.join(',')
 
     //
     data.article.name = data.article.name || data.article.title
@@ -137,36 +157,27 @@ class Article extends BaseModel {
       // 更新文章主要信息
       _id = data.article.id
       // console.log(data, _id)
-      await Article.update(data.article, {
-        where: {
-          id: _id,
-        },
-        include: [Category],
-      })
+      let where = { where: { id: _id } }
+      let post = await Article.findOne(where)
+      await post.update(data.article, where)
+      post.setCategories(data.categorys)
+      post.setTags(myTags)
     } else {
-      // console.log('??????', data.article)
-      let _data = await Article.create(data.article, { include: [Category] })
-      _id = _data.id
+      let post = await Article.create(data.article)
+      post.addCategories(data.categorys)
+      post.addTags(myTags)
+      _id = post.id
     }
-
-    // console.log('我来这里了', _id)
-
-    let relateData = {
-      categorys: relations,
-      article: _id,
-      post: data.article.name,
-      tags: data.tags.map((t) => ({ name: t })),
-    }
-
-    // 更新关系
-    // await ArticleRelation.updateRelation(relateData)
-
-    // 1. 更新Category 和 Article 的关系
 
     result.data = _id
     return result
   }
 
+  /**
+   * 发布文章
+   * @param {*} data
+   * @returns
+   */
   static async publishArticle(data) {
     // console.log('publish', data)
     let result = {
@@ -214,12 +225,6 @@ class Article extends BaseModel {
 
 Article.initModel(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      comment: '主键',
-      primaryKey: true,
-      autoIncrement: true,
-    },
     title: {
       type: DataTypes.STRING,
       comment: '文章标题',
@@ -237,7 +242,7 @@ Article.initModel(
       defaultValue: 1,
       comment: '0: 已发布 1:草稿中',
     },
-    my_categorys: {
+    categorys: {
       type: DataTypes.STRING,
       comment: '文章分类',
     },
@@ -245,7 +250,7 @@ Article.initModel(
       type: DataTypes.STRING,
       comment: '文章分类_半选',
     },
-    my_tags: {
+    tags: {
       type: DataTypes.STRING,
       comment: '文章标签',
     },
