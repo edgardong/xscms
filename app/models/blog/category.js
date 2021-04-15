@@ -1,5 +1,8 @@
 const { Sequelize, DataTypes, BaseModel } = require('../baseModel')
 
+const CategoryPosts = require('./category_posts')
+const Article = require('./article')
+
 class Category extends BaseModel {
   static async getTreeData() {
     let where = {
@@ -70,7 +73,17 @@ class Category extends BaseModel {
         parent: null,
         [Sequelize.Op.or]: [{ type: 1 }, { type: 2 }],
       },
+      raw: false,
       include: [
+        {
+          model: Article,
+          through: {
+            attributes: [],
+          },
+          as: 'posts',
+          required: false,
+          attributes: ['id', 'name'],
+        },
         {
           model: Category,
           where: { show: true, status: 0 },

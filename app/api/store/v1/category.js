@@ -1,23 +1,21 @@
 const Router = require('koa-router')
 const router = new Router({
-  prefix: '/api/store/v1/category'
+  prefix: '/api/store/v1/category',
 })
 
-const {
-  Category
-} = require('../../../models/category')
+const Category = require('../../../models/topicCategory')
 
 const {
   PaginationValidator,
   CategroyValidator,
-  PositiveIntegerValidator
+  PositiveIntegerValidator,
 } = require('../../../validators/validator')
 
 /**
  * 获取所有分类
  */
 router.get('/all', async (ctx, next) => {
-  const categorys = await Category.getAll();
+  const categorys = await Category.getAll()
   Category.prototype.exclude = ['update_time', 'delete_time', 'create_time']
   ctx.body = categorys
 })
@@ -31,7 +29,7 @@ router.get('/pagination', async (ctx, next) => {
   ctx.body = {
     errCode: 0,
     data: categorys,
-    errMsg: '操作成功'
+    errMsg: '操作成功',
   }
 })
 
@@ -44,7 +42,7 @@ router.post('/', async (ctx, next) => {
   ctx.body = {
     errCode: 0,
     data: result,
-    errMsg: '操作成功'
+    errMsg: '操作成功',
   }
 })
 
@@ -55,13 +53,13 @@ router.put('/', async (ctx, next) => {
   const data = await new CategroyValidator().validate(ctx)
   const result = await Category.update(data, {
     where: {
-      id: data.id
-    }
+      id: data.id,
+    },
   })
   ctx.body = {
     errCode: 0,
     data: result,
-    errMsg: '操作成功'
+    errMsg: '操作成功',
   }
 })
 
@@ -72,13 +70,13 @@ router.delete('/', async (ctx, next) => {
   const data = await new PositiveIntegerValidator().validate(ctx)
   const result = await Category.destroy({
     where: {
-      id: data.id
-    }
+      id: data.id,
+    },
   })
   ctx.body = {
     errCode: 0,
     data: result,
-    errMsg: '操作成功'
+    errMsg: '操作成功',
   }
 })
 

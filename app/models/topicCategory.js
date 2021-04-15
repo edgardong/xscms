@@ -77,7 +77,7 @@ Category.init(
   },
   {
     sequelize,
-    tableName: 'xs_category',
+    tableName: 'xs_topic_category',
     comment: '产品分类',
   }
 )

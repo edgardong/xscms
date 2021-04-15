@@ -35,6 +35,9 @@ function parseModel2Json(data) {
     if (d.children) {
       d.children = d.children.map((dd) => dd.dataValues)
     }
+    if (d.posts) {
+      d.posts = d.posts.map((dd) => dd.dataValues)
+    }
   })
 
   return tmpData
@@ -47,12 +50,12 @@ router.get('', async (ctx, next) => {
   let hasDist = await fileExist('dist/index.html')
   // 获取数据库中的栏目
   const dataModel = await Category.getShowData()
-  const categoryPost = await Category.getMainCategory()
+  const posts = parseModel2Json(await Category.getMainCategory())
   let data = parseModel2Json(dataModel)
-  console.log('...', data)
+  console.log('...', posts)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/index.pug', { data, categoryPost })
+    await ctx.render('template/default/index.pug', { data, posts })
   } else {
     ctx.redirect('/html/index.html')
   }

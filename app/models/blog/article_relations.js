@@ -4,6 +4,8 @@ const BlogTag = require('./tags')
 
 const TagPosts = require('./tag_posts')
 const CategoryPosts = require('./category_posts')
+const Article = require('./article')
+const Category = require('./category')
 
 class ArticleRelations extends BaseModel {
   /**
@@ -99,20 +101,21 @@ class ArticleRelations extends BaseModel {
     // 2. 更新article_tag
 
     // 1.1 删除 tag-post 关系
-    await TagPosts.destroy({
-      where: {
-        post_id: data.article,
-      },
-    })
-    // 1.2 新建 tag-post 关系
-    let tagPostData = data.tags.map((t) => ({
-      tag_name: t.name,
-      tag_id: t.tagId,
-      name: t.name,
-      post_id: data.article,
-      post_name: data.post,
-    }))
-    await TagPosts.bulkCreate(tagPostData)
+    // await TagPosts.destroy({
+    //   where: {
+    //     post_id: data.article,
+    //   },
+    //   force: true,
+    // })
+    // // 1.2 新建 tag-post 关系
+    // let tagPostData = data.tags.map((t) => ({
+    //   tag_name: t.name,
+    //   tag_id: t.tagId,
+    //   name: t.name,
+    //   post_id: data.article,
+    //   post_name: data.post,
+    // }))
+    // await TagPosts.bulkCreate(tagPostData)
 
     // 更新原来的关系表，即将废弃
     let artTag = await ArticleRelations.findOne({
@@ -140,11 +143,12 @@ class ArticleRelations extends BaseModel {
       ArticleRelations.create(artTagData)
     }
 
-    await CategoryPosts.destroy({
-      where:{
-        post_id: data.article
-      }
-    })
+    // await CategoryPosts.destroy({
+    //   where: {
+    //     post_id: data.article,
+    //   },
+    //   force: true,
+    // })
 
     let caPostData = data.categorys.map((t) => ({
       category_name: t,
@@ -153,7 +157,9 @@ class ArticleRelations extends BaseModel {
       post_id: data.article,
       post_name: data.post,
     }))
-    await CategoryPosts.bulkCreate(caPostData)
+
+    // Category.setArticles(caPostData)
+    // await CategoryPosts.bulkCreate(caPostData)
 
     // 3. 更新category_article
     data.categorys.forEach(async (cate) => {

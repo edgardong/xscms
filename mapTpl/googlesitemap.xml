@@ -1,85 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
   <url>
-    <loc>http://localhost:80002.html</loc>
+    <loc>http://localhost:8000/2.html</loc>
     <lastmod>2021-04-09 13:58:46</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:80003.html</loc>
+    <loc>http://localhost:8000/3.html</loc>
     <lastmod>2021-04-09 14:01:59</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:80004.html</loc>
+    <loc>http://localhost:8000/4.html</loc>
     <lastmod>2021-04-09 14:03:16</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:80005.html</loc>
+    <loc>http://localhost:8000/5.html</loc>
     <lastmod>2021-04-09 14:05:15</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:80006.html</loc>
+    <loc>http://localhost:8000/6.html</loc>
     <lastmod>2021-04-09 14:06:30</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:80007.html</loc>
+    <loc>http://localhost:8000/7.html</loc>
     <lastmod>2021-04-09 14:07:18</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:80008.html</loc>
+    <loc>http://localhost:8000/8.html</loc>
     <lastmod>2021-04-09 14:08:13</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:80009.html</loc>
+    <loc>http://localhost:8000/9.html</loc>
     <lastmod>2021-04-09 14:09:16</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:800010.html</loc>
+    <loc>http://localhost:8000/10.html</loc>
     <lastmod>2021-04-09 14:09:57</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:800011.html</loc>
+    <loc>http://localhost:8000/11.html</loc>
     <lastmod>2021-04-09 14:11:23</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:800012.html</loc>
+    <loc>http://localhost:8000/12.html</loc>
     <lastmod>2021-04-09 14:12:22</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:800013.html</loc>
+    <loc>http://localhost:8000/13.html</loc>
     <lastmod>2021-04-09 14:13:16</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:800014.html</loc>
+    <loc>http://localhost:8000/14.html</loc>
     <lastmod>2021-04-09 14:13:55</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url>
   <url>
-    <loc>http://localhost:800015.html</loc>
+    <loc>http://localhost:8000/15.html</loc>
     <lastmod>2021-04-09 14:14:52</lastmod>
+    <changefreq> always </changefreq>
+    <priority>1.0</priority >
+  </url>
+  <url>
+    <loc>http://localhost:8000/16.html</loc>
+    <lastmod>2021-04-15 09:23:32</lastmod>
     <changefreq> always </changefreq>
     <priority>1.0</priority >
   </url></urlset>

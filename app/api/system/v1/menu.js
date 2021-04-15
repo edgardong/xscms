@@ -1,20 +1,16 @@
 const Router = require('koa-router')
 const router = new Router({
-  prefix: '/api/system/v1/menu'
+  prefix: '/api/system/v1/menu',
 })
-const {
-  Menu
-} = require('../../../models/system/menu')
-const {
-  RoleMenu
-} = require('../../../models/system/roleMenu')
+const Menu = require('../../../models/system/menu')
+const RoleMenu = require('../../../models/system/roleMenu')
 
 const {
   PaginationValidator,
   PositiveIntegerValidator,
   MenuFormValidator,
   TypeValidator,
-  WecValidator
+  WecValidator,
 } = require('../../../validators/validator')
 
 /**
@@ -23,17 +19,23 @@ const {
 router.get('/pagination', async (ctx, next) => {
   const params = await new PaginationValidator().validate(ctx)
   params.order = ['order']
-  const result = await Menu.getPagination(params, {
-    pid: null,
-    status:0
-  }, {
-    include: [{
-      model: Menu,
-      as: 'children'
-    }]
-  })
+  const result = await Menu.getPagination(
+    params,
+    {
+      pid: null,
+      status: 0,
+    },
+    {
+      include: [
+        {
+          model: Menu,
+          as: 'children',
+        },
+      ],
+    }
+  )
   ctx.body = {
-    data: result
+    data: result,
   }
 })
 
@@ -41,33 +43,33 @@ router.get('/all', async (ctx, next) => {
   const params = await new TypeValidator().validate(ctx)
   const data = await Menu.getAll(params.type)
   ctx.body = {
-    data
+    data,
   }
 })
 
 router.get('/tree', async (ctx, next) => {
   const data = await Menu.getTreeData()
   ctx.body = {
-    data
+    data,
   }
 })
 
-router.get('/byrole', async(ctx, next)=> {
+router.get('/byrole', async (ctx, next) => {
   const params = await new WecValidator().validate(ctx)
   const where = {
-    role: params.roleId
+    role: params.roleId,
   }
   const data = await RoleMenu.getAll(where)
   ctx.body = {
-    data
+    data,
   }
 })
 
-router.post('/byrole', async (ctx,next) => {
+router.post('/byrole', async (ctx, next) => {
   const params = await new WecValidator().validate(ctx)
   const data = await RoleMenu.saveByRole(params)
   ctx.body = {
-    data
+    data,
   }
 })
 
@@ -75,7 +77,7 @@ router.post('/', async (ctx, next) => {
   const params = await new MenuFormValidator().validate(ctx)
   const result = await Menu.addData(params)
   ctx.body = {
-    result
+    result,
   }
 })
 
@@ -83,7 +85,7 @@ router.put('/', async (ctx, next) => {
   const data = await new MenuFormValidator().validate(ctx)
   const result = await Menu.updateData(data)
   ctx.body = {
-    result
+    result,
   }
 })
 
@@ -91,7 +93,7 @@ router.delete('/', async (ctx, next) => {
   const params = await new PositiveIntegerValidator().validate(ctx)
   const msg = await Menu.deleteById(params.id)
   ctx.body = {
-    msg
+    msg,
   }
 })
 

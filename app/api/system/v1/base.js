@@ -1,21 +1,17 @@
 const Router = require('koa-router')
 
-const {
-  Entitys
-} = require('../../../models/system/base')
+const Entitys = require('../../../models/system/base')
 
-const {
-  getEntityColumns
-} = require('../../../models/system/baseUtils')
+const { getEntityColumns } = require('../../../models/system/baseUtils')
 
 const {
   PaginationValidator,
   PositiveIntegerValidator,
-  WecValidator
+  WecValidator,
 } = require('../../../validators/validator')
 
 const router = new Router({
-  prefix: '/api/system/v1/base'
+  prefix: '/api/system/v1/base',
 })
 
 /**
@@ -29,7 +25,7 @@ router.get('/pagination', async (ctx, next) => {
   }
   const data = await entity.getPagination(params)
   ctx.body = {
-    data
+    data,
   }
 })
 
@@ -37,11 +33,14 @@ router.get('/all', async (ctx, next) => {
   const params = await new WecValidator().validate(ctx)
   const entity = Entitys[params.model]
   // console.log(params)
-  const data = await entity.getAll(params.where || {}, {
-    order: params.order
-  } || {})
+  const data = await entity.getAll(
+    params.where || {},
+    {
+      order: params.order,
+    } || {}
+  )
   ctx.body = {
-    data
+    data,
   }
 })
 
@@ -62,7 +61,7 @@ router.post('/', async (ctx, next) => {
   const entity = Entitys[params.model]
   const result = await entity.addData(params)
   ctx.body = {
-    result
+    result,
   }
 })
 
@@ -71,7 +70,7 @@ router.put('/', async (ctx, next) => {
   const entity = Entitys[params.model]
   const result = await entity.updateData(params)
   ctx.body = {
-    result
+    result,
   }
 })
 
@@ -80,9 +79,8 @@ router.delete('/', async (ctx, next) => {
   const entity = Entitys[params.model]
   const msg = await entity.deleteById(params.id)
   ctx.body = {
-    msg
+    msg,
   }
 })
-
 
 module.exports = router

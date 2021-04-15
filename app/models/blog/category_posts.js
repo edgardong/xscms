@@ -1,8 +1,5 @@
 const { DataTypes, BaseModel } = require('../baseModel')
 
-const Post = require('./article')
-const Category = require('./category')
-
 class CategoryPosts extends BaseModel {}
 
 CategoryPosts.initModel(

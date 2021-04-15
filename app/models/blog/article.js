@@ -11,6 +11,8 @@ const generatetSitemap = require('../../../core/sitemap')
 const ArticleRelation = require('./article_relations')
 const { pushPost } = require('../../services/push/baidu')
 
+const Category = require('./category')
+
 class Article extends BaseModel {
   static async getPaginationArticle(params) {
     const result = await getPaginationList(
@@ -122,9 +124,10 @@ class Article extends BaseModel {
 
     let relations = [...data.categorys, ...data.halfcategorys]
 
-    data.article.categorys = data.categorys.join(',')
+    data.article.my_categorys = data.categorys.join(',')
+    data.article.categorys = data.categorys.map((c) => ({ id: c }))
     data.article.half_categorys = data.halfcategorys.join(',')
-    data.article.tags = data.tags.join(',')
+    data.article.my_tags = data.tags.join(',')
 
     //
     data.article.name = data.article.name || data.article.title
@@ -138,10 +141,11 @@ class Article extends BaseModel {
         where: {
           id: _id,
         },
+        include: [Category],
       })
     } else {
       // console.log('??????', data.article)
-      let _data = await Article.create(data.article)
+      let _data = await Article.create(data.article, { include: [Category] })
       _id = _data.id
     }
 
@@ -150,12 +154,15 @@ class Article extends BaseModel {
     let relateData = {
       categorys: relations,
       article: _id,
-      post:data.article.name,
+      post: data.article.name,
       tags: data.tags.map((t) => ({ name: t })),
     }
 
     // 更新关系
-    await ArticleRelation.updateRelation(relateData)
+    // await ArticleRelation.updateRelation(relateData)
+
+    // 1. 更新Category 和 Article 的关系
+
     result.data = _id
     return result
   }
@@ -230,7 +237,7 @@ Article.initModel(
       defaultValue: 1,
       comment: '0: 已发布 1:草稿中',
     },
-    categorys: {
+    my_categorys: {
       type: DataTypes.STRING,
       comment: '文章分类',
     },
@@ -238,7 +245,7 @@ Article.initModel(
       type: DataTypes.STRING,
       comment: '文章分类_半选',
     },
-    tags: {
+    my_tags: {
       type: DataTypes.STRING,
       comment: '文章标签',
     },

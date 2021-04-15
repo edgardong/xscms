@@ -17,12 +17,23 @@ function init() {
     through: 'xs_category_posts',
     foreignKey: 'category_id',
     otherKey: 'post_id',
+    as:'posts',
+    constraints: false
+  })
+
+
+  Article.belongsToMany(Category, {
+    through: 'xs_category_posts',
+    foreignKey: 'post_id',
+    otherKey: 'category_id',
+    constraints: false
   })
 
   Tags.belongsToMany(Article, {
     through: 'xs_tag_posts',
     foreignKey: 'tag_id',
     otherKey: 'post_id',
+    constraints: false
   })
 }
 

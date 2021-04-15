@@ -9,6 +9,10 @@ a {
   color: #303133;
 }
 
+.postitem a {
+  color: #303133;
+}
+
 .breadcrumb {
   padding: 15px 0;
 }
@@ -43,4 +47,10 @@ a {
 .right-wrapper .box-card {
   width: 100%;
   margin-bottom: 15px;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
