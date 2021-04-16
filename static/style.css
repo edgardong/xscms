@@ -73,6 +73,7 @@ a {
 }
 
 .right-wrapper {
+  max-width: 270px;
   flex: 1;
 }
 

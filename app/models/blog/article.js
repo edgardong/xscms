@@ -116,6 +116,21 @@ class Article extends BaseModel {
     }
   }
 
+  static async getReadingRank(params) {
+    // if(params.type==1){
+
+    // }
+    let list = await Article.findAll({
+      order: [['read_count', 'desc']],
+      where: {
+        status: 0,
+      },
+      limit: 10,
+    })
+
+    return list
+  }
+
   static async savePostTags(tags) {
     let _tag = { tag_id: '', name: '' }
 
@@ -128,11 +143,15 @@ class Article extends BaseModel {
     })
 
     let db_tags = dbTags.map((d) => d.dataValues)
-    let newTagData = tags.filter((t) => db_tags.every((dt) => dt.name !== t)).map((nt) => ({ name: nt, count: 1 }))
+    let newTagData = tags
+      .filter((t) => db_tags.every((dt) => dt.name !== t))
+      .map((nt) => ({ name: nt, count: 1 }))
 
     let newTags = await Tag.bulkCreate(newTagData)
 
-    let tagIds = db_tags.map((d) => d.id).concat(newTags.map(n=>n.dataValues.id))
+    let tagIds = db_tags
+      .map((d) => d.id)
+      .concat(newTags.map((n) => n.dataValues.id))
     return tagIds
   }
 

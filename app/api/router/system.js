@@ -5,6 +5,7 @@ const router = new Router({
 const fs = require('fs')
 const pug = require('pug')
 const Category = require('../../models/blog/category')
+const Posts = require('../../models/blog/article')
 
 /**
  * 重定向到管理员页面
@@ -36,7 +37,7 @@ function parseModel2Json(data) {
       d.children = d.children.map((dd) => dd.dataValues)
     }
     if (d.posts) {
-      d.posts = d.posts.map((dd) => dd.dataValues)
+      d.posts = d.posts.map((dd) => dd.dataValues).slice(0, 10)
     }
   })
 
@@ -53,10 +54,11 @@ router.get('', async (ctx, next) => {
   const posts = parseModel2Json(await Category.getMainCategory())
   // let posts = {}
   let data = parseModel2Json(dataModel)
-  console.log('...', posts)
+  let totalRank = parseModel2Json(await Posts.getReadingRank())
+  // console.log('...', posts)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/index.pug', { data, posts })
+    await ctx.render('template/default/index.pug', { data, posts, totalRank })
   } else {
     ctx.redirect('/html/index.html')
   }

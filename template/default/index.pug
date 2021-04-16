@@ -26,13 +26,14 @@ html
                 if item.children && item.children.length>0
                 each children in item.children
                   .text.postitem
-                      a(href= children.code) #{children.name}
+                    a(href= children.code) #{children.name}
           .right-wrapper
             el-card.box-card
               .clearfix(slot='header')
                 span 阅读总榜
-              .text.item
-                | 列表内容
+              each item in totalRank
+                .text.postitem.ellipsis
+                  a(href='/'+item.id+'.html' target='_blank') #{item.name}
             el-card.box-card
               .clearfix(slot='header')
                 span 阅读本月榜

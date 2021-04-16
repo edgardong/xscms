@@ -80,6 +80,7 @@ class Category extends BaseModel {
           through: {
             attributes: [],
           },
+          order: [['create_time', 'desc']],
           as: 'posts',
           required: false,
           attributes: ['id', 'name'],
@@ -90,15 +91,6 @@ class Category extends BaseModel {
           as: 'children',
           required: false,
           attributes: ['id', 'name', 'code', 'type'],
-          include: {
-            model: Article,
-            through: {
-              attributes: [],
-            },
-            as: 'posts',
-            required: false,
-            attributes: ['id', 'name'],
-          },
         },
       ],
     })
