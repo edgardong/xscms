@@ -1,9 +1,6 @@
 const config = require('../../../config/config.json')
 
-const {
-  Entitys
-} = require('./base')
-
+const  Entitys = require('./base')
 
 async function getTree(Model) {
   return await Model.findAll({
