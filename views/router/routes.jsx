@@ -11,6 +11,11 @@ import NotFound from '@/views/system/core/NotFound'
 
 import SystemBase from '@/views/system/base'
 
+
+import BtrMember from '@/views/batur/member'
+import BtrOrder from '@/views/batur/order'
+import BtrProject from '@/views/batur/project'
+
 // 博客模块
 import ArticleList from '@/views/blog/article/articleList'
 import ArticleDetail from '@/views/blog/article/articleDetail'
@@ -39,6 +44,11 @@ const routes = [
   getRoute('/blog/article/:id', ArticleDetail), // 博客 - 文章详情
   getRoute('/blog/category', ArticleCategory),  // 博客 - 分类
   getRoute('/blog/base', BlogBase),  // 博客 - 基本信息
+
+  // 巴图尔健康管理模块
+  getRoute('/batur/member', BtrMember),  // 会员信息
+  getRoute('/batur/order', BtrOrder),  // 消费信息
+  getRoute('/batur/project', BtrProject),  // 项目信息
 
   // 基础操作模块
   getRoute('/base/:module', SystemBase),

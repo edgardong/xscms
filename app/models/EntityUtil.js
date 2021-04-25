@@ -67,7 +67,8 @@ async function deleteById(id, Entity) {
  */
 async function addData(data, Entity) {
   return await Entity.create({
-    ...data
+    ...data,
+    status:0
   })
 }
 

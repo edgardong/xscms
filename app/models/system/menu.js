@@ -29,6 +29,10 @@ class Menu extends BaseModel {
     return result
   }
 
+  static async getMenuByRole(){
+    
+  }
+
 
   static async getAll(type) {
     let where = {

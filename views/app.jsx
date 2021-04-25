@@ -39,3 +39,6 @@ ReactDOM.render(
   </ConfigProvider>,
   document.getElementById('app')
 )
+
+
+export default store;

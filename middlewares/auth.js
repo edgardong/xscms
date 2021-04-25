@@ -12,7 +12,6 @@ class Auth {
 
   get m() {
     return async (ctx, next) => {
-
       // 检查用户的token
       const userToken = basicAuth(ctx.req)
       // console.log(userToken)
@@ -22,6 +21,7 @@ class Auth {
       let decode = {}
       try {
         decode = jwt.verify(userToken.name, global.config.security.secretKey)
+        // decode = jwt.verify(`${userToken.name}:${userToken.pass}`, global.config.security.secretKey)
       } catch (error) {
         if (error.name == 'TokenExpiredError') {
           throw new global.errs.Forbidden('token已过期')

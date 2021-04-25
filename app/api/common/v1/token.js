@@ -1,25 +1,17 @@
 const Router = require('koa-router')
 const router = new Router({
-  prefix: '/api/common/v1/token'
+  prefix: '/api/common/v1/token',
 })
 
 const {
   TokenValidatar,
   NotEmptyValidator,
-  ACLoginValidator
+  ACLoginValidator,
 } = require('../../../validators/validator')
-const {
-  LoginType
-} = require('../../../lib/enum')
-const {
-  User
-} = require('../../../models/user')
-const {
-  generateToken
-} = require('../../../../core/util')
-const {
-  Auth
-} = require('../../../../middlewares/auth')
+const { LoginType } = require('../../../lib/enum')
+const User = require('../../../models/user')
+const { generateToken } = require('../../../../core/util')
+const { Auth } = require('../../../../middlewares/auth')
 const WXManager = require('../../../services/wx')
 
 const ThirdApp = require('../../../models/thirdApp')
@@ -31,7 +23,7 @@ router.post('/app', async (ctx, next) => {
   const params = await new ACLoginValidator().validate(ctx)
   const result = await ThirdApp.getAppToken(params)
   ctx.body = {
-    token: result
+    token: result,
   }
 })
 
@@ -41,11 +33,11 @@ router.post('/app', async (ctx, next) => {
 router.post('/login', async (ctx, next) => {
   const params = await new TokenValidatar().validate(ctx, {
     account: 'username',
-    secret: 'password'
+    secret: 'password',
   })
   const result = await User.userLogin(params)
   ctx.body = {
-    token: result
+    token: result,
   }
 })
 
@@ -56,15 +48,15 @@ router.post('/user', async (ctx, next) => {
   switch (type) {
     case LoginType.USER_EMAIL:
       token = await emailLogin(v.account, v.secret)
-      break;
+      break
     case LoginType.USER_MINI_PROGRAM:
       token = await WXManager.codeToToken(v.account)
-      break;
+      break
     default:
       throw new global.errs.NotFound('没有对应的处理方式')
   }
   ctx.body = {
-    token
+    token,
   }
 })
 
@@ -73,9 +65,10 @@ router.post('/user', async (ctx, next) => {
  */
 router.post('/verify', async (ctx, next) => {
   const v = await new NotEmptyValidator().validate(ctx)
+  console.log('我来教研token了', v)
   const result = Auth.verifyToken(v.token)
   ctx.body = {
-    result
+    result,
   }
 })
 

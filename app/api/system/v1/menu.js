@@ -4,7 +4,7 @@ const router = new Router({
 })
 const Menu = require('../../../models/system/menu')
 const RoleMenu = require('../../../models/system/roleMenu')
-
+const { Auth } = require('../../../../middlewares/auth')
 const {
   PaginationValidator,
   PositiveIntegerValidator,
@@ -14,9 +14,9 @@ const {
 } = require('../../../validators/validator')
 
 /**
- * 获取用户列表
+ * 获取列表
  */
-router.get('/pagination', async (ctx, next) => {
+router.get('/pagination', new Auth().m, async (ctx, next) => {
   const params = await new PaginationValidator().validate(ctx)
   params.order = ['order']
   const result = await Menu.getPagination(
@@ -39,7 +39,7 @@ router.get('/pagination', async (ctx, next) => {
   }
 })
 
-router.get('/all', async (ctx, next) => {
+router.get('/all', new Auth().m, async (ctx, next) => {
   const params = await new TypeValidator().validate(ctx)
   const data = await Menu.getAll(params.type)
   ctx.body = {
@@ -54,7 +54,7 @@ router.get('/tree', async (ctx, next) => {
   }
 })
 
-router.get('/byrole', async (ctx, next) => {
+router.get('/byrole', new Auth().m,async (ctx, next) => {
   const params = await new WecValidator().validate(ctx)
   const where = {
     role: params.roleId,
@@ -65,7 +65,7 @@ router.get('/byrole', async (ctx, next) => {
   }
 })
 
-router.post('/byrole', async (ctx, next) => {
+router.post('/byrole', new Auth().m,async (ctx, next) => {
   const params = await new WecValidator().validate(ctx)
   const data = await RoleMenu.saveByRole(params)
   ctx.body = {

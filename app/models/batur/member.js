@@ -7,10 +7,7 @@ const {
   Op,
 } = require('../baseModel')
 
-
-class Btrmember extends BaseModel {
-
-}
+class Btrmember extends BaseModel {}
 
 Btrmember.initModel(
   {
@@ -44,6 +41,15 @@ Btrmember.initModel(
     level: {
       type: DataTypes.INTEGER,
       comment: '会员等级',
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      comment: '会员年龄',
+    },
+    sex: {
+      type: DataTypes.INTEGER,
+      comment: '会员性别1:男2:女3:未知',
+      defaultValue: 3,
     },
   },
   {

@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import { Spin, Icon } from 'antd'
 import BaseConfig from '../../config'
+import store from '../app'
+import { Base64 } from 'js-base64'
 
 // 添加请求拦截器
 axios.interceptors.request.use(
@@ -10,15 +12,22 @@ axios.interceptors.request.use(
     Spin.setDefaultIndicator(
       <Icon type="loading" style={{ fontSize: 24 }} spin />
     )
+    let token = store.getState().user.token
+
     // 在发送请求之前做些什么
-    if (localStorage.getItem('token')) {
-      config.headers.source = 'wecadmin'
-      config.headers.token = localStorage.getItem('token')
+    if (token) {
+      // console.log(token)
+      config.headers.source = 'xscms'
+      // config.headers.token = `Basic ${token}`
+      const baseCode = Base64.encode(token + ':')
+      config.headers.Authorization = `Basic ${baseCode}`
+      // config.headers.Authorization = `Bearer ${token}`
       config.headers.version = '0.0.1'
       config.headers.os = localStorage.getItem('os')
       config.headers.platform = localStorage.getItem('platform')
     } else {
       config.headers.source = 'web'
+      config.headers.token = ''
     }
 
     return config
