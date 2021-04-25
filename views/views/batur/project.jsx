@@ -23,7 +23,6 @@ class BtrProject extends React.Component {
   }
 
   componentDidMount() {
-    console.log(BaseAPI)
     let loadData = (params) => BaseAPI.getProjectPageList(params)
     this.setState({
       canshow: true,

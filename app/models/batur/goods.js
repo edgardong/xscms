@@ -7,9 +7,9 @@ const {
   Op,
 } = require('../baseModel')
 
-class Btrmember extends BaseModel {}
+class Btrgoods extends BaseModel {}
 
-Btrmember.initModel(
+Btrgoods.initModel(
   {
     id: {
       type: Sequelize.INTEGER,
@@ -17,41 +17,36 @@ Btrmember.initModel(
       autoIncrement: true,
       comment: '主键',
     },
-    mobile: {
-      type: DataTypes.STRING,
-      comment: '手机号',
-    },
-    address: {
-      type: Sequelize.STRING(32),
-      comment: '用户地址',
-    },
     type: {
       type: DataTypes.INTEGER,
       comment: '会员类型 1:普通用户，2:年会员，3:终身会员',
     },
     price: {
       type: DataTypes.DOUBLE,
-      comment: '会员余额',
+      comment: '商品价格',
+    },
+    in_price: {
+      type: DataTypes.DOUBLE,
+      comment: '商品进价',
     },
     level: {
       type: DataTypes.INTEGER,
-      comment: '会员等级',
+      comment: '商品等级',
     },
-    age: {
+    stock: {
       type: DataTypes.INTEGER,
-      comment: '会员年龄',
+      comment: '商品库存',
     },
-    sex: {
-      type: DataTypes.INTEGER,
-      comment: '会员性别1:男2:女3:未知',
-      defaultValue: 3,
+    picture: {
+      type: DataTypes.STRING,
+      comment: '商品图片',
     },
   },
   {
     sequelize,
-    tableName: 'xs_btr_member',
-    comment: '巴图尔会员',
+    tableName: 'xs_btr_goods',
+    comment: '巴图尔商品',
   }
 )
 
-module.exports = Btrmember
+module.exports = Btrgoods

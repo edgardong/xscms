@@ -23,7 +23,6 @@ class BtrMember extends React.Component {
   }
 
   componentDidMount() {
-    console.log(BaseAPI)
     let loadData = (params) => BaseAPI.getMemberPageList(params)
     this.setState({
       canshow: true,

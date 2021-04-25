@@ -41,7 +41,8 @@ router.get('/pagination', new Auth().m, async (ctx, next) => {
 
 router.get('/all', new Auth().m, async (ctx, next) => {
   const params = await new TypeValidator().validate(ctx)
-  const data = await Menu.getAll(params.type)
+  const auth = ctx.auth
+  const data = await Menu.getAll(params, auth)
   ctx.body = {
     data,
   }
@@ -54,7 +55,7 @@ router.get('/tree', async (ctx, next) => {
   }
 })
 
-router.get('/byrole', new Auth().m,async (ctx, next) => {
+router.get('/byrole', new Auth().m, async (ctx, next) => {
   const params = await new WecValidator().validate(ctx)
   const where = {
     role: params.roleId,
@@ -65,7 +66,7 @@ router.get('/byrole', new Auth().m,async (ctx, next) => {
   }
 })
 
-router.post('/byrole', new Auth().m,async (ctx, next) => {
+router.post('/byrole', new Auth().m, async (ctx, next) => {
   const params = await new WecValidator().validate(ctx)
   const data = await RoleMenu.saveByRole(params)
   ctx.body = {

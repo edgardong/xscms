@@ -23,7 +23,6 @@ class BtrOrder extends React.Component {
   }
 
   componentDidMount() {
-    console.log(BaseAPI)
     let loadData = (params) => BaseAPI.getOrderPageList(params)
     this.setState({
       canshow: true,

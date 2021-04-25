@@ -1,19 +1,8 @@
-const {
-  DataTypes,
-  BaseModel
-} = require('../baseModel')
+const { DataTypes, BaseModel } = require('../baseModel')
 
-const {
-  Permission
-} = require('./permission')
-
-const {
-  Menu
-} = require('./menu')
-
-const {
-  Entitys
-} = require('./base')
+const Permission = require('./permission')
+const Menu = require('./menu')
+const Entitys = require('./base')
 
 const PermissionTypes = require('./permissionTypes')
 
@@ -29,8 +18,8 @@ class Role extends BaseModel {
       where: {
         type: 1,
         status: 0,
-        role
-      }
+        role,
+      },
     })
 
     // 初始化数据
@@ -38,36 +27,35 @@ class Role extends BaseModel {
       const menus = await Menu.findAll({
         where: {
           status: 0,
-          type: 1
-        }
+          type: 1,
+        },
       })
       const Operate = Entitys.operate.entity
       // console.log(Operate)
       const ops = await Operate.findAll({
         where: {
-          status: 0
+          status: 0,
         },
-        attributes: ['id', 'name', 'code', 'comment']
+        attributes: ['id', 'name', 'code', 'comment'],
       })
 
       let content = {}
-      ops.forEach(op => {
+      ops.forEach((op) => {
         content[op.code] = false
       })
 
-      data = menus.map(ro => ({
+      data = menus.map((ro) => ({
         type: 1,
         menu: ro.id,
         name: ro.name,
         code: ro.code,
         role,
-        content
+        content,
       }))
-
     } else {
-      let datas = data.map(d => ({
+      let datas = data.map((d) => ({
         ...d.dataValues,
-        content: JSON.parse(d.content)
+        content: JSON.parse(d.content),
       }))
 
       return datas
@@ -84,29 +72,28 @@ class Role extends BaseModel {
       where: {
         status: 0,
         type: 1,
-        role: data[0].role
-      }
+        role: data[0].role,
+      },
     })
 
     if (pers.length <= 0) {
       Permission.bulkCreate(records)
     } else {
-      records = records.filter(r => r.changed)
-      records.forEach(re => {
+      records = records.filter((r) => r.changed)
+      records.forEach((re) => {
         Permission.update(re, {
           where: {
             role: re.role,
             menu: re.menu,
-            type: 1
-          }
+            type: 1,
+          },
         })
       })
     }
 
     return {
-      msg: '保存成功'
+      msg: '保存成功',
     }
-
   }
 
   static async getDataPermissionTypes() {
@@ -121,8 +108,8 @@ class Role extends BaseModel {
       where: {
         type: 2,
         status: 0,
-        role
-      }
+        role,
+      },
     })
 
     // 初始化数据
@@ -130,16 +117,16 @@ class Role extends BaseModel {
       const menus = await Menu.findAll({
         where: {
           status: 0,
-          type: 1
-        }
+          type: 1,
+        },
       })
-      data = menus.map(ro => ({
+      data = menus.map((ro) => ({
         type: 2,
         menu: ro.id,
         name: ro.name,
         code: ro.code,
         datas: '',
-        role
+        role,
       }))
     }
 
@@ -153,43 +140,44 @@ class Role extends BaseModel {
       where: {
         status: 0,
         type: 2,
-        role: data[0].role
-      }
+        role: data[0].role,
+      },
     })
 
     if (pers.length <= 0) {
       Permission.bulkCreate(records)
     } else {
       // records = records.filter(r => r.changed)
-      records.forEach(re => {
+      records.forEach((re) => {
         Permission.update(re, {
           where: {
             role: re.role,
             menu: re.menu,
-            type: 2
-          }
+            type: 2,
+          },
         })
       })
     }
 
     return {
-      msg: '保存成功'
+      msg: '保存成功',
     }
-
   }
-
 }
 
-Role.initModel({
-  type: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 1,
-    comment: '菜单类型，1:路由，2:权限'
+Role.initModel(
+  {
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+      comment: '菜单类型，1:路由，2:权限',
+    },
+  },
+  {
+    tableName: 'xs_sys_role',
+    comment: '用户角色',
   }
-}, {
-  tableName: 'xs_sys_role',
-  comment:'用户角色'
-})
+)
 
-module.exports =Role
+module.exports = Role
