@@ -20,6 +20,8 @@ export default class BaseApi {
     this[`get${this.modelName}`] = params => get(this.base_url, params)
     // 获取数据分页
     this[`get${this.modelName}PageList`] = params => get(`${this.base_url}/pagination`, params)
+    // 获取全部数据
+    this[`get${this.modelName}List`] = params => get(`${this.base_url}/all`, params)
     // 添加一条数据
     this[`add${this.modelName}`] = data => post(this.base_url, data)
     // 修改一条数据

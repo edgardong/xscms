@@ -15,6 +15,7 @@ import SystemBase from '@/views/system/base'
 import BtrMember from '@/views/batur/member'
 import BtrOrder from '@/views/batur/order'
 import BtrProject from '@/views/batur/project'
+import BtrGoods from '@/views/batur/goods'
 
 // 博客模块
 import ArticleList from '@/views/blog/article/articleList'
@@ -49,6 +50,7 @@ const routes = [
   getRoute('/batur/member', BtrMember),  // 会员信息
   getRoute('/batur/order', BtrOrder),  // 消费信息
   getRoute('/batur/project', BtrProject),  // 项目信息
+  getRoute('/batur/goods', BtrGoods),  // 商品信息
 
   // 基础操作模块
   getRoute('/base/:module', SystemBase),

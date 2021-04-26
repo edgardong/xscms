@@ -20,6 +20,7 @@ Btrmember.initModel(
     mobile: {
       type: DataTypes.STRING,
       comment: '手机号',
+      unique:true
     },
     address: {
       type: Sequelize.STRING(32),
@@ -36,6 +37,11 @@ Btrmember.initModel(
     level: {
       type: DataTypes.INTEGER,
       comment: '会员等级',
+    },
+    in_time: {
+      type: DataTypes.DATE,
+      comment: '加入时间',
+      defaultValue: new Date(),
     },
     age: {
       type: DataTypes.INTEGER,

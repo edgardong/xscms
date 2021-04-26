@@ -2,11 +2,11 @@ import React from 'react'
 import { Menu, Icon, Button, Table } from 'antd'
 import { withRouter } from 'react-router-dom'
 import { BaseTable, BaseForm } from '@/components/Base'
-import BaseAPI from '../../api/batur/project'
+import BaseAPI from '../../api/batur/goods'
 import utils from '@/utils/utils'
 
 @withRouter
-class BtrProject extends React.Component {
+class BtrGoods extends React.Component {
   constructor(props) {
     super(props)
 
@@ -23,8 +23,9 @@ class BtrProject extends React.Component {
   }
 
   componentDidMount() {
-    let loadData = (params) => BaseAPI.getProjectPageList(params)
+    let loadData = (params) => BaseAPI.getGoodsPageList(params)
     let columns = utils.mergeColumns([...this.columns, this.operateColumn])
+    
     this.setState({
       canshow: true,
       loadData,
@@ -56,14 +57,14 @@ class BtrProject extends React.Component {
       ellipsis: true,
     },
     {
-      title: '项目名称',
+      title: '商品名称',
       dataIndex: 'name',
       width: 100,
       align: 'center',
       ellipsis: true,
     },
     {
-      title: '项目费用',
+      title: '商品费用',
       dataIndex: 'price',
       width: 100,
       align: 'center',
@@ -95,7 +96,7 @@ class BtrProject extends React.Component {
       },
       {
         type: 'input',
-        label: '项目名称',
+        label: '商品名称',
         key: 'name',
         value: '',
         required: true,
@@ -103,7 +104,7 @@ class BtrProject extends React.Component {
       },
       {
         type: 'input',
-        label: '项目费用',
+        label: '商品费用',
         key: 'price',
         value: '',
         required: true,
@@ -150,7 +151,7 @@ class BtrProject extends React.Component {
     utils
       .deleteConfirm()
       .then(() => {
-        BaseAPI.deleteProject({ id: row.record.id }).then((resp) => {
+        BaseAPI.deleteGoods({ id: row.record.id }).then((resp) => {
           utils.successToast(resp.msg)
           this.refs.table.refreshTable()
         })
@@ -224,14 +225,14 @@ class BtrProject extends React.Component {
   handleSubmit(form) {
     console.log('处理后的订单', form)
     if (form.id) {
-      BaseAPI.updateProject(form).then((resp) => {
+      BaseAPI.updateGoods(form).then((resp) => {
         this.setState({
           showModal: false,
         })
         this.refs.table.refreshTable()
       })
     } else {
-      BaseAPI.addProject(form).then((resp) => {
+      BaseAPI.addGoods(form).then((resp) => {
         this.setState({
           showModal: false,
         })
@@ -285,4 +286,4 @@ class BtrProject extends React.Component {
   }
 }
 
-export default BtrProject
+export default BtrGoods

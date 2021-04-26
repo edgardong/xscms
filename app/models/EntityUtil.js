@@ -18,20 +18,18 @@ async function getPaginationList(params, Entity, where = {}, options = {}) {
     total: 0,
     per_page: params.size,
     current_page: params.page,
-    last_page: 0
+    last_page: 0,
   }
 
   let query = {
     limit: params.size,
     offset: (params.page - 1) * params.size,
-    order: [
-      params.order ? [...params.order] : ['create_time', 'desc']
-    ],
+    order: [params.order ? [...params.order] : ['create_time', 'desc']],
     where: {
       status: 0,
-      ...where
+      ...where,
     },
-    ...options
+    ...options,
   }
   if (options.include) {
     query.distinct = true
@@ -46,15 +44,17 @@ async function getPaginationList(params, Entity, where = {}, options = {}) {
   return result
 }
 
-
 async function deleteById(id, Entity) {
-  let result = await Entity.update({
-    status: 1
-  }, {
-    where: {
-      id
+  let result = await Entity.update(
+    {
+      status: 1,
+    },
+    {
+      where: {
+        id,
+      },
     }
-  })
+  )
   if (result) {
     return '删除成功'
   }
@@ -62,33 +62,34 @@ async function deleteById(id, Entity) {
 }
 
 /**
- * 添加一个用户
- * @param {object} data 用户对象
+ * 添加一条数据
+ * @param {object} data 需要添加的数据
  */
 async function addData(data, Entity) {
-  return await Entity.create({
+  const result =  await Entity.create({
     ...data,
-    status:0
+    status: 0,
   })
+  return result
 }
-
 
 /**
  * 更新表单信息
  * @param {*} data
  */
 async function updateData(data, Entity) {
-  Entity.update(
-    data, {
-      where: {
-        status: 0,
-        id: data.id
-      }
-    }).then(resp => {
-    // console.log('怎么了？', resp)
-  }).catch(err => {
-    console.log('出错了', err)
+  Entity.update(data, {
+    where: {
+      status: 0,
+      id: data.id,
+    },
   })
+    .then((resp) => {
+      // console.log('怎么了？', resp)
+    })
+    .catch((err) => {
+      console.log('出错了', err)
+    })
 
   // console.log(obj)
 
@@ -102,20 +103,25 @@ async function updateData(data, Entity) {
 async function getData(id, Entity) {
   return await Entity.findOne({
     where: {
-      id
-    }
+      id,
+    },
   })
 }
 
+/**
+ * 获取所有的数据
+ * @param {*} where 
+ * @param {*} Entity 
+ * @param {*} options 
+ * @returns 
+ */
 async function getAll(where, Entity, options = {}) {
   return await Entity.findAll({
-    order: [
-      options.order ? options.order.split('_') : ['create_time', 'desc']
-    ],
+    order: [options.order ? options.order.split('_') : ['create_time', 'desc']],
     where: {
       status: 0,
-      ...where
-    }
+      ...where,
+    },
   })
 }
 
@@ -125,5 +131,5 @@ module.exports = {
   updateData,
   deleteById,
   getData,
-  getAll
+  getAll,
 }

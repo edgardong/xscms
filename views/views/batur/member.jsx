@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Button, Table } from 'antd'
+import { Menu, Icon, Button, Table, Form, Input, DatePicker } from 'antd'
 import { withRouter } from 'react-router-dom'
 import { BaseTable, BaseForm } from '@/components/Base'
 import BaseAPI from '../../api/batur/member'
@@ -24,9 +24,11 @@ class BtrMember extends React.Component {
 
   componentDidMount() {
     let loadData = (params) => BaseAPI.getMemberPageList(params)
+    let columns = utils.mergeColumns([...this.columns, this.operateColumn])
     this.setState({
       canshow: true,
       loadData,
+      columns,
     })
   }
 
@@ -46,17 +48,24 @@ class BtrMember extends React.Component {
   ]
 
   columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      width: 30,
-      align: 'center',
-      ellipsis: true,
-    },
+    // {
+    //   title: 'ID',
+    //   dataIndex: 'id',
+    //   width: 30,
+    //   align: 'center',
+    //   ellipsis: true,
+    // },
     {
       title: '用户名',
       dataIndex: 'name',
       width: 100,
+      align: 'center',
+      ellipsis: true,
+    },
+    {
+      title: '手机号',
+      dataIndex: 'mobile',
+      width: 130,
       align: 'center',
       ellipsis: true,
     },
@@ -94,10 +103,10 @@ class BtrMember extends React.Component {
       align: 'center',
     },
     {
-      title: '创建时间',
-      width: 100,
+      title: '加入时间',
+      width: 120,
       align: 'center',
-      dataIndex: 'create_time',
+      dataIndex: 'in_time',
     },
   ]
 
@@ -149,6 +158,14 @@ class BtrMember extends React.Component {
         type: 'input',
         label: '用户余额',
         key: 'price',
+        value: '',
+        required: true,
+        rules: [],
+      },
+      {
+        type: 'datetime',
+        label: '加入时间',
+        key: 'in_time',
         value: '',
         required: true,
         rules: [],
@@ -222,12 +239,32 @@ class BtrMember extends React.Component {
     // </Button>
   ]
 
-  queryOp = (<div>查询区域</div>)
+  queryOp = (
+    <div>
+      <Form layout="inline">
+        <Form.Item label="姓名">
+          <Input allowClear></Input>
+        </Form.Item>
+        <Form.Item label="手机号">
+          <Input allowClear></Input>
+        </Form.Item>
+        <Form.Item label="加入时间">
+          <DatePicker.RangePicker allowClear></DatePicker.RangePicker>
+        </Form.Item>
+        <Form.Item label="">
+          <Button >重置</Button>
+        </Form.Item>
+        <Form.Item label="">
+          <Button type="primary">查询</Button>
+        </Form.Item>
+      </Form>
+    </div>
+  )
 
   operateColumn = {
     title: '操作',
     key: 'action',
-    width: 200,
+    width: 260,
     fixed: 'right',
     render: (text, record, index) => {
       let row = { text, record, index }
@@ -236,6 +273,9 @@ class BtrMember extends React.Component {
           <Button onClick={(e) => this.handleDetial(row)}>查看</Button>
           <Button onClick={(e) => this.handleEdit(row)} type="primary">
             编辑
+          </Button>
+          <Button ghost onClick={(e) => this.handleDelete(row)} type="primary">
+            消费详情
           </Button>
           <Button ghost onClick={(e) => this.handleDelete(row)} type="danger">
             删除
@@ -298,7 +338,7 @@ class BtrMember extends React.Component {
 
   render() {
     // let columns = this.state.columns
-    let columns = this.state.canshow ? this.columns : []
+    let columns = this.state.canshow ? this.state.columns : []
 
     columns.forEach((col) => {
       // let item = col.find((cl) => cl.renderOptions)
