@@ -280,6 +280,13 @@ class TypeValidator extends WecValidator {
   }
 }
 
+class DataValidator extends WecValidator {
+
+  constructor(){
+    super()
+  }
+}
+
 module.exports = {
   WecValidator,
   PositiveIntegerValidator,
@@ -292,5 +299,6 @@ module.exports = {
   PreOrderValidator,
   UserFormValidator,
   MenuFormValidator,
-  TypeValidator
+  TypeValidator,
+  DataValidator
 }

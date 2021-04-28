@@ -1,8 +1,8 @@
 const { Sequelize, BaseModel, DataTypes } = require('../baseModel')
 
-class BtrorderDetail extends BaseModel {}
+class BtrorderGoods extends BaseModel {}
 
-BtrorderDetail.initModel(
+BtrorderGoods.initModel(
   {
     id: {
       type: Sequelize.INTEGER,
@@ -14,9 +14,13 @@ BtrorderDetail.initModel(
       type: DataTypes.STRING,
       comment: '订单名称',
     },
+    order:{
+      type: Sequelize.INTEGER,
+      comment:'订单ID'
+    },
     picture: {
       type: DataTypes.STRING,
-      comment: '项目图片',
+      comment: '商品图片',
     },
     type: {
       type: DataTypes.INTEGER,
@@ -24,21 +28,21 @@ BtrorderDetail.initModel(
     },
     price: {
       type: DataTypes.DOUBLE,
-      comment: '项目金额',
+      comment: '商品金额',
     },
     member: {
       type: DataTypes.STRING,
       comment: '项目使用者',
     },
-    project: {
-      type: DataTypes.STRING,
-      comment: '消费项目',
+    goods: {
+      type: DataTypes.INTEGER,
+      comment: '商品ID',
     },
   },
   {
-    tableName: 'xs_btr_order_detail',
-    comment: '巴图尔会员订单明细',
+    tableName: 'xs_btr_order_goods',
+    comment: '巴图尔会员订单商品明细',
   }
 )
 
-module.exports = BtrorderDetail
+module.exports = BtrorderGoods

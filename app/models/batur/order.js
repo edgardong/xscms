@@ -1,6 +1,46 @@
 const { Sequelize, BaseModel, DataTypes } = require('../baseModel')
+const BtrorderGoods = require('./order_goods')
+const BtrorderProject = require('./order_project')
 
-class Btrorder extends BaseModel {}
+class Btrorder extends BaseModel {
+  static async addOrder(data) {
+    let totalPrice = data.projects.reduce(
+      (preValue, current) => Number(preValue) + Number(current.price),
+      0
+    )
+    totalPrice = data.goods.reduce(
+      (preValue, current) => Number(preValue) + Number(current.price),
+      totalPrice
+    )
+
+    let snapshot = JSON.stringify({
+      goods: data.goods,
+      projects: data.projects,
+    })
+
+    const orderForm = {
+      name: new Date().getTime(),
+      price: totalPrice,
+      member: data.member,
+      snapshot: snapshot,
+    }
+
+    let order = await Btrorder.create(orderForm)
+
+    let goodResult = await BtrorderGoods.bulkCreate(
+      data.goods.map((g) => ({ order: order.id, ...g }))
+    )
+    let projectResult = await BtrorderProject.bulkCreate(
+      data.projects.map((g) => ({ order: order.id, ...g }))
+    )
+
+    return {
+      order,
+      goodResult,
+      projectResult,
+    }
+  }
+}
 
 Btrorder.initModel(
   {
@@ -18,6 +58,10 @@ Btrorder.initModel(
       type: DataTypes.STRING,
       comment: '项目图片',
     },
+    snapshot: {
+      type: DataTypes.STRING,
+      comment: '订单快照信息',
+    },
     type: {
       type: DataTypes.INTEGER,
       comment: '项目类型 1:普通用户，2:年会员，3:终身会员',
@@ -27,12 +71,8 @@ Btrorder.initModel(
       comment: '项目金额',
     },
     member: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       comment: '项目使用者',
-    },
-    project: {
-      type: DataTypes.STRING,
-      comment: '消费项目',
     },
   },
   {

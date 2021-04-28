@@ -11,7 +11,6 @@ import {
   Row,
   Col,
   List,
-  InputNumber,
 } from 'antd'
 import { withRouter } from 'react-router-dom'
 import { BaseTable, BaseForm } from '@/components/Base'
@@ -20,6 +19,7 @@ import MemberAPI from '../../api/batur/member'
 import ProjectAPI from '../../api/batur/project'
 import GoodsAPI from '../../api/batur/goods'
 import utils from '@/utils/utils'
+import OrderForm from './orderForm'
 
 @withRouter
 class BtrOrder extends React.Component {
@@ -42,6 +42,8 @@ class BtrOrder extends React.Component {
     this.loadOptionData()
   }
 
+  formRef = React.createRef()
+
   loadOptionData = async () => {
     let members = (await MemberAPI.getMemberList()).data
     let projects = (await ProjectAPI.getProjectList()).data
@@ -54,6 +56,9 @@ class BtrOrder extends React.Component {
     //   (it) => it.type == 'select' && it.key == 'project'
     // )
 
+    let member = this.columns.find((col) => col.dataIndex == 'member')
+    member.renderOptions = members
+
     // userItem.options = members.map((m) => ({ id: m.id, name: m.name }))
     // projectItem.options = projects.map((m) => ({ id: m.id, name: m.name }))
 
@@ -61,6 +66,7 @@ class BtrOrder extends React.Component {
       memberList: members,
       projectList: projects,
       goodsList: goods,
+      canshow: true,
     })
   }
 
@@ -95,7 +101,6 @@ class BtrOrder extends React.Component {
     // this.getProjectList()
 
     this.setState({
-      canshow: true,
       loadData,
       columns,
     })
@@ -117,15 +122,15 @@ class BtrOrder extends React.Component {
   ]
 
   columns = [
+    // {
+    //   title: 'ID',
+    //   dataIndex: 'id',
+    //   width: 30,
+    //   align: 'center',
+    //   ellipsis: true,
+    // },
     {
-      title: 'ID',
-      dataIndex: 'id',
-      width: 30,
-      align: 'center',
-      ellipsis: true,
-    },
-    {
-      title: '项目名称',
+      title: '订单号',
       dataIndex: 'name',
       width: 100,
       align: 'center',
@@ -133,9 +138,17 @@ class BtrOrder extends React.Component {
     },
     {
       title: '用户名称',
-      dataIndex: 'user',
+      dataIndex: 'member',
       width: 100,
       align: 'center',
+      renderOptions: [],
+    },
+    {
+      title: '消费金额',
+      dataIndex: 'price',
+      width: 100,
+      align: 'center',
+      ellipsis: true,
     },
     {
       title: '备注',
@@ -318,6 +331,18 @@ class BtrOrder extends React.Component {
     })
   }
 
+  handleAddProjects() {
+    let { formData } = this.state
+    if (!formData.projects) {
+      formData.projects = [{}]
+    } else {
+      formData.projects.push({})
+    }
+    this.setState({
+      formData,
+    })
+  }
+
   /**
    * 添加数据
    */
@@ -348,21 +373,26 @@ class BtrOrder extends React.Component {
 
   handleSubmit(form) {
     console.log('处理后的订单', form)
-    if (form.id) {
-      BaseAPI.updateOrder(form).then((resp) => {
-        this.setState({
-          showModal: false,
+    form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values)
+      }
+      if (values.id) {
+        BaseAPI.updateBtrOrder(values).then((resp) => {
+          this.setState({
+            showModal: false,
+          })
+          this.refs.table.refreshTable()
         })
-        this.refs.table.refreshTable()
-      })
-    } else {
-      BaseAPI.addOrder(form).then((resp) => {
-        this.setState({
-          showModal: false,
+      } else {
+        BaseAPI.addBtrOrder(values).then((resp) => {
+          this.setState({
+            showModal: false,
+          })
+          this.refs.table.refreshTable()
         })
-        this.refs.table.refreshTable()
-      })
-    }
+      }
+    })
   }
 
   render() {
@@ -375,6 +405,7 @@ class BtrOrder extends React.Component {
       if (col.renderOptions) {
         col.render = (text, record, index) => {
           let tmp = col.renderOptions.find((op) => op.id === text)
+          console.log(tmp, text, col.renderOptions)
           return tmp ? (
             tmp.color ? (
               <span style={{ color: tmp.color }}>{tmp.name}</span>
@@ -407,105 +438,18 @@ class BtrOrder extends React.Component {
         >
         </BaseForm> */}
 
-        <Modal
-          title="添加订单"
-          width={'60%'}
-          visible={this.state.showModal}
+        <OrderForm
+          memberList={memberList}
+          projectList={projectList}
+          goodsList={goodsList}
           readOnly={this.state.readOnly}
-          onOk={(vals) => this.handleSubmit(vals)}
-          onCancel={() => this.handleModalCancel()}
-        >
-          <Form layout="vertical">
-            <Row>
-              <Col span={10}>
-                <Form.Item label="用户">
-                  <Select value={formData.member}>
-                    {memberList.map((m) => (
-                      <Select.Option key={m.id} value={m.id}>
-                        {m.name}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col span={10} offset={1}>
-                <Form.Item label="项目">
-                  <Select value={formData.project}>
-                    {projectList.map((p) => (
-                      <Select.Option key={p.id} value={p.id}>
-                        {p.name}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col span={10}>
-                <Form.Item label="价格">
-                  <Input value={formData.price}></Input>
-                </Form.Item>
-              </Col>
-              <Col span={10} offset={1}>
-                <Form.Item label="备注">
-                  <Input value={formData.remark}></Input>
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <div
-              style={{
-                marginBottom: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              消费商品
-              <Button type="primary" onClick={() => this.handleAddGoods()}>
-                添加商品
-              </Button>
-            </div>
-            <List bordered>
-              {formData.goods && formData.goods.length > 0
-                ? formData.goods.map((good) => (
-                    <List.Item actions={[<Button type="danger">删除</Button>]}>
-                      <Row key={good.id} span={24}>
-                        <Col span={7}>
-                          <Form.Item label="商品">
-                            <Select value={good.goods_id}>
-                              {goodsList.map((p) => (
-                                <Select.Option key={p.id} value={p.id}>
-                                  {p.name}
-                                </Select.Option>
-                              ))}
-                            </Select>
-                          </Form.Item>
-                        </Col>
-                        <Col span={4} offset={1}>
-                          <Form.Item label="数量">
-                            <InputNumber min={0} value={good.count}></InputNumber>
-                          </Form.Item>
-                        </Col>
-                        <Col span={4} offset={1}>
-                          <Form.Item label="价格">
-                            <Input value={good.price}></Input>
-                          </Form.Item>
-                        </Col>
-                        <Col span={6} offset={1}>
-                          <Form.Item label="备注">
-                            <Input value={good.remark}></Input>
-                          </Form.Item>
-                        </Col>
-                      </Row>
-                    </List.Item>
-                  ))
-                : null}
-            </List>
-          </Form>
-          <div style={{marginTop:'15px'}}>本次共消费： 100元</div>
-        </Modal>
+          showModal={this.state.showModal}
+          handleAddGoods={() => this.handleAddGoods()}
+          handleAddProjects={() => this.handleAddProjects()}
+          handleSubmit={(vals) => this.handleSubmit(vals)}
+          handleCancel={() => this.handleModalCancel()}
+          formData={this.state.formData}
+        ></OrderForm>
       </div>
     ) : null
   }
