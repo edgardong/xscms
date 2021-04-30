@@ -38,8 +38,6 @@ class BtrOrder extends React.Component {
       memberList: [],
       projectList: [],
     }
-
-    this.loadOptionData()
   }
 
   formRef = React.createRef()
@@ -55,9 +53,9 @@ class BtrOrder extends React.Component {
     // let projectItem = this.FormItems.items.find(
     //   (it) => it.type == 'select' && it.key == 'project'
     // )
-
     let member = this.columns.find((col) => col.dataIndex == 'member')
     member.renderOptions = members
+    // console.log('...', 1, member)
 
     // userItem.options = members.map((m) => ({ id: m.id, name: m.name }))
     // projectItem.options = projects.map((m) => ({ id: m.id, name: m.name }))
@@ -95,15 +93,17 @@ class BtrOrder extends React.Component {
   }
 
   componentDidMount() {
-    let loadData = (params) => BaseAPI.getOrderPageList(params)
-    let columns = utils.mergeColumns([...this.columns, this.operateColumn])
+    // let loadData = (params) => BaseAPI.getOrderPageList(params)
+    this.loadOptionData().then((resp) => {
+      let columns = utils.mergeColumns([...this.columns, this.operateColumn])
+
+      this.setState({
+        // loadData,
+        columns,
+      })
+    })
     // this.getMemberList()
     // this.getProjectList()
-
-    this.setState({
-      loadData,
-      columns,
-    })
   }
 
   sexOptions = [
@@ -247,7 +247,7 @@ class BtrOrder extends React.Component {
   // }
 
   loadData = (params) => {
-    return BaseAPI.getList(params)
+    return BaseAPI.getOrderPageList(params)
   }
 
   handleDetial(row) {
@@ -405,7 +405,7 @@ class BtrOrder extends React.Component {
       if (col.renderOptions) {
         col.render = (text, record, index) => {
           let tmp = col.renderOptions.find((op) => op.id === text)
-          console.log(tmp, text, col.renderOptions)
+          // console.log('22222', col, text, col.renderOptions)
           return tmp ? (
             tmp.color ? (
               <span style={{ color: tmp.color }}>{tmp.name}</span>
@@ -425,7 +425,7 @@ class BtrOrder extends React.Component {
           listOp={this.listOp}
           queryOp={this.queryOp}
           columns={columns}
-          dataSource={this.state.loadData}
+          dataSource={this.loadData}
         />
 
         {/* <BaseForm

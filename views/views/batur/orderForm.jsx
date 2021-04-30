@@ -35,7 +35,7 @@ export default Form.create({})(
           visible={this.props.showModal}
           readOnly={this.props.readOnly}
           onOk={() => this.props.handleSubmit(this.props.form)}
-          onCancel={() => this.props.handleModalCancel()}
+          onCancel={() => this.props.handleCancel()}
         >
           <Form layout="vertical">
             <Row>

@@ -56,7 +56,7 @@ class BtrMember extends React.Component {
     //   ellipsis: true,
     // },
     {
-      title: '用户名',
+      title: '会员名',
       dataIndex: 'name',
       width: 100,
       align: 'center',
@@ -85,13 +85,13 @@ class BtrMember extends React.Component {
       renderOptions: this.sexOptions,
     },
     {
-      title: '用户等级',
+      title: '会员等级',
       dataIndex: 'level',
       width: 60,
       align: 'center',
     },
     {
-      title: '用户余额',
+      title: '会员余额',
       dataIndex: 'price',
       width: 100,
       align: 'center',

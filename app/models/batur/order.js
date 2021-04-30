@@ -2,6 +2,8 @@ const { Sequelize, BaseModel, DataTypes } = require('../baseModel')
 const BtrorderGoods = require('./order_goods')
 const BtrorderProject = require('./order_project')
 
+const Btrmember = require('./member')
+
 class Btrorder extends BaseModel {
   static async addOrder(data) {
     let totalPrice = data.projects.reduce(
@@ -26,6 +28,12 @@ class Btrorder extends BaseModel {
     }
 
     let order = await Btrorder.create(orderForm)
+
+    // 修改用户的余额
+   await Btrmember.findByPk(data.member).then(member=>{
+    return member.decrement('price',{by: totalPrice})
+   })
+
 
     let goodResult = await BtrorderGoods.bulkCreate(
       data.goods.map((g) => ({ order: order.id, ...g }))
