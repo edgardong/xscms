@@ -1,8 +1,20 @@
 import React from 'react'
-import { Menu, Icon, Button, Table, Form, Input, DatePicker } from 'antd'
+import {
+  Menu,
+  Icon,
+  Button,
+  Table,
+  Form,
+  Input,
+  DatePicker,
+  Drawer,
+  List,
+  Collapse,
+} from 'antd'
 import { withRouter } from 'react-router-dom'
 import { BaseTable, BaseForm } from '@/components/Base'
 import BaseAPI from '../../api/batur/member'
+import OrderAPI from '../../api/batur/order'
 import utils from '@/utils/utils'
 
 @withRouter
@@ -19,6 +31,8 @@ class BtrMember extends React.Component {
       canshow: false,
       columns: [],
       loadData: null,
+      visible: false,
+      orderDetail: [],
     }
   }
 
@@ -252,7 +266,7 @@ class BtrMember extends React.Component {
           <DatePicker.RangePicker allowClear></DatePicker.RangePicker>
         </Form.Item>
         <Form.Item label="">
-          <Button >重置</Button>
+          <Button>重置</Button>
         </Form.Item>
         <Form.Item label="">
           <Button type="primary">查询</Button>
@@ -274,7 +288,11 @@ class BtrMember extends React.Component {
           <Button onClick={(e) => this.handleEdit(row)} type="primary">
             编辑
           </Button>
-          <Button ghost onClick={(e) => this.handleDelete(row)} type="primary">
+          <Button
+            ghost
+            onClick={(e) => this.handleViewOrder(row)}
+            type="primary"
+          >
             消费详情
           </Button>
           <Button ghost onClick={(e) => this.handleDelete(row)} type="danger">
@@ -283,6 +301,19 @@ class BtrMember extends React.Component {
         </Button.Group>
       )
     },
+  }
+
+  /**
+   * 查看消费订单
+   * @param {*} row 会员信息
+   */
+  handleViewOrder(row) {
+    OrderAPI.getMemberOrders({ id: row.record.id }).then((resp) => {
+      this.setState({
+        orderDetail: resp.data,
+      })
+      this.showDrawer()
+    })
   }
 
   /**
@@ -336,10 +367,22 @@ class BtrMember extends React.Component {
     }
   }
 
+  showDrawer = (row) => {
+    this.setState({
+      visible: true,
+    })
+  }
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    })
+  }
+
   render() {
     // let columns = this.state.columns
     let columns = this.state.canshow ? this.state.columns : []
-
+    let orderDetail = this.state.orderDetail
     columns.forEach((col) => {
       // let item = col.find((cl) => cl.renderOptions)
       // console.log(item)
@@ -376,6 +419,40 @@ class BtrMember extends React.Component {
           showModal={this.state.showModal}
           {...this.FormItems}
         ></BaseForm>
+
+        <Drawer
+          width={640}
+          placement="right"
+          closable={false}
+          onClose={this.onClose}
+          visible={this.state.visible}
+          title="消费详情"
+        >
+          <Collapse defaultActiveKey={['0']}>
+            {orderDetail && orderDetail.length > 0
+              ? orderDetail.map((od) => (
+                  <Collapse.Panel
+                    key={od.id}
+                    header={`${od.create_time} 消费 ${od.price} 元`}
+                  >
+                    <List
+                      dataSource={JSON.parse(od.snapshot).projects}
+                      renderItem={(item, index) => (
+                        <List.Item key={index}>{`${item.name||''} ${item.price} 元`}</List.Item>
+                      )}
+                    ></List>
+
+                    <List
+                      dataSource={JSON.parse(od.snapshot).goods}
+                      renderItem={(item, index) => (
+                        <List.Item key={index}>{`${item.name||''} ${item.price} 元`}</List.Item>
+                      )}
+                    ></List>
+                  </Collapse.Panel>
+                ))
+              : null}
+          </Collapse>
+        </Drawer>
       </div>
     ) : null
   }

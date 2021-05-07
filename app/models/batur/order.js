@@ -30,10 +30,9 @@ class Btrorder extends BaseModel {
     let order = await Btrorder.create(orderForm)
 
     // 修改用户的余额
-   await Btrmember.findByPk(data.member).then(member=>{
-    return member.decrement('price',{by: totalPrice})
-   })
-
+    await Btrmember.findByPk(data.member).then((member) => {
+      return member.decrement('price', { by: totalPrice })
+    })
 
     let goodResult = await BtrorderGoods.bulkCreate(
       data.goods.map((g) => ({ order: order.id, ...g }))
@@ -47,6 +46,26 @@ class Btrorder extends BaseModel {
       goodResult,
       projectResult,
     }
+  }
+
+  static async delOrder(data) {
+    let result = await Btrorder.update(
+      {
+        status: 1,
+      },
+      {
+        where: {
+          id:data.id,
+        },
+      }
+    )
+
+     // 修改用户的余额
+     await Btrmember.findByPk(data.member).then((member) => {
+      return member.increment('price', { by: data.price })
+    })
+
+    return '删除成功'
   }
 }
 

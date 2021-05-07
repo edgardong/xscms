@@ -164,88 +164,6 @@ class BtrOrder extends React.Component {
     },
   ]
 
-  // FormItems = {
-  //   items: [
-  //     {
-  //       hidden: true,
-  //       type: 'text',
-  //       label: '主键',
-  //       key: 'id',
-  //       value: '',
-  //       required: false,
-  //       rules: [],
-  //     },
-  //     {
-  //       type: 'select',
-  //       label: '项目名称',
-  //       key: 'project',
-  //       value: '',
-  //       required: true,
-  //       rules: [],
-  //       options: [],
-  //     },
-  //     {
-  //       type: 'select',
-  //       label: '用户名称',
-  //       key: 'member',
-  //       value: '',
-  //       required: true,
-  //       rules: [],
-  //       options: [],
-  //     },
-  //     {
-  //       type: 'input',
-  //       label: '备注',
-  //       key: 'remark',
-  //       value: '',
-  //       required: false,
-  //       rules: [],
-  //     },
-  //     {
-  //       type: 'list',
-  //       title: '商品列表',
-  //       key: 'goods',
-  //       required: false,
-  //       items: [
-  //         {
-  //           hidden: true,
-  //           type: 'text',
-  //           label: '主键',
-  //           key: 'id',
-  //           value: '',
-  //           required: false,
-  //           rules: [],
-  //         },
-  //         {
-  //           type: 'select',
-  //           label: '商品名称',
-  //           key: 'goods_id',
-  //           value: '',
-  //           required: true,
-  //           rules: [],
-  //           options: [],
-  //         },
-  //         {
-  //           type: 'input',
-  //           label: '商品费用',
-  //           key: 'price',
-  //           value: '',
-  //           required: true,
-  //           rules: [],
-  //         },
-  //         {
-  //           type: 'input',
-  //           label: '备注',
-  //           key: 'remark',
-  //           value: '',
-  //           required: true,
-  //           rules: [],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // }
-
   loadData = (params) => {
     return BaseAPI.getOrderPageList(params)
   }
@@ -276,7 +194,7 @@ class BtrOrder extends React.Component {
     utils
       .deleteConfirm()
       .then(() => {
-        BaseAPI.deleteOrder({ id: row.record.id }).then((resp) => {
+        BaseAPI.deleteOrder1(row.record).then((resp) => {
           utils.successToast(resp.msg)
           this.refs.table.refreshTable()
         })
@@ -373,9 +291,22 @@ class BtrOrder extends React.Component {
 
   handleSubmit(form) {
     console.log('处理后的订单', form)
+    const { goodsList, projectList } = this.state
     form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
+      }
+      if (values.goods && values.goods.length > 0) {
+        values.goods = values.goods.map((g) => ({
+          ...g,
+          name: goodsList.find((gl) => gl.id == g.goods).name,
+        }))
+      }
+      if (values.projects && values.projects.length > 0) {
+        values.projects = values.projects.map((p) => ({
+          ...p,
+          name: projectList.find((pl) => pl.id == p.project).name,
+        }))
       }
       if (values.id) {
         BaseAPI.updateBtrOrder(values).then((resp) => {

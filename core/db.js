@@ -13,7 +13,7 @@ const options = {
   dialect: dbType,
   host,
   port,
-  logging: true,
+  logging: false,
   timezone: '+08:00',
   charset: 'utf8',
   collate: 'utf8_general_ci',
