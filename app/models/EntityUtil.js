@@ -1,3 +1,6 @@
+const { Sequelize } = require('sequelize')
+const Op = Sequelize.Op
+
 function getLastPage(total, size) {
   let last = 0
   let tmp = total % size
@@ -19,6 +22,19 @@ async function getPaginationList(params, Entity, where = {}, options = {}) {
     per_page: params.size,
     current_page: params.page,
     last_page: 0,
+  }
+
+  // like,=,<,>,<=,>=,
+
+  if (params.name) {
+    where.name = {
+      [Op.like]: `%${params.name}%`,
+    }
+  }
+  if (params.mobile) {
+    where.mobile = {
+      [Op.eq]: `${params.mobile}`,
+    }
   }
 
   let query = {
@@ -66,7 +82,7 @@ async function deleteById(id, Entity) {
  * @param {object} data 需要添加的数据
  */
 async function addData(data, Entity) {
-  const result =  await Entity.create({
+  const result = await Entity.create({
     ...data,
     status: 0,
   })
@@ -110,10 +126,10 @@ async function getData(id, Entity) {
 
 /**
  * 获取所有的数据
- * @param {*} where 
- * @param {*} Entity 
- * @param {*} options 
- * @returns 
+ * @param {*} where
+ * @param {*} Entity
+ * @param {*} options
+ * @returns
  */
 async function getAll(where, Entity, options = {}) {
   return await Entity.findAll({

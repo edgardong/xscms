@@ -40,6 +40,7 @@ export default class WecTable extends React.Component {
     this.setState({
       loading: true,
     })
+    // console.log('...loadPageData', pageParams)
     this.props.dataSource(pageParams).then((resp) => {
       // console.log('..........', resp)
       this.setState({

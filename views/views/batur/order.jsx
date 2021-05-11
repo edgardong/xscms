@@ -11,6 +11,7 @@ import {
   Row,
   Col,
   List,
+  message,
 } from 'antd'
 import { withRouter } from 'react-router-dom'
 import { BaseTable, BaseForm } from '@/components/Base'
@@ -214,7 +215,7 @@ class BtrOrder extends React.Component {
     // </Button>
   ]
 
-  queryOp = (<div>查询区域</div>)
+  queryOp = (<div></div>)
 
   operateColumn = {
     title: '操作',
@@ -237,30 +238,6 @@ class BtrOrder extends React.Component {
     },
   }
 
-  handleAddGoods() {
-    let { formData } = this.state
-    if (!formData.goods) {
-      formData.goods = [{}]
-    } else {
-      formData.goods.push({})
-    }
-    this.setState({
-      formData,
-    })
-  }
-
-  handleAddProjects() {
-    let { formData } = this.state
-    if (!formData.projects) {
-      formData.projects = [{}]
-    } else {
-      formData.projects.push({})
-    }
-    this.setState({
-      formData,
-    })
-  }
-
   /**
    * 添加数据
    */
@@ -269,6 +246,8 @@ class BtrOrder extends React.Component {
       formData: {},
       showModal: true,
       readOnly: false,
+    },()=> {
+      this.refs.form.resetFields()
     })
   }
 
@@ -295,6 +274,13 @@ class BtrOrder extends React.Component {
     form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
+      }
+      if (
+        (!values.goods || values.goods.length <= 0) &&
+        (!values.projects || values.projects.length <= 0)
+      ) {
+        message.error('请填写商品或者项目')
+        return
       }
       if (values.goods && values.goods.length > 0) {
         values.goods = values.goods.map((g) => ({
@@ -332,11 +318,9 @@ class BtrOrder extends React.Component {
     let { formData, memberList, projectList, goodsList } = this.state
     columns.forEach((col) => {
       // let item = col.find((cl) => cl.renderOptions)
-      // console.log(item)
       if (col.renderOptions) {
         col.render = (text, record, index) => {
           let tmp = col.renderOptions.find((op) => op.id === text)
-          // console.log('22222', col, text, col.renderOptions)
           return tmp ? (
             tmp.color ? (
               <span style={{ color: tmp.color }}>{tmp.name}</span>
@@ -370,13 +354,12 @@ class BtrOrder extends React.Component {
         </BaseForm> */}
 
         <OrderForm
+          ref="form"
           memberList={memberList}
           projectList={projectList}
           goodsList={goodsList}
           readOnly={this.state.readOnly}
           showModal={this.state.showModal}
-          handleAddGoods={() => this.handleAddGoods()}
-          handleAddProjects={() => this.handleAddProjects()}
           handleSubmit={(vals) => this.handleSubmit(vals)}
           handleCancel={() => this.handleModalCancel()}
           formData={this.state.formData}

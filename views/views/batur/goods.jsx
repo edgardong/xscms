@@ -171,7 +171,7 @@ class BtrGoods extends React.Component {
     // </Button>
   ]
 
-  queryOp = (<div>查询区域</div>)
+  queryOp = (<div></div>)
 
   operateColumn = {
     title: '操作',

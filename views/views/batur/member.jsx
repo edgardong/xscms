@@ -33,11 +33,12 @@ class BtrMember extends React.Component {
       loadData: null,
       visible: false,
       orderDetail: [],
+      params: {},
     }
   }
 
   componentDidMount() {
-    let loadData = (params) => BaseAPI.getMemberPageList(params)
+    let loadData = () => BaseAPI.getMemberPageList(this.state.params)
     let columns = utils.mergeColumns([...this.columns, this.operateColumn])
     this.setState({
       canshow: true,
@@ -204,7 +205,7 @@ class BtrMember extends React.Component {
   }
 
   loadData = (params) => {
-    return BaseAPI.getList(this.state.model, params)
+    return BaseAPI.getMemberPageList(params)
   }
 
   handleDetial(row) {
@@ -253,23 +254,53 @@ class BtrMember extends React.Component {
     // </Button>
   ]
 
+  handleQuery() {
+    this.refs.table.refreshTable()
+  }
+
+  handelQueryChange = (key, val) => {
+    this.setState({
+      params: {
+        ...this.state.params,
+        [key]: val.target.value,
+      },
+    })
+  }
+
+  handleReset = () => {
+    this.setState({
+      params: {},
+    })
+  }
+
   queryOp = (
     <div>
       <Form layout="inline">
         <Form.Item label="姓名">
-          <Input allowClear></Input>
+          <Input
+            allowClear
+            onChange={(val) => this.handelQueryChange('name', val)}
+          ></Input>
         </Form.Item>
         <Form.Item label="手机号">
-          <Input allowClear></Input>
+          <Input
+            allowClear
+            onChange={(val) => this.handelQueryChange('mobile', val)}
+          ></Input>
         </Form.Item>
-        <Form.Item label="加入时间">
-          <DatePicker.RangePicker allowClear></DatePicker.RangePicker>
+        {/* <Form.Item label="加入时间">
+          <DatePicker.RangePicker
+            onChange={(val) => this.handelQueryChange('inTime', val)}
+            allowClear
+          ></DatePicker.RangePicker>
+        </Form.Item> */}
+        <Form.Item label="">
+          <Button onClick={() => this.handleReset()}>重置</Button>
         </Form.Item>
         <Form.Item label="">
-          <Button>重置</Button>
-        </Form.Item>
-        <Form.Item label="">
-          <Button type="primary">查询</Button>
+          <Button onClick={() => this.handleQuery()} type="primary">
+            查询
+          </Button>
         </Form.Item>
       </Form>
     </div>
@@ -438,14 +469,18 @@ class BtrMember extends React.Component {
                     <List
                       dataSource={JSON.parse(od.snapshot).projects}
                       renderItem={(item, index) => (
-                        <List.Item key={index}>{`${item.name||''} ${item.price} 元`}</List.Item>
+                        <List.Item key={index}>{`${item.name || ''} ${
+                          item.price
+                        } 元`}</List.Item>
                       )}
                     ></List>
 
                     <List
                       dataSource={JSON.parse(od.snapshot).goods}
                       renderItem={(item, index) => (
-                        <List.Item key={index}>{`${item.name||''} ${item.price} 元`}</List.Item>
+                        <List.Item key={index}>{`${item.name || ''} ${
+                          item.price
+                        } 元`}</List.Item>
                       )}
                     ></List>
                   </Collapse.Panel>

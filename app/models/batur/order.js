@@ -6,14 +6,20 @@ const Btrmember = require('./member')
 
 class Btrorder extends BaseModel {
   static async addOrder(data) {
-    let totalPrice = data.projects.reduce(
-      (preValue, current) => Number(preValue) + Number(current.price),
-      0
-    )
-    totalPrice = data.goods.reduce(
-      (preValue, current) => Number(preValue) + Number(current.price),
-      totalPrice
-    )
+    let totalPrice = 0
+    if (data.projects && data.projects.length > 0) {
+      totalPrice = data.projects.reduce(
+        (preValue, current) => Number(preValue) + Number(current.price),
+        0
+      )
+    }
+
+    if (data.goods && data.goods.length > 0) {
+      totalPrice = data.goods.reduce(
+        (preValue, current) => Number(preValue) + Number(current.price),
+        totalPrice
+      )
+    }
 
     let snapshot = JSON.stringify({
       goods: data.goods,
@@ -33,13 +39,18 @@ class Btrorder extends BaseModel {
     await Btrmember.findByPk(data.member).then((member) => {
       return member.decrement('price', { by: totalPrice })
     })
-
-    let goodResult = await BtrorderGoods.bulkCreate(
-      data.goods.map((g) => ({ order: order.id, ...g }))
-    )
-    let projectResult = await BtrorderProject.bulkCreate(
-      data.projects.map((g) => ({ order: order.id, ...g }))
-    )
+    let goodResult
+    if (data.goods && data.goods.length > 0) {
+      goodResult = await BtrorderGoods.bulkCreate(
+        data.goods.map((g) => ({ order: order.id, ...g }))
+      )
+    }
+    let projectResult
+    if (data.projects && data.projects.length > 0) {
+      projectResult = await BtrorderProject.bulkCreate(
+        data.projects.map((g) => ({ order: order.id, ...g }))
+      )
+    }
 
     return {
       order,
@@ -55,13 +66,13 @@ class Btrorder extends BaseModel {
       },
       {
         where: {
-          id:data.id,
+          id: data.id,
         },
       }
     )
 
-     // 修改用户的余额
-     await Btrmember.findByPk(data.member).then((member) => {
+    // 修改用户的余额
+    await Btrmember.findByPk(data.member).then((member) => {
       return member.increment('price', { by: data.price })
     })
 
