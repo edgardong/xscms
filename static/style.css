@@ -56,13 +56,15 @@ a {
 
 .content {
   width: 100%;
-  display: flex;
+  /* display: flex; */
+  padding-top: 30px;
 }
 
 .left-wrapper {
-  width: 72%;
+  float: left;
+  width: 70%;
   margin-right: 15px;
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -74,7 +76,7 @@ a {
 
 .right-wrapper {
   max-width: 270px;
-  flex: 1;
+  display: inline-block;
 }
 
 .right-wrapper .box-card {
@@ -86,4 +88,24 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.post-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.post-content h1{
+  text-align: center;
+}
+
+.post-content img{
+  max-width: 1000px;
+}
+
+.content-wrapper {
+  font-size: 14px;
+}
+
+.content-wrapper p {
+  text-indent: 30px;
 }

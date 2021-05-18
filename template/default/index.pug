@@ -4,11 +4,12 @@ html
     meta(charset='UTF-8')
     include ./includes/styles.pug
     include ./includes/scripts.pug
+    title XSCMS
   body
     #app
       include ./includes/header.pug
       .container
-        include ./includes/content.pug
+        //- include ./includes/content.pug
         //- a(href='/post/2') 新的文章
         //- a(href='/post/3') 再来一篇文章
         .content
@@ -21,7 +22,7 @@ html
                 //- 更多文章部分
                 each post in item.posts
                   .text.postitem.ellipsis
-                    a(href='/'+post.id+'.html' target='_blank') #{post.name}
+                    a(href='/post/'+post.id+'.html' target='_blank') #{post.name}
                 //- 频道部分
                 if item.children && item.children.length>0
                 each children in item.children

@@ -66,9 +66,16 @@ router.get('', async (ctx, next) => {
 
 router.get('post/:id', async (ctx, next) => {
   let hasDist = await fileExist('dist/index.html')
+  // 获取数据库中的栏目
+  const dataModel = await Category.getShowData()
+  // const posts = parseModel2Json(await Category.getMainCategory())
+  // let posts = {}
+  let data = parseModel2Json(dataModel)
+  // let totalRank = parseModel2Json(await Posts.getReadingRank())
+  let detail = await Posts.findByPk(ctx.params.id)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/post.pug', { id: ctx.params.id })
+    await ctx.render('template/default/post.pug', { id: ctx.params.id, data,detail })
   } else {
     ctx.redirect(`/html/${ctx.params.id}.html`)
   }

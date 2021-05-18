@@ -4,10 +4,15 @@ html
     meta(charset='UTF-8')
     include ./includes/styles.pug
     include ./includes/scripts.pug
+    title #{detail.title}-XSCMS
   body
     #app
       include ./includes/header.pug
-      .content 这是第几片文章 #{id}
+      .post-content
+        include ./includes/content.pug
+        h1 #{detail.title}
+        .content-wrapper !{detail.content}
+      //- .content-warpper(v-html='detail.content')
   script.
     new Vue({
       el: '#app',

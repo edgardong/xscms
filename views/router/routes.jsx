@@ -22,6 +22,7 @@ import ArticleList from '@/views/blog/article/articleList'
 import ArticleDetail from '@/views/blog/article/articleDetail'
 import ArticleCategory from '@/views/blog/category/categoryList'
 import BlogBase from '@/views/blog/base'
+import BlogPage from '@/views/blog/page'
 
 const getRoute = (path, component) => ({
   path,
@@ -45,6 +46,7 @@ const routes = [
   getRoute('/blog/article/:id', ArticleDetail), // 博客 - 文章详情
   getRoute('/blog/category', ArticleCategory),  // 博客 - 分类
   getRoute('/blog/base', BlogBase),  // 博客 - 基本信息
+  getRoute('/blog/page', BlogPage),  // 博客 - 基本信息
 
   // 巴图尔健康管理模块
   getRoute('/batur/member', BtrMember),  // 会员信息
