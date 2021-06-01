@@ -64,6 +64,9 @@ router.get('', async (ctx, next) => {
   }
 })
 
+/**
+ * 文章页面
+ */
 router.get('post/:id', async (ctx, next) => {
   let hasDist = await fileExist('dist/index.html')
   // 获取数据库中的栏目
@@ -75,18 +78,59 @@ router.get('post/:id', async (ctx, next) => {
   let detail = await Posts.findByPk(ctx.params.id)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/post.pug', { id: ctx.params.id, data,detail })
+    await ctx.render('template/default/post.pug', {
+      id: ctx.params.id,
+      data,
+      detail,
+    })
   } else {
     ctx.redirect(`/html/${ctx.params.id}.html`)
   }
 })
 
-router.get('/:category', async (ctx, next) => {
+/**
+ * 分类页面
+ */
+router.get('category/:id', async (ctx, next) => {
+  const category = ctx.params.id
+  let hasDist = await fileExist(`dist/category/${category}/index.html`)
+
+  const posts = parseModel2Json(await Posts.getByCategory(category))
+  // let posts = {}
+  // 不存在，使用模版文件，否则访问已存在的文件
+  if (!hasDist) {
+    await ctx.render('template/default/category.pug', {
+      id: ctx.params.id,
+      posts,
+    })
+  } else {
+    ctx.redirect(`/html/${ctx.params.id}.html`)
+  }
+})
+
+/**
+ * 频道页面
+ */
+router.get('/channel/:id', async (ctx, next) => {
   const category = ctx.params.category
   let hasDist = await fileExist(`dist/${category}/index.html`)
   // 不存在，使用模版文件，否则访问已存在的文件
   if (!hasDist) {
-    await ctx.render('template/default/post.pug', { id: ctx.params.id })
+    await ctx.render('template/default/category.pug', { id: ctx.params.id })
+  } else {
+    ctx.redirect(`/html/${ctx.params.id}.html`)
+  }
+})
+
+/**
+ * 单独页面
+ */
+router.get('/pages/:id', async (ctx, next) => {
+  const category = ctx.params.category
+  let hasDist = await fileExist(`dist/${category}/index.html`)
+  // 不存在，使用模版文件，否则访问已存在的文件
+  if (!hasDist) {
+    await ctx.render('template/default/category.pug', { id: ctx.params.id })
   } else {
     ctx.redirect(`/html/${ctx.params.id}.html`)
   }

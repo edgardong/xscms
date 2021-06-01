@@ -12,6 +12,7 @@ const ArticleRelation = require('./article_relations')
 const { pushPost } = require('../../services/push/baidu')
 
 const Tag = require('./tags')
+const Category = require('./category')
 
 class Article extends BaseModel {
   static async getPaginationArticle(params) {
@@ -114,6 +115,36 @@ class Article extends BaseModel {
       // console.log('lailezheleil', params)
       return await Article.getPaginationArticle(params)
     }
+  }
+
+  static async getByCategory(category) {
+    const PostCategory = require('../../models/blog/category_posts')
+    const cData = await PostCategory.findAll({
+      attributes: {
+        include: ['category_id', 'post_id'],
+      },
+      where: { code: category },
+    })
+    const cId = cData.id
+
+    const postIds = (
+      await PostCategory.findAll({
+        where: {
+          category_id: cId,
+        },
+      })
+    ).map((p) => p.post_id)
+
+    let where = {
+      status: 0,
+      type: 0,
+      id: {
+        [Op.in]: postIds,
+      },
+    }
+
+    const result = await getPaginationList({}, Article, where)
+    return result
   }
 
   static async getReadingRank(params) {

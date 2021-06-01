@@ -3,13 +3,29 @@
     el-menu(:default-active='activeIndex' mode='horizontal' @select='handleSelect')
       el-menu-item(index='main' href='/')
         a(href='/' ) 首页
+        //- 1:栏目， 2:频道，3:链接 4:单页
       each item in data
         if item.children && item.children.length<=0
           el-menu-item(index=item.key href= item.code)
-            a(href= item.code target='_blank') #{item.title}
+            if item.type == 1
+              a(href='/category/'+ item.code target='_blank') #{item.title}
+            else if item.type == 2
+              a(href='/channel/'+ item.code target='_blank') #{item.title}
+            else if item.type == 3
+              a(href= item.code target='_blank') #{item.title}
+            if item.type == 4
+              a(href='/pages/'+ item.code target='_blank') #{item.title}
         else
           el-submenu(index=item.key)
             template(slot='title') #{item.title}
             each sub in item.children
               el-menu-item(index=sub.key )
-                a(href= sub.code target='_blank') #{sub.title}
+                //- a(href= sub.code target='_blank') #{sub.title}
+                if sub.type == 1
+                  a(href='/category/'+ sub.code target='_blank') #{sub.title}
+                else if sub.type == 2
+                  a(href='/channel/'+ sub.code target='_blank') #{sub.title}
+                else if sub.type == 3
+                  a(href= sub.code target='_blank') #{sub.title}
+                if sub.type == 4
+                  a(href='/pages/'+ sub.code target='_blank') #{sub.title}

@@ -18,8 +18,16 @@ html
               el-card.box-card
                 .clearfix(slot='header')
                   span #{item.name}
-                  a(href= item.code style='float: right;') 查看更多
+                  if item.type==1
+                    a(href= '/category/'+ item.code style='float: right;') 查看更多
+                  else if item.type==2
+                    a(href= '/channel/'+ item.code style='float: right;') 查看更多
+                  else if item.type==4
+                    a(href= '/pages/'+ item.code style='float: right;') 查看更多
+                  else
+                    a(href= '/link/'+ item.code style='float: right;') 查看更多
                 //- 更多文章部分
+                //- 1:栏目， 2:频道，3:链接 4:单页
                 each post in item.posts
                   .text.postitem.ellipsis
                     a(href='/post/'+post.id+'.html' target='_blank') #{post.name}
@@ -27,14 +35,14 @@ html
                 if item.children && item.children.length>0
                 each children in item.children
                   .text.postitem
-                    a(href= children.code) #{children.name}
+                    a(href= '/category/'+children.code) #{children.name}
           .right-wrapper
             el-card.box-card
               .clearfix(slot='header')
                 span 阅读总榜
               each item in totalRank
                 .text.postitem.ellipsis
-                  a(href='/'+item.id+'.html' target='_blank') #{item.name}
+                  a(href='/post/'+item.id+'.html' target='_blank') #{item.name}
             el-card.box-card
               .clearfix(slot='header')
                 span 阅读本月榜
