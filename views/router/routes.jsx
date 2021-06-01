@@ -4,18 +4,9 @@ import UserList from '@/views/system/users/userList'
 import Menu from '@/views/system/menu'
 import Role from '@/views/system/role'
 import Permission from '@/views/system/permission'
-import CategoryList from '@/views/mall/categoryList'
-import GoodsList from '@/views/mall/goodsList'
-import OrderList from '@/views/mall/orderList'
 import NotFound from '@/views/system/core/NotFound'
 
 import SystemBase from '@/views/system/base'
-
-
-import BtrMember from '@/views/batur/member'
-import BtrOrder from '@/views/batur/order'
-import BtrProject from '@/views/batur/project'
-import BtrGoods from '@/views/batur/goods'
 
 // 博客模块
 import ArticleList from '@/views/blog/article/articleList'
@@ -47,12 +38,6 @@ const routes = [
   getRoute('/blog/category', ArticleCategory),  // 博客 - 分类
   getRoute('/blog/base', BlogBase),  // 博客 - 基本信息
   getRoute('/blog/page', BlogPage),  // 博客 - 基本信息
-
-  // 巴图尔健康管理模块
-  getRoute('/batur/member', BtrMember),  // 会员信息
-  getRoute('/batur/order', BtrOrder),  // 消费信息
-  getRoute('/batur/project', BtrProject),  // 项目信息
-  getRoute('/batur/goods', BtrGoods),  // 商品信息
 
   // 基础操作模块
   getRoute('/base/:module', SystemBase),

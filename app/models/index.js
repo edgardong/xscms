@@ -7,12 +7,6 @@ const CategoryPosts = require('./blog/category_posts')
 const Category = require('./blog/category')
 const Tag = require('./blog/tags')
 
-const BtrorderProject = require('./batur/order_project')
-const BtrorderGoods = require('./batur/order_goods')
-const Btrmember = require('./batur/member')
-const Btrorder = require('./batur/order')
-const Btrgood = require('./batur/goods')
-const Btrproject = require('./batur/project')
 
 /**
  * 初始化表格之间的关系
@@ -47,30 +41,6 @@ function init() {
     foreignKey: 'post_id',
     otherKey: 'tag_id',
     constraints: false,
-  })
-
-  Btrorder.belongsTo(Btrmember, {
-    foreignKey: 'member'
-  })
-
-  BtrorderGoods.belongsTo(Btrorder, {
-  })
-  Btrorder.hasMany(BtrorderGoods,{
-    foreignKey:'order'
-  })
-
-  BtrorderProject.belongsTo(Btrorder,{
-  })
-  Btrorder.hasMany(BtrorderProject,{
-    foreignKey:'order'
-  })
-
-  Btrgood.belongsTo(BtrorderGoods, {
-    otherKey: 'goods',
-  })
-
-  Btrproject.belongsTo(BtrorderProject, {
-    otherKey: 'project',
   })
 }
 
