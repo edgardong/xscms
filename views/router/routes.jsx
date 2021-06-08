@@ -28,9 +28,9 @@ const routes = [
   getRoute('/system/role', Role), // 系统 - 角色
   getRoute('/system/permission', Permission), // 系统 - 权限
   getRoute('/system/notFound', NotFound), // 系统 - 404页面
-  getRoute('/mall/category', CategoryList), // 商城 - 分类
-  getRoute('/mall/goods', GoodsList), // 商城 - 商品
-  getRoute('/mall/order', OrderList), // 商城 - 订单
+  // getRoute('/mall/category', CategoryList), // 商城 - 分类
+  // getRoute('/mall/goods', GoodsList), // 商城 - 商品
+  // getRoute('/mall/order', OrderList), // 商城 - 订单
 
   // 博客模块路由
   getRoute('/blog/article', ArticleList),  // 博客 - 文章列表
