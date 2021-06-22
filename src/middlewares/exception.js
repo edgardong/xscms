@@ -1,6 +1,4 @@
-const {
-  WecException
-} = require('../wec-tools')
+import { WecException } from '../wec-tools'
 
 const catchError = async (ctx, next) => {
   try {
@@ -23,7 +21,7 @@ const catchError = async (ctx, next) => {
       ctx.status = error.code
     } else {
       ctx.body = {
-        msg: 'we made a mistake',
+        msg: 'We made a mistake',
         error_code: 50001,
         request: `${ctx.method} ${ctx.path}`
       }
@@ -32,4 +30,4 @@ const catchError = async (ctx, next) => {
   }
 }
 
-module.exports = catchError
+export default catchError

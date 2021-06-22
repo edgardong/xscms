@@ -1,6 +1,6 @@
 const {
   WecException
-} = require('../wec-tools')
+} = require('../../wec-tools')
 class WecHttpException extends WecException {
   constructor(msg = '服务器错误', errorCode = 10000, code = 200) {
     super()

@@ -1,5 +1,5 @@
-const basicAuth = require('basic-auth')
-const jwt = require('jsonwebtoken')
+import basicAuth from 'basic-auth'
+import { verify } from 'jsonwebtoken'
 
 class Auth {
 
@@ -20,7 +20,7 @@ class Auth {
       }
       let decode = {}
       try {
-        decode = jwt.verify(userToken.name, global.config.security.secretKey)
+        decode = verify(userToken.name, global.config.security.secretKey)
         // decode = jwt.verify(`${userToken.name}:${userToken.pass}`, global.config.security.secretKey)
       } catch (error) {
         if (error.name == 'TokenExpiredError') {
@@ -46,7 +46,7 @@ class Auth {
 
   static verifyToken(token) {
     try {
-      jwt.verify(token, global.config.security.secretKey)
+      verify(token, global.config.security.secretKey)
     } catch (error) {
       return false
     }
@@ -54,6 +54,6 @@ class Auth {
   }
 }
 
-module.exports = {
+export default {
   Auth
 }

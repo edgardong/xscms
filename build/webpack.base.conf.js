@@ -47,6 +47,7 @@ module.exports = {
           },
         },
       },
+      { test: /\.ts$/, exclude: /node_modules/, use: ['ts-loader'] },
       {
         test: /\.css|less$/,
         use: ExtractTextPlugin.extract({
@@ -77,7 +78,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.scss', '.styl'],
+    extensions: ['.js', '.jsx', '.ts', '.scss', '.styl'],
     alias: {
       '@': path.join(__dirname, '../views'),
     },
