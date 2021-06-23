@@ -64,4 +64,4 @@ class InitManager {
   }
 }
 
-module.exports = InitManager
+export default InitManager

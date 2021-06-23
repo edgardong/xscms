@@ -5,6 +5,7 @@
     "target": "es2017",
     "moduleResolution": "node",
     "outDir": "./dist",
+    "allowJs": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
     "experimentalDecorators": true,
@@ -14,6 +15,6 @@
     "./src/**/*"
   ],
   "exclude": [
-    "./dist"
+    "node_modules"
   ]
 }

@@ -7,7 +7,7 @@ module.exports = {
   },
   database: {
     dbType: 'mysql',
-    dbName: 'xs-cms',
+    dbName: 'xscms-1',
     host: 'localhost',
     port: 3306,
     user: 'root',

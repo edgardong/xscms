@@ -1,4 +1,4 @@
-import { WecException } from '../wec-tools'
+import { WecException } from '../../wec-tools'
 
 const catchError = async (ctx, next) => {
   try {

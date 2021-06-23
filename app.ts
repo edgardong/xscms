@@ -6,8 +6,8 @@ import * as koaStatic from 'koa-static'
 import * as views from 'koa-views'
 import * as koaBody from 'koa-body'
 
-import catchError from './src/middlewares/exception';
-import InitManager from './src/core/init';
+import catchError from './src/middlewares/exception'
+import InitManager from './src/core/init'
 const app = new Koa()
 
 app.use(async (ctx, next) => {
