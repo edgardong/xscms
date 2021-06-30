@@ -2,9 +2,7 @@
 
 ### 说明
 
-<!-- typeorm/ -->
-
-基于``koa2`` ``sequelize``开发的CMS管理系统
+基于``koa2`` ``typeorm``开发的CMS管理系统
 
 使用[wec-tools](https://www.quzhaota.cn/)工具类
 
@@ -27,7 +25,6 @@
 ├── LICENSE                 项目许可证文件
 ├── README.md               项目说明文件
 ├── app.js                  系统入口文件
-├── index.js                系统入口文件(测试ES6)
 ├── package-lock.json       依赖版本锁定文件
 ├── package.json            项目依赖文件
 ├── pm2.conf.json           pm2配置文件
@@ -52,3 +49,6 @@ TODO LIST
 - [ ] 系统自动安装功能
 - [ ] 提供用户注册功能，多用户发布文章
 - [ ] 提供投稿功能
+
+
+#### 使用``TypeScript``+``Typeorm``重构项目
