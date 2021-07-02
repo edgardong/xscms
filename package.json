@@ -9,7 +9,8 @@
     "start": "concurrently \"npm run admin\"  \"npm run dev\"",
     "admin": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.conf.js",
-    "report": "npm run build --report"
+    "report": "npm run build --report",
+    "log": "conventional-changelog -p custom-config -i CHANGELOG.md -n ./changelog-option.js"
   },
   "keywords": [
     "koa2",
@@ -92,6 +93,8 @@
     "clean-webpack-plugin": "^2.0.1",
     "compression-webpack-plugin": "^1.1.12",
     "concurrently": "^6.0.0",
+    "conventional-changelog": "^3.1.24",
+    "conventional-changelog-custom-config": "^0.3.1",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",

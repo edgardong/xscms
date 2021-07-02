@@ -51,4 +51,4 @@ TODO LIST
 - [ ] 提供投稿功能
 
 
-#### 使用``TypeScript``+``Typeorm``重构项目
+#### 使用``TypeScript``+``Typeorm``重构整个项目
