@@ -2,7 +2,7 @@
   "name": "xs-cms",
   "version": "1.0.0",
   "description": "A cms system based on koa2 & koa-router",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
     "dev": "nodemon app.ts",
     "prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json",
@@ -10,7 +10,7 @@
     "admin": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.conf.js",
     "report": "npm run build --report",
-    "log": "conventional-changelog -p custom-config -i CHANGELOG.md -n ./changelog-option.js"
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 -n ./changelog-option.js"
   },
   "keywords": [
     "koa2",

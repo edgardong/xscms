@@ -61,7 +61,6 @@ router.post('/user', async (ctx, next) => {
  */
 router.post('/verify', async (ctx, next) => {
   const v = await new NotEmptyValidator().validate(ctx)
-  console.log('我来教研token了', v)
   const result = Auth.verifyToken(v.token)
   ctx.body = {
     result,

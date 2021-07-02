@@ -41,18 +41,13 @@ app.use(
   })
 )
 
+InitManager.initCore(app)
+
 /**
  * 设置静态资源目录
  */
-app.use(
-  koaStatic('template'
-    // { dir: 'template', router: '/' },
-    // { dir: 'admin', router: '/admin' },
-    // { dir: 'static', router: '/static' },
-    // { dir: 'dist', router: '/html' },
-  )
-)
-
-InitManager.initCore(app)
+app.use(koaStatic(__dirname + '/static'))
+app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(__dirname + '/admin'))
 
 app.listen(8030)

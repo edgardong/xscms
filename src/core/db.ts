@@ -53,8 +53,6 @@ function initDB() {
     dbName: 'xscms1'
   }
 
-  console.log(__dirname)
-
   createConnection({
     type: 'mysql',
     host: database.host,
@@ -62,7 +60,7 @@ function initDB() {
     username: database.user,
     password: database.password,
     database: database.dbName,
-    logging: true,
+    logging: false,
     entities: [path.join(__dirname, "../app/entity/user.ts")],
     synchronize: true,
   }).then((connection) => {

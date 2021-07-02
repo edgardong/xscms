@@ -7,8 +7,7 @@ declare global {
   }
 }
 
-
-import * as Router from 'koa-router'
+import KoaRouter from '../app/api/Router'
 import * as requireDirectory from 'require-directory'
 import { Model } from '../app/models/baseModel'
 import { createDB, initDB } from './db'
@@ -31,9 +30,10 @@ class InitManager {
     const modelDirectory = `${process.cwd()}/src/app/entity`
     requireDirectory(module, modelDirectory, {
       visit: whenLoadModel,
+      extensions: ['ts']
     })
 
-    function whenLoadModel(obj) {
+    function whenLoadModel(obj: { prototype: any; initData: () => any }) {
       if (obj && obj.prototype && obj.prototype instanceof Model) {
         // console.log('到这里来了', obj.name)
         obj.initData && obj.initData()
@@ -52,16 +52,33 @@ class InitManager {
    */
   static initLoadRouters() {
     // api directory absolute path
-    const apiDirectory = `${process.cwd()}/src/app/api`
-    requireDirectory(module, apiDirectory, {
-      visit: whenLoadModule,
-    })
+    // const apiDirectory = `${process.cwd()}/src/app/api/router`
+    // requireDirectory(module, apiDirectory, {
+    //   visit: whenLoadModule,
+    // })
+    // function whenLoadModule(obj: { routes: () => any }) {
+    //   // console.log('whenLoadModule', obj)
+    //   if (obj instanceof Router) {
+    //     InitManager.app.use(obj.routes())
+    //   }
+    // }
 
-    function whenLoadModule(obj) {
-      if (obj instanceof Router) {
-        InitManager.app.use(obj.routes())
-      }
-    }
+
+    const apiDirectory = `${process.cwd()}/src/app/api/router/`
+    requireDirectory(module, apiDirectory, {
+      visit: (obj: { routes: () => any, default: KoaRouter }) => {
+        if (obj.default instanceof KoaRouter) {
+          InitManager.app.use(obj.default.routes())
+        }
+      },
+      extensions: ['ts']
+    })
+    // function whenLoadModule(obj: { routes: () => any }) {
+    //   // console.log('whenLoadModule', obj)
+    //   if (obj instanceof Router) {
+    //     InitManager.app.use(obj.routes())
+    //   }
+    // }
   }
 
   static loadHttpException() {

@@ -2,6 +2,7 @@ import WecRule from '../rule'
 import WecException from '../exception'
 import validator from 'validator'
 
+
 // 方法名前缀
 const prefix = 'validate'
 /**

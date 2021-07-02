@@ -1,4 +1,4 @@
-import Router from 'koa-router'
+import * as Router from 'koa-router'
 
 import { PaginationValidator, PositiveIntegerValidator, WecValidator } from '../validators/validator'
 
