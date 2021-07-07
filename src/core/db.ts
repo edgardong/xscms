@@ -1,3 +1,11 @@
+/*
+ * @Author: yishusheng
+ * @Date: 2021-04-13 18:40:20
+ * @version: 1.0.0
+ * @LastEditTime: 2021-07-07 15:27:18
+ * @LastEditors: yishusheng
+ * @Description: 数据库连接操作文件
+ */
 import { createConnection } from 'typeorm'
 // import config1 from '../config/config'
 import * as path from 'path'
@@ -61,7 +69,7 @@ function initDB() {
     password: database.password,
     database: database.dbName,
     logging: false,
-    entities: [path.join(__dirname, "../app/entity/user.ts")],
+    entities: [path.join(__dirname, "../app/entity/*.ts")],
     synchronize: true,
   }).then((connection) => {
     // 这里可以写实体操作相关的代码

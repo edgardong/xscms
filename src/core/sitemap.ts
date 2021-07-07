@@ -1,6 +1,14 @@
-const fs = require('fs')
-const path = require('path')
-const config = require('../config/config.ts')
+/*
+ * @Author: yishusheng
+ * @Date: 2021-03-26 18:12:00
+ * @version: 1.0.0
+ * @LastEditTime: 2021-07-07 15:41:04
+ * @LastEditors: yishusheng
+ * @Description: 生成站点地图文件
+ */
+import * as fs from 'fs'
+import * as path from 'path'
+import config from '../config/config'
 
 let baiduxml = `<?xml version="1.0" encoding="UTF-8"?><urlset>$0</urlset>`
 
@@ -36,12 +44,12 @@ let sitemapurl = `
 </sitemap>`
 
 
-const generatetSitemap = (datas) => {
+const generatetSitemap = (datas: { id: string; time: string }[]) => {
   let baiduTmpXml = baiduxml
   let googleTmpXml = googlexml
 
   let xmls = ''
-  datas.forEach(data => {
+  datas.forEach((data: { id: string; time: string }) => {
     xmls += xml.replace('$0', config.blog.host + data.id + '.html').replace('$1', data.time)
   });
 
@@ -70,4 +78,4 @@ const generatetSitemap = (datas) => {
 
 }
 
-module.exports = generatetSitemap
+export default generatetSitemap

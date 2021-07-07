@@ -1,6 +1,6 @@
 {
   "name": "xs-cms",
-  "version": "1.0.0",
+  "version": "1.0.01",
   "description": "A cms system based on koa2 & koa-router",
   "main": "app.ts",
   "scripts": {

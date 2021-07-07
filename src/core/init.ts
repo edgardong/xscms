@@ -1,3 +1,11 @@
+/*
+ * @Author: yishusheng
+ * @Date: 2021-04-13 18:40:20
+ * @version: 1.0.0
+ * @LastEditTime: 2021-07-07 15:08:29
+ * @LastEditors: yishusheng
+ * @Description: 项目初始化文件
+ */
 declare global {
   namespace NodeJS {
     interface Global {
@@ -25,26 +33,26 @@ class InitManager {
     initDB()
   }
 
-  // static initEntity() {
-  //   const modelDirectory = `${process.cwd()}/src/app/entity`
-  //   requireDirectory(module, modelDirectory, {
-  //     visit: whenLoadModel,
-  //     extensions: ['ts']
-  //   })
+  static initEntity() {
+    const modelDirectory = `${process.cwd()}/src/app/entity`
+    requireDirectory(module, modelDirectory, {
+      visit: whenLoadModel,
+      extensions: ['ts']
+    })
 
-  //   function whenLoadModel(obj: { prototype: any; initData: () => any }) {
-  //     if (obj && obj.prototype && obj.prototype instanceof Model) {
-  //       // console.log('到这里来了', obj.name)
-  //       obj.initData && obj.initData()
-  //     }
-  //   }
+    function whenLoadModel(obj: { prototype: any; initData: () => any }) {
+      // if (obj && obj.prototype && obj.prototype instanceof Model) {
+      //   // console.log('到这里来了', obj.name)
+      //   obj.initData && obj.initData()
+      // }
+    }
 
-  //   // console.log('执行完毕了')
+    // console.log('执行完毕了')
 
-  //   const relations = require('../app/models/index')
-  //   relations.init && relations.init()
+    // const relations = require('../app/models/index')
+    // relations.init && relations.init()
 
-  // }
+  }
 
   /**
    * init All routers
