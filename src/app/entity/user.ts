@@ -2,7 +2,7 @@
  * @Author: yishusheng
  * @Date: 2021-06-30 14:01:03
  * @version: 1.0.0
- * @LastEditTime: 2021-07-07 15:01:23
+ * @LastEditTime: 2021-07-07 17:04:49
  * @LastEditors: yishusheng
  * @Description: 用户实体
  */
@@ -11,7 +11,7 @@ import * as bcrypt from 'bcryptjs'
 import { Entity, Column, BeforeUpdate } from 'typeorm';
 import EntityBase from '.';
 
-@Entity({ name: 'xs_user', })
+@Entity({ name: 'xs_sys_user', })
 export class User extends EntityBase {
 
   @Column({ comment: '用户角色id集' })

@@ -1,3 +1,12 @@
+/*
+ * @Author: yishusheng
+ * @Date: 2021-03-26 18:13:07
+ * @version: 1.0.0
+ * @LastEditTime: 2021-07-07 18:34:36
+ * @LastEditors: yishusheng
+ * @Description: 项目入口文件
+ */
+
 import "reflect-metadata"
 import * as Koa from 'koa'
 import * as xmlParser from 'koa-xml-body'
@@ -48,6 +57,6 @@ InitManager.initCore(app)
  */
 app.use(koaStatic(__dirname + '/static'))
 app.use(koaStatic(__dirname + '/public'))
-// app.use(koaStatic(__dirname + '/admin'))
+app.use(koaStatic(__dirname + '/admin'))
 
 app.listen(8030)

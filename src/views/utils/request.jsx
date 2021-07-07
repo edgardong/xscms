@@ -1,7 +1,16 @@
+/*
+ * @Author: yishusheng
+ * @Date: 2021-04-25 10:39:56
+ * @version: 1.0.0
+ * @LastEditTime: 2021-07-07 18:04:36
+ * @LastEditors: yishusheng
+ * @Description: HTTP请求模块拦截器
+ */
+
 import React from 'react'
 import axios from 'axios'
 import { Spin, Icon } from 'antd'
-import BaseConfig from '../../config'
+import BaseConfig from '../../config/index'
 import store from '../app'
 import { Base64 } from 'js-base64'
 

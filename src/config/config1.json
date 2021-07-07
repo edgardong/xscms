@@ -1,0 +1,282 @@
+{
+  "tables": [],
+  "prefix": "xs_sys_",
+  "models": [{
+      "enable": true,
+      "name": "operate",
+      "className": "Operate",
+      "text": "操作类型",
+      "comment": "操作类型配置模块",
+      "attrs": {
+        "comment": {
+          "type": "STRING",
+          "label": "说明",
+          "required": true,
+          "show": ["list", "edit", "detail"],
+          "comment": "说明"
+        }
+      }
+    },
+    {
+      "enable": true,
+      "name": "department",
+      "prefix": "xs_sys_",
+      "className": "Department",
+      "text": "系统部门",
+      "comment": "操作类型配置模块",
+      "relations": [{
+        "type": "hasMany",
+        "content": {
+          "name": "department",
+          "className": "Department",
+          "options": {
+            "foreignKey": "pid",
+            "targetKey": "id",
+            "as": "children"
+          }
+        }
+      }],
+      "attrs": {
+        "comment": {
+          "type": "STRING",
+          "label": "说明",
+          "required": true,
+          "show": ["list", "edit", "detail"],
+          "comment": "说明"
+        },
+        "pid": {
+          "type": "INTEGER",
+          "lable": "上级部门",
+          "data": "treeselect",
+          "simpleMode": false,
+          "dataType": "department",
+          "required": true,
+          "show": ["list", "edit", "detail"],
+          "comment": "上级部门"
+        }
+      }
+    },
+    {
+      "enable": true,
+      "name": "organization",
+      "prefix": "xs_sys_",
+      "className": "Organization",
+      "text": "系统组织",
+      "comment": "系统组织模块",
+      "attrs": {
+        "comment": {
+          "type": "STRING",
+          "label": "描述",
+          "required": false,
+          "show": ["list", "edit", "detail"],
+          "comment": "对组织的说明"
+        },
+        "type": {
+          "type": "STRING",
+          "label": "类型",
+          "show": ["list", "edit", "detail"],
+          "comment": "类型"
+        }
+      }
+    },
+    {
+      "enable": true,
+      "name": "xyorder",
+      "prefix": "xs_sys_",
+      "className": "Xyorder",
+      "text": "咸鱼订单",
+      "comment": "针对咸鱼的订单处理",
+      "attrs": {
+        "user": {
+          "type": "STRING",
+          "label": "用户",
+          "listWidth": 100,
+          "show": ["list", "edit", "detail"],
+          "comment": "下单的人"
+        },
+        "order_status": {
+          "type": "INTEGER",
+          "label": "订单状态",
+          "data": "select",
+          "listWidth": 100,
+          "dataOptions": [{
+              "id": 0,
+              "name": "已下单",
+              "color": "#DC143C"
+            },
+            {
+              "id": 1,
+              "name": "已发货",
+              "color": "#0000FF"
+            },
+            {
+              "id": 2,
+              "name": "已收货",
+              "color": "#00BFFF"
+            },
+            {
+              "id": 3,
+              "name": "已完成",
+              "color": "#008000"
+            },
+            {
+              "id": 4,
+              "name": "已取消",
+              "color": "#FF0000"
+            },
+            {
+              "id": 5,
+              "name": "已签收",
+              "color": "#4472c4"
+            }
+          ],
+          "show": ["list", "edit", "detail"],
+          "comment": "0:已下单 1:已发货 2:已收货 3:已完成 4:已取消"
+        },
+        "buy_user": {
+          "type": "STRING",
+          "label": "购买人",
+          "listWidth": 100,
+          "show": ["list", "edit", "detail"],
+          "comment": "购买人"
+        },
+        "mobile": {
+          "type": "STRING",
+          "label": "用户电话",
+          "show": ["list", "edit", "detail"],
+          "comment": "下单人的联系电话"
+        },
+        "address": {
+          "type": "STRING",
+          "label": "联系地址",
+          "ellipsis": true,
+          "show": ["list", "edit", "detail"],
+          "comment": "联系地址"
+        },
+        "name": {
+          "type": "STRING",
+          "label": "产品名称",
+          "show": ["list", "edit", "detail"],
+          "comment": "购买产品"
+        },
+        "type": {
+          "type": "INTEGER",
+          "label": "类型",
+          "show": ["list", "edit", "detail"],
+          "comment": "订单类型",
+          "data": "select",
+          "listWidth": 100,
+          "defaultValue": 1,
+          "dataOptions": [{
+              "id": 1,
+              "name": "咸鱼",
+              "color": "#DC143C"
+            },
+            {
+              "id": 2,
+              "name": "转转",
+              "color": "#0000FF"
+            },
+            {
+              "id": 3,
+              "name": "朋友圈",
+              "color": "#0099FF"
+            }
+          ]
+        },
+        "date": {
+          "type": "DATE",
+          "label": "下单日期",
+          "data": "datetime",
+          "show": ["list", "edit", "detail"],
+          "comment": "下单的日期"
+        },
+        "send_time": {
+          "type": "DATE",
+          "data": "datetime",
+          "label": "发货日期",
+          "show": ["list", "edit", "detail"],
+          "comment": "发货日期"
+        },
+        "receive_time": {
+          "type": "DATE",
+          "data": "datetime",
+          "label": "收货日期",
+          "show": ["list", "edit", "detail"],
+          "comment": "收货日期"
+        },
+        "price": {
+          "type": "DOUBLE",
+          "label": "订单价格",
+          "listWidth": 90,
+          "show": ["list", "edit", "detail"],
+          "comment": "订单价格"
+        },
+        "my_price": {
+          "type": "DOUBLE",
+          "label": "下单价格",
+          "show": ["list", "edit", "detail"],
+          "comment": "订单价格",
+          "listWidth": 90
+        },
+        "profix": {
+          "type": "DOUBLE",
+          "label": "利润",
+          "listWidth": 70,
+          "show": ["list"],
+          "comment": "我的利润"
+        },
+        "sysh_profix": {
+          "type": "DOUBLE",
+          "label": "生于生活返利",
+          "show": ["list", "edit", "detail"],
+          "comment": "生于生活返利",
+          "listWidth": 120
+        },
+        "other_profix": {
+          "type": "DOUBLE",
+          "label": "其他返利",
+          "show": ["list", "edit", "detail"],
+          "comment": "其他返利，主要为淘宝"
+        },
+        "comment": {
+          "type": "STRING",
+          "label": "快递单号",
+          "required": false,
+          "show": ["list", "edit", "detail"],
+          "comment": "快递单号"
+        },
+        "code": {
+          "type": "STRING",
+          "label": "买家昵称",
+          "required": false,
+          "show": ["list", "edit", "detail"],
+          "comment": "咸鱼账号",
+          "listWidth": 160
+        },
+        "order_no": {
+          "type": "STRING",
+          "label": "订单编号",
+          "required": false,
+          "show": ["list", "edit", "detail"],
+          "comment": "订单编号",
+          "listWidth": 160
+        },
+        "alipay_no": {
+          "type": "STRING",
+          "label": "支付宝交易号",
+          "required": false,
+          "show": ["list", "edit", "detail"],
+          "comment": "支付宝交易号",
+          "listWidth": 160
+        },
+        "remark": {
+          "type": "STRING",
+          "label": "备注",
+          "show": ["list", "edit", "detail"],
+          "comment": "订单备注"
+        }
+      }
+    }
+  ]
+}

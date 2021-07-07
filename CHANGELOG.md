@@ -1,4 +1,4 @@
-# 1.0.0 (2021-07-07)
+## 1.0.1 (2021-07-07)
 
 
 ### ✨ Features | 新功能
@@ -12,6 +12,7 @@
 
 ### 🐛 Bug Fixes | Bug 修复
 
+* 修复初始化报错的问题 ([](https://github.com/edgardong/xscms/commit/bce195b))
 * 调整数据库信息 ([](https://github.com/edgardong/xscms/commit/47a58fd))
 
 

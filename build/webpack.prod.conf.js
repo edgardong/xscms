@@ -6,7 +6,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 // const config = require('../config')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { FileManager } = require('less')
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 // if (config.bundleAnalyzerReport) {
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin

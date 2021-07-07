@@ -4,7 +4,7 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   entry: {
-    app: './views/app.jsx',
+    app: './src/views/app.jsx',
     vendor: [
       'react',
       'react-dom',
@@ -20,9 +20,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'template/admin/index.html',
+      template: './src/template/admin/index.html',
       filename: 'index.html',
-      favicon: './template/admin/favicon.ico',
+      favicon: './src/template/admin/favicon.ico',
     }),
     new webpack.optimize.SplitChunksPlugin({
       chunks: 'async',
@@ -47,7 +47,7 @@ module.exports = {
           },
         },
       },
-      { test: /\.ts$/, exclude: /node_modules/, use: ['ts-loader'] },
+      { test: /\.ts$/, exclude: /node_modules/, include: [path.resolve(__dirname, "src/views"),], use: ['ts-loader'] },
       {
         test: /\.css|less$/,
         use: ExtractTextPlugin.extract({
@@ -80,7 +80,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.scss', '.styl'],
     alias: {
-      '@': path.join(__dirname, '../views'),
+      '@': path.join(__dirname, '../src/views'),
     },
   },
 }

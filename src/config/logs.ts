@@ -1,4 +1,15 @@
-var path = require('path')
+/*
+ * @Author: yishusheng
+ * @Date: 2021-03-26 18:12:00
+ * @version: 1.0.0
+ * @Email: 2535615874@qq.com
+ * @Github: https://github.com/edgardong
+ * @LastEditTime: 2021-07-07 18:09:26
+ * @LastEditors: yishusheng
+ * @Description: 日志记录类
+ */
+
+import * as path from 'path'
 
 //日志根目录
 var baseLogPath = path.resolve(__dirname, '../logs')
@@ -21,7 +32,7 @@ var handlePath = '/handle'
 var handleFileName = 'handle'
 var handleLogPath = baseLogPath + handlePath + '/' + handleFileName
 
-module.exports = {
+export default {
   //日志格式等设置
   appenders: {
     'rule-console': { type: 'console' },

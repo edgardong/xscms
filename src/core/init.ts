@@ -2,15 +2,15 @@
  * @Author: yishusheng
  * @Date: 2021-04-13 18:40:20
  * @version: 1.0.0
- * @LastEditTime: 2021-07-07 15:08:29
+ * @LastEditTime: 2021-07-07 17:41:02
  * @LastEditors: yishusheng
  * @Description: 项目初始化文件
  */
 declare global {
   namespace NodeJS {
     interface Global {
-      config,
-      errs
+      config: { miniProgram: { loginUrl: any; appid: any; appSecret: any }; pay: { wechat: { mch_id: any; mch_key: any; notify_url: any } }; security: { secretKey: Secret; expiresIn: any }; enviroment: string },
+      errs: { AuthFailed: new (arg0: string) => any; Forbidden: new (arg0: string | undefined) => any }
     }
   }
 }
@@ -19,6 +19,7 @@ import KoaRouter from '../app/api/Router'
 import * as requireDirectory from 'require-directory'
 // import { Model } from '../app/models/baseModel'
 import { createDB, initDB } from './db'
+import { Secret } from 'jsonwebtoken'
 
 class InitManager {
   static app: any
@@ -29,7 +30,6 @@ class InitManager {
     InitManager.initAPIs()
     InitManager.loadHttpException()
     InitManager.loadConfig()
-
     initDB()
   }
 
@@ -74,7 +74,7 @@ class InitManager {
   /**
    * init All routers
    */
-   static initAPIs() {
+  static initAPIs() {
 
     const apiDirectory = `${process.cwd()}/src/app/api/`
     requireDirectory(module, apiDirectory, {

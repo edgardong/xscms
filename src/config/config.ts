@@ -29,6 +29,7 @@ export default {
     // 一定要加上最后的/
     host: 'http://localhost:8000/',
   },
+  host: 'http://localhost',
   security: {
     secretKey: 'edgarhao.cn',
     // expiresIn: 60 * 60 * 24 * 30

@@ -2,7 +2,7 @@
  * @Author: yishusheng
  * @Date: 2021-06-23 09:13:58
  * @version: 1.0.0
- * @LastEditTime: 2021-07-07 15:19:46
+ * @LastEditTime: 2021-07-07 17:04:06
  * @LastEditors: yishusheng
  * @Description: 网站基本信息实体
  */
@@ -35,4 +35,16 @@ export class XsSite extends EntityBase {
 
   @Column({ type: "text", comment: '底部信息' })
   footer: string;
+
+  @Column({comment:'ico图标地址'})
+  ico:string;
+
+  @Column({comment:'百度统计的key'})
+  baidu_tongji:string;
+
+  @Column({comment:'Bing推送的key'})
+  bing_push:string;
+
+  @Column({comment:'谷歌统计的key'})
+  google_tongji:string;
 }
