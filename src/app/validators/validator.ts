@@ -1,5 +1,5 @@
 import WecValidator, { WecRule } from '../../../wec-tools'
-import User from '../models/user'
+// import User from '../models/user'
 
 import { LoginType, PayType } from '../lib/enum'
 
@@ -84,16 +84,16 @@ class WecRegisterValidator extends WecValidator {
 
   async validateEmail(vals) {
     const email = vals.email
-    const user = await User.findOne({
-      where: {
-        email
-      }
-    })
-    if (user) {
-      throw new Error('Email 已存在')
-    } else {
-      return true
-    }
+    // const user = await User.findOne({
+    //   where: {
+    //     email
+    //   }
+    // })
+    // if (user) {
+    //   throw new Error('Email 已存在')
+    // } else {
+    //   return true
+    // }
   }
 }
 
@@ -305,7 +305,7 @@ class DataValidator extends WecValidator {
   }
 }
 
-export {
+export default {
   WecValidator,
   PositiveIntegerValidator,
   WecRegisterValidator,

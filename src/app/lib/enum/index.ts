@@ -1,14 +1,14 @@
 import { Status } from './Status';
 import  {UserType}  from './UserType';
-// import LoginType from './LoginType'
-// import PayType from './PayType'
+import LoginType from './LoginType'
+import PayType from './PayType'
 // import OrderStatus from './OrderStatus'
 // import Platform from './Platform'
 
 export {
-  // LoginType,
+  LoginType,
   // OrderStatus,
-  // PayType,
+  PayType,
   // Platform,
   UserType,
   Status

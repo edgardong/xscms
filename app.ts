@@ -48,6 +48,6 @@ InitManager.initCore(app)
  */
 app.use(koaStatic(__dirname + '/static'))
 app.use(koaStatic(__dirname + '/public'))
-app.use(koaStatic(__dirname + '/admin'))
+// app.use(koaStatic(__dirname + '/admin'))
 
 app.listen(8030)

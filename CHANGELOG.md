@@ -5,6 +5,7 @@
 
 * remove some files ([](https://github.com/edgardong/xscms/commit/240cd8d))
 * update relation table ([](https://github.com/edgardong/xscms/commit/a4c9c3d))
+* 修复路由问题 ([](https://github.com/edgardong/xscms/commit/98270a0))
 * 调整首页功能 ([](https://github.com/edgardong/xscms/commit/f50e0e8))
 
 

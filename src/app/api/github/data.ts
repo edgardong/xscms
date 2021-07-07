@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   wecnode: {
     cwd: `/home/webserver/wecnode/`,
     script: 'pm2 restart app',

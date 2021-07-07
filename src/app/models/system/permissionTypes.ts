@@ -29,4 +29,4 @@ const DATAPERMISSIONS = [{
   comment: '可以查看自己和所在小组人员的数据'
 }]
 
-module.exports = DATAPERMISSIONS
+export default DATAPERMISSIONS

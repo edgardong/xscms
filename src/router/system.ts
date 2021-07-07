@@ -1,8 +1,17 @@
-import KoaRouter from '../Router'
+/*
+ * @Author: yishusheng
+ * @Date: 2021-03-30 16:16:31
+ * @version: 1.0.0
+ * @LastEditTime: 2021-07-07 14:17:34
+ * @LastEditors: yishusheng
+ * @Description: 系统路由文件
+ */
+
+import KoaRouter from '../app/api/Router'
 const router = new KoaRouter({
   prefix: '/',
 })
-import { access, constants, writeFile } from 'fs'
+import { access, constants, PathLike, writeFile } from 'fs'
 import { renderFile } from 'pug'
 // import { getShowData, getMainCategory } from '../../models/blog/category'
 // import { getReadingRank, findByPk, getByCategory } from '../../models/blog/article'
@@ -11,14 +20,21 @@ import { renderFile } from 'pug'
  * 重定向到管理员页面
  */
 router.get('admin', async (ctx, next) => {
-  ctx.redirect('/admin/index.html')
+  let hasDist = await fileExist('public/admin/index.html')
+  // 不存在，使用模版文件，否则访问已存在的文件
+  if (!hasDist) {
+    await (ctx as any).render('src/template/admin/index.pug', {})
+  } else {
+    ctx.redirect('admin/index.html')
+  }
 })
 
-router.get('html', async (ctx, next) => {
-  ctx.redirect('/html/index.html')
-})
-
-const fileExist = (file) =>
+/**
+ * 检查指定路径下的文件是否存在
+ * @param file 文件路径
+ * @returns boolean
+ */
+const fileExist = (file: PathLike) =>
   new Promise((resolve) => {
     access(file, constants.F_OK, async (err) => {
       // 不存在，使用模版文件，否则访问已存在的文件
@@ -53,7 +69,7 @@ function parseModel2Json(data: any[]) {
  * 重定向到默认页面
  */
 router.get('', async (ctx, next) => {
-  let hasDist = await fileExist('dist/index.html')
+  let hasDist = await fileExist('public/html/index.html')
   // 获取数据库中的栏目
   const dataModel = []
   const posts = []

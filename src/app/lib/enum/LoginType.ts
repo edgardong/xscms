@@ -1,4 +1,4 @@
-function isThisType(val) {
+function isThisType(this: { USER_MINI_PROGRAM: number; USER_EMAIL: number; USER_MOBILE: number; ADMIN_EMAIL: number; ADMIN_USERNAME: number; USER_USERNAME: number; isThisType: (val: any) => boolean }, val: any) {
   for (let key in this) {
     if (this[key] == val) {
       return true
@@ -14,7 +14,7 @@ const LoginType = {
   ADMIN_EMAIL: 200,
   ADMIN_USERNAME: 201,
   USER_USERNAME: 103,
-  isThisType
+  isThisType: isThisType
 }
 
 export default LoginType
