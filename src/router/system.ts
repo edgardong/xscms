@@ -30,9 +30,9 @@ import { renderFile } from 'pug'
 //     ctx.redirect('admin/index.html')
 //   }
 // })
-router.get('admin', proxy({
-  url: config.host + '9333'
-}))
+// router.get('admin', proxy({
+//   url: config.host + '9333'
+// }))
 
 /**
  * 格式化代码

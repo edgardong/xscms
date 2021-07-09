@@ -16,8 +16,7 @@ import common from '@/assets/less/common.less'
 
 import moment from 'moment'
 
-export default Form.create({})(
-  class extends React.Component {
+export default  class BaseForm extends React.Component {
     constructor(props) {
       super(props)
     }
@@ -155,7 +154,7 @@ export default Form.create({})(
       }
     }
 
-    getColumnItems(getFieldDecorator, items, formItemLayout) {
+    getColumnItems( items, formItemLayout) {
       return (
         <Row gutter={24}>
           {items.map((item, index) =>
@@ -166,17 +165,14 @@ export default Form.create({})(
                   key={item.key}
                   {...formItemLayout}
                   label={item.label}
-                >
-                  {getFieldDecorator(item.key, {
-                    rules: [
-                      {
-                        required: item.required,
-                        message: item.required ? `请输入${item.label}` : '',
-                      },
-                    ].concat(item.rules || []),
-                    valuePropName: item.type == 'switch' ? 'checked' : 'value',
-                    initialValue: this.getItemValue(item.key, item),
-                  })(this.getItem(item))}
+                  rules={[
+                    {
+                      required: item.required,
+                      message: item.required ? `请输入${item.label}` : '',
+                    },
+                  ].concat(item.rules || [])}
+                  name={item.key}
+                >{this.getItem(item)}
                 </Form.Item>
               </Col>
             )
@@ -189,7 +185,6 @@ export default Form.create({})(
      * 获取表单
      */
     getFormItems(formItemLayout = {}) {
-      const { getFieldDecorator } = this.props.form
 
       formItemLayout = {
         columns: 1,
@@ -205,7 +200,6 @@ export default Form.create({})(
               {tab.render != null
                 ? tab.render(tab.value)
                 : this.getColumnItems(
-                    getFieldDecorator,
                     tab.items,
                     formItemLayout
                   )}
@@ -213,7 +207,7 @@ export default Form.create({})(
           ))}
         </Tabs>
       ) : (
-        this.getColumnItems(getFieldDecorator, this.props.items, formItemLayout)
+        this.getColumnItems(this.props.items, formItemLayout)
       )
     }
 
@@ -221,4 +215,3 @@ export default Form.create({})(
       return <Form autoComplete="off">{this.getFormItems()}</Form>
     }
   }
-)
