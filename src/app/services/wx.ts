@@ -1,16 +1,20 @@
-const util = require('util')
-const axios = require('axios')
+/*
+ * @Author: yishusheng
+ * @Date: 2021-03-26 18:12:00
+ * @version: 1.0.0
+ * @Email: 2535615874@qq.com
+ * @Github: https://github.com/edgardong
+ * @LastEditTime: 2021-08-04 17:14:10
+ * @LastEditors: yishusheng
+ * @Description: 微信管理类
+ */
 
-const {
-  User
-} = require('../models/user')
-const {
-  Auth
-} = require('../../middlewares/auth')
-const AppToken = require('../models/appToken')
-const {
-  generateToken
-} = require('../../core/util')
+import { format } from 'util'
+import axios from 'axios'
+import User from '../entity/user'
+import  Auth from '../../middlewares/auth'
+import  AppToken from '../entity/appToken'
+import generateToken from '../../core/util'
 
 class WXManager {
 
@@ -20,7 +24,7 @@ class WXManager {
    */
   static async codeToToken(code) {
     //
-    const url = util.format(global.config.miniProgram.loginUrl, global.config.miniProgram.appid, global.config.miniProgram.appSecret, code)
+    const url = format(global.config.miniProgram.loginUrl, global.config.miniProgram.appid, global.config.miniProgram.appSecret, code)
     const result = await axios.get(url)
     if (result.status != 200) {
       throw new global.errs.AuthFailed('获取openid失败')
@@ -63,7 +67,7 @@ class WXManager {
       }
     }
     let url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s'
-    let requestUrl = util.format(url, appid, appSecret)
+    let requestUrl = format(url, appid, appSecret)
     // 校验本地是否过期
     // 过期则请求新的token，并缓存本地
     const result = await axios.get(requestUrl)
@@ -93,4 +97,4 @@ class WXManager {
   }
 }
 
-module.exports = WXManager
+export default WXManager

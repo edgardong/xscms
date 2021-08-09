@@ -29,7 +29,7 @@ class WecValidator {
    * @param {Object} ctx 需要校验的对象上下文
    * @param {Object} alias 别名对象(仅支持属性替换) {校验规则属性:字段属性}
    */
-  async validate(ctx: { request: { header: any; query: any; body: any }; params: any }, alias: any) {
+  async validate(ctx: any, alias?: any) {
     // 获取所有参数,组成一个集合
     this.data = Object.assign(ctx.request.header, ctx.params, ctx.request.query, ctx.request.body)
     this.data = this.exceptBaseAttr(this.data)

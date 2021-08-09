@@ -26,8 +26,8 @@ class InitManager {
   static initCore(app: any) {
     InitManager.app = app
     // InitManager.initEntity()
-    InitManager.initLoadRouters()
     InitManager.initAPIs()
+    InitManager.initLoadRouters()
     InitManager.loadHttpException()
     InitManager.loadConfig()
     initDB()
@@ -68,18 +68,21 @@ class InitManager {
       },
       extensions: ['ts']
     })
+
+
   }
 
 
   /**
-   * init All routers
+   * init All apis
    */
   static initAPIs() {
 
     const apiDirectory = `${process.cwd()}/src/app/api/`
     requireDirectory(module, apiDirectory, {
       visit: (obj: { routes: () => any, default: KoaRouter }) => {
-        if (obj.default instanceof KoaRouter) {
+        if (obj.default && obj.default instanceof KoaRouter) {
+          console.log('apis',  obj.default.routes())
           InitManager.app.use(obj.default.routes())
         }
       },

@@ -12,7 +12,7 @@ import { Entity, Column, BeforeUpdate } from 'typeorm';
 import EntityBase from '.';
 
 @Entity({ name: 'xs_sys_user', })
-export class User extends EntityBase {
+ class User extends EntityBase {
 
   @Column({ comment: '用户角色id集' })
   roles: string;
@@ -63,3 +63,4 @@ export class User extends EntityBase {
     this.password = psw
   }
 }
+export default  User

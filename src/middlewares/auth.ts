@@ -1,10 +1,14 @@
-import basicAuth from 'basic-auth'
+import * as basicAuth from 'basic-auth'
 import { verify } from 'jsonwebtoken'
 
 class Auth {
+  level: number
+  static USER: number
+  static ADMIN: number
+  static SUPER_ADMIN: number
 
-  constructor(level) {
-    this.level = level || 1
+  constructor(level = 1) {
+    this.level = level
     Auth.USER = 8
     Auth.ADMIN = 16
     Auth.SUPER_ADMIN = 32
@@ -12,11 +16,12 @@ class Auth {
 
   get m() {
     return async (ctx, next) => {
+      // console.log(userToken)
       // 检查用户的token
       const userToken = basicAuth(ctx.req)
-      // console.log(userToken)
+      console.log('....',userToken)
       if (!userToken || !userToken.name) {
-        throw new global.errs.Forbidden()
+        throw new global.errs.Forbidden('')
       }
       let decode = {}
       try {
@@ -31,13 +36,13 @@ class Auth {
       }
 
       // 校验权限等级
-      if (decode.scope < this.level) {
+      if ((decode as any).scope < this.level) {
         throw new global.errs.Forbidden('权限不足')
       }
 
       ctx.auth = {
-        uid: decode.uid,
-        scope: decode.scope
+        uid: (decode as any).uid,
+        scope: (decode as any).scope
       }
 
       await next()
@@ -54,6 +59,4 @@ class Auth {
   }
 }
 
-export default {
-  Auth
-}
+export default Auth

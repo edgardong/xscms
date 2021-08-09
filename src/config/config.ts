@@ -29,10 +29,10 @@ export default {
     // 一定要加上最后的/
     host: 'http://localhost:8000/',
   },
-  host: 'http://localhost',
+  baseApiUrl:'http://localhost:8030/',
+  host: 'http://localhost:8030/',
   security: {
     secretKey: 'edgarhao.cn',
-    // expiresIn: 60 * 60 * 24 * 30
     expiresIn: 60 * 60 * 24 * 30 * 1000
   },
   miniProgram: {

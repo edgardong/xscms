@@ -1,3 +1,14 @@
+/*
+ * @Author: yishusheng
+ * @Date: 2020-03-05 16:09:54
+ * @version: 1.0.0
+ * @Email: 2535615874@qq.com
+ * @Github: https://github.com/edgardong
+ * @LastEditTime: 2021-08-04 17:15:00
+ * @LastEditors: yishusheng
+ * @Description: 公共工具类
+ */
+
 import { Modal, message } from 'antd'
 
 const _deleteOptions = {

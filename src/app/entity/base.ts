@@ -36,15 +36,15 @@ export class XsSite extends EntityBase {
   @Column({ type: "text", comment: '底部信息' })
   footer: string;
 
-  @Column({comment:'ico图标地址'})
-  ico:string;
+  @Column({ comment: 'ico图标地址' })
+  ico: string;
 
-  @Column({comment:'百度统计的key'})
-  baidu_tongji:string;
+  @Column({ comment: '百度统计的key' })
+  baidu_tongji: string;
 
-  @Column({comment:'Bing推送的key'})
-  bing_push:string;
+  @Column({ comment: 'Bing推送的key' })
+  bing_push: string;
 
-  @Column({comment:'谷歌统计的key'})
-  google_tongji:string;
+  @Column({ comment: '谷歌统计的key' })
+  google_tongji: string;
 }

@@ -1,23 +1,17 @@
-// const Router = require('koa-router')
-// const router = new Router({
-//   prefix: '/api/system/v1/menu',
-// })
+import KoaRouter from '../../Router'
+const router = new KoaRouter({
+  prefix: '/api/system/v1/menu',
+})
 // const Menu = require('../../../models/system/menu')
 // const RoleMenu = require('../../../models/system/roleMenu')
-// const { Auth } = require('../../../../middlewares/auth')
-// const {
-//   PaginationValidator,
-//   PositiveIntegerValidator,
-//   MenuFormValidator,
-//   TypeValidator,
-//   WecValidator,
-// } = require('../../../validators/validator').default
+import Auth from '../../../../middlewares/auth'
+import validate from '../../../validators/validator'
 
-// /**
-//  * 获取列表
-//  */
+/**
+ * 获取列表
+ */
 // router.get('/pagination', new Auth().m, async (ctx, next) => {
-//   const params = await new PaginationValidator().validate(ctx)
+//   // const params = await new PaginationValidator().validate(ctx)
 //   params.order = ['order']
 //   const result = await Menu.getPagination(
 //     params,
@@ -39,14 +33,13 @@
 //   }
 // })
 
-// router.get('/all', new Auth().m, async (ctx, next) => {
-//   const params = await new TypeValidator().validate(ctx)
-//   const auth = ctx.auth
-//   const data = await Menu.getAll(params, auth)
-//   ctx.body = {
-//     data,
-//   }
-// })
+router.get('/all', new Auth().m, async (ctx, next) => {
+  const params = await new validate.TypeValidator().validate(ctx)
+  // const auth = ctx.auth
+  // const data = await Menu.getAll(params, auth)
+  console.log('.....', params)
+  ctx.body = '请求成功'
+})
 
 // router.get('/tree', async (ctx, next) => {
 //   const data = await Menu.getTreeData()
@@ -98,4 +91,4 @@
 //   }
 // })
 
-// module.exports = router
+export default router
