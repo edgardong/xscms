@@ -73,7 +73,7 @@ function initDB() {
     synchronize: true,
   }).then((connection) => {
     // 这里可以写实体操作相关的代码
-
+    // console.log('connection successful ! ', connection)
   }).catch((error) => console.log(error));
 }
 
@@ -83,7 +83,7 @@ function createDB() {
   const mysql = require('mysql2')
   // create the connection
   const con = mysql.createConnection(
-    { host: 'localhost', user: 'root', database: '', password: 'edgardong' }
+    { host: 'localhost', user: 'root', database: 'xscms1', password: 'edgardong' }
   )
   const sql = `CREATE DATABASE IF NOT EXISTS ${dbName}
   DEFAULT CHARACTER SET utf8

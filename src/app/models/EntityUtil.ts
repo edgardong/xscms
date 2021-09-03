@@ -1,19 +1,19 @@
 // const { Sequelize } = require('sequelize')
 // const Op = Sequelize.Op
 
-// /**
-//  * 获取最后一页数字
-//  * @param total 总数
-//  * @param size 分页大小
-//  * @returns 最后一页数字
-//  */
-// function getLastPage(total: number, size: number) {
-//   let last = 0
-//   let tmp = total % size
-//   let tmp2 = ~~(total / size)
-//   last = tmp == 0 ? tmp2 : tmp2 + 1
-//   return last
-// }
+/**
+ * 获取最后一页数字
+ * @param total 总数
+ * @param size 分页大小
+ * @returns 最后一页数字
+ */
+function getLastPage(total: number, size: number) {
+  let last = 0
+  let tmp = total % size
+  let tmp2 = ~~(total / size)
+  last = tmp == 0 ? tmp2 : tmp2 + 1
+  return last
+}
 
 // /**
 //  * 获取分页列表

@@ -21,15 +21,15 @@ import { renderFile } from 'pug'
 /**
  * 重定向到管理员页面
  */
-// router.get('admin', async (ctx, next) => {
-//   let hasDist = await utils.fileExist('public/admin/index.html')
-//   // 不存在，使用模版文件，否则访问已存在的文件
-//   if (!hasDist) {
-//     await (ctx as any).render('src/template/admin/index.pug', {})
-//   } else {
-//     ctx.redirect('admin/index.html')
-//   }
-// })
+router.get('admin', async (ctx, next) => {
+  let hasDist = await utils.fileExist('public/admin/index.html')
+  // 不存在，使用模版文件，否则访问已存在的文件
+  if (!hasDist) {
+    await (ctx as any).render('src/template/admin/index.pug', {})
+  } else {
+    ctx.redirect('admin/index.html')
+  }
+})
 // router.get('admin', proxy({
 //   url: config.host + '9333'
 // }))

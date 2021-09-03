@@ -24,13 +24,13 @@ import { Secret } from 'jsonwebtoken'
 class InitManager {
   static app: any
   static initCore(app: any) {
+    initDB()
     InitManager.app = app
     // InitManager.initEntity()
     InitManager.initAPIs()
     InitManager.initLoadRouters()
     InitManager.loadHttpException()
     InitManager.loadConfig()
-    initDB()
   }
 
   static initEntity() {
@@ -82,7 +82,7 @@ class InitManager {
     requireDirectory(module, apiDirectory, {
       visit: (obj: { routes: () => any, default: KoaRouter }) => {
         if (obj.default && obj.default instanceof KoaRouter) {
-          console.log('apis',  obj.default.routes())
+          // console.log('apis',  obj.default.routes())
           InitManager.app.use(obj.default.routes())
         }
       },
@@ -90,6 +90,9 @@ class InitManager {
     })
   }
 
+  /**
+   * load http exception class
+   */
   static loadHttpException() {
     const errors = require('./http-exception')
     global.errs = errors

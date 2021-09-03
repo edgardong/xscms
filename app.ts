@@ -48,6 +48,20 @@ app.use(
 
 InitManager.initCore(app)
 
+// 接口文档相关配置
+import swagger from './swagger'
+// import { koaSwagger } from 'koa2-swagger-ui'
+
+// 接口文档配置
+app.use((swagger as any).routes())
+app.use((swagger as any).allowedMethods())
+// app.use(koaSwagger({
+//   routePrefix: '/swagger', // 接口文档访问地址
+//   swaggerOptions: {
+//     url: '/swagger.json', // example path to json 其实就是之后swagger-jsdoc生成的文档地址
+//   }
+// }))
+
 /**
  * 设置静态资源目录
  */

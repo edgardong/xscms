@@ -1,3 +1,4 @@
+
 /*
  * @Author: yishusheng
  * @Date: 2021-03-26 18:12:00
@@ -11,10 +12,13 @@
 
 import { format } from 'util'
 import axios from 'axios'
-import User from '../entity/user'
-import  Auth from '../../middlewares/auth'
-import  AppToken from '../entity/appToken'
-import generateToken from '../../core/util'
+import User from '../models/user'
+import Auth from '../../middlewares/auth'
+import AppToken from '../entity/appToken'
+import util from '../../core/util'
+import { getManager } from 'typeorm';
+
+const manager = getManager()
 
 class WXManager {
 
@@ -46,7 +50,7 @@ class WXManager {
       user = await User.registerUserByOpenId(openid)
     }
 
-    return generateToken(user.id, Auth.USER)
+    return util.generateToken(user.id, Auth.USER)
 
   }
 
@@ -54,7 +58,7 @@ class WXManager {
    * 获取access_token
    */
   static async getAccessToken(appid, appSecret) {
-    const localToken = await AppToken.findOne({
+    const localToken = await manager.findOne(AppToken, {
       where: {
         appid
       }
@@ -62,7 +66,7 @@ class WXManager {
     if (localToken) {
       const currentTime = new Date().getTime()
       console.log(new Date(localToken.start_time))
-      if (new Date(localToken.start_time).getTime() + localToken.expires_in < currentTime - 20) {
+      if (new Date(localToken.start_time).getTime() + Number(localToken.expires_in) < currentTime - 20) {
         return localToken.access_token
       }
     }
@@ -76,7 +80,7 @@ class WXManager {
       throw new Error('获取token失败 ' + data.errmsg)
     }
     if (!localToken) {
-      AppToken.create({
+      manager.create(AppToken, {
         appid,
         access_token: data.access_token,
         expires_in: data.expires_in,

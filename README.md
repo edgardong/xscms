@@ -9,14 +9,14 @@
 #### 文件目录说明
 ````shell
 .
+├── admin                   后端管理的代码
 ├── app                     应用主目录
 │   ├── api                 api目录
 │   ├── lib                 公用文件目录
 │   ├── models              实体文件目录
 │   ├── services            服务目录
 │   └── validators          验证器目录
-├── config                  配置文件目录
-├── core                    系统基础应用目录
+├── plugins                 插件文件目录
 ├── docs                    文档目录
 │   └── api
 ├── logs                    日志目录

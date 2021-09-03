@@ -6,10 +6,10 @@
  * @LastEditors: yishusheng
  * @Description: 实体基本字段抽象类
  */
-import { Column, CreateDateColumn, DeleteDateColumn, Generated, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Status } from "../lib/enum";
+import { Column, CreateDateColumn, DeleteDateColumn, Generated, PrimaryGeneratedColumn, UpdateDateColumn, getConnection } from "typeorm"
+import { Status } from "../lib/enum"
 
-export default abstract class EntityBase {
+abstract class EntityBase {
   @PrimaryGeneratedColumn({ comment: '主键' })
   id: number;
 
@@ -57,4 +57,28 @@ export default abstract class EntityBase {
 
   @DeleteDateColumn({ comment: '删除时间', nullable: true })   // 自动生成并自动更新列
   deleteAt: string
+
+  /**
+   * 更新一条数据
+   */
+  static update: (values: any, where: any) => Promise<any>;
 }
+
+EntityBase.update = async function (values, where) {
+  let whereStr = ''
+  for (let k in where) {
+    whereStr += `${k}=:${k}`
+  }
+
+  let result = await getConnection()
+    .createQueryBuilder()
+    .update(this)
+    .set(values)
+    .where(whereStr, where)
+    .execute()
+  return result
+}
+
+
+
+export default EntityBase

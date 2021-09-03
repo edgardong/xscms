@@ -3,6 +3,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2015",
+    "jsx": "react",
+    "lib": [
+      "es5",
+      "es2015.promise"
+    ],
     "moduleResolution": "node",
     "outDir": "./dist",
     "allowJs": true,
@@ -12,7 +17,9 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "src/views",
+    "admin/api"
   ],
   "exclude": [
     "node_modules"
