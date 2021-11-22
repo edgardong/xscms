@@ -2,12 +2,12 @@ import React from 'react'
 import { Button, Row, Col, Card } from 'antd'
 import { withRouter } from 'react-router-dom'
 
-import baseApi from '@/api/system/base'
+import baseApi from '@admin/api/system/base'
 import moment from 'moment'
 
 import echarts from 'echarts'
 
-import homeStyle from '@/assets/less/home.less'
+import homeStyle from '@admin/assets/less/home.less'
 import ButtonGroup from 'antd/lib/button/button-group'
 
 const dataOptions = [

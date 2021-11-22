@@ -1,8 +1,8 @@
 import React from 'react'
 import { Menu, Icon, Button, Table } from 'antd'
-import { BaseTable, BaseForm } from '@/components/Base'
-import userApi from '@/api/system/user'
-import utils from '@/utils/utils'
+import { BaseTable, BaseForm } from '@admin/components/Base'
+import userApi from '@admin/api/system/user'
+import utils from '@admin/utils/utils'
 
 export default class UserList extends React.Component {
   constructor(props) {

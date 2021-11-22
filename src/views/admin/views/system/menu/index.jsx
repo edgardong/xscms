@@ -1,9 +1,9 @@
 import React from 'react'
 import { Menu, Icon, Button, Table } from 'antd'
 
-import { BaseTable, BaseForm } from '@/components/Base'
-import menuApi from '@/api/system/menu'
-import utils from '@/utils/utils'
+import { BaseTable, BaseForm } from '@admin/components/Base'
+import menuApi from '@admin/api/system/menu'
+import utils from '@admin/utils/utils'
 
 class SystemMenu extends React.Component {
   constructor(props) {

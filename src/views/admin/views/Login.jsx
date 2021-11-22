@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Input, Button } from 'antd'
 import { UserOutlined, UnlockOutlined } from '@ant-design/icons'
 import { addToken } from '../redux/user.redux'
-import loginStyle from '@/assets/less/login.less'
-import userApi from '@/api/system/user'
+import loginStyle from '@admin/assets/less/login.less'
+import userApi from '@admin/api/system/user'
 
 @connect(state => state.user, { addToken })
 class Login extends React.Component {

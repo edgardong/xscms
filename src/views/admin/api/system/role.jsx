@@ -1,4 +1,4 @@
-import { get, post, put, del } from '@/utils/request'
+import { get, post, put, del } from '@admin/utils/request'
 
 import BaseApi from '../base'
 const base_url = 'api/system/v1/role'

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Menu, Icon, Button } from 'antd'
-import style from '@/assets/less/left.less'
+import style from '@admin/assets/less/left.less'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const SubMenu = Menu.SubMenu
 const MenuItemGroup = Menu.ItemGroup
 
-import menuApi from '@/api/system/menu'
+import menuApi from '@admin/api/system/menu'
 import { update } from '../../../redux/menu.redux'
 
 @connect(state => state, { update })

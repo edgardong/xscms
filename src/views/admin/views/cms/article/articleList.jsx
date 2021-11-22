@@ -2,8 +2,8 @@ import React from 'react'
 import { Table, Button, Switch, Spin, Divider, Input } from 'antd'
 
 import { withRouter } from 'react-router-dom'
-import { getArticleList, delArticle } from '@/api/cms/article'
-import { BaseTable, BaseForm } from '@/components/Base'
+import { getArticleList, delArticle } from '@admin/api/cms/article'
+import { BaseTable, BaseForm } from '@admin/components/Base'
 
 @withRouter
 class ArticleList extends React.Component {

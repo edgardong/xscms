@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Icon, Button, Breadcrumb } from 'antd'
-import style from '@/assets/less/bread.less'
+import style from '@admin/assets/less/bread.less'
 
 import { connect } from 'react-redux'
 

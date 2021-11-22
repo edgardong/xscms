@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, Icon, Button, Modal } from 'antd'
-import style from '@/assets/less/topnav.less'
-import logo from '@/assets/image/logo.png'
+import style from '@admin/assets/less/topnav.less'
+import logo from '@admin/assets/image/logo.png'
 import { withRouter } from 'react-router'
 
 import DropDown from '../DropDown'

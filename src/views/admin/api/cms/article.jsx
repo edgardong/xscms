@@ -1,4 +1,4 @@
-import { get, post, put, del } from '@/utils/request'
+import { get, post, put, del } from '@admin/utils/request'
 
 const BASE_URL = 'api/blog/v1/article'
 

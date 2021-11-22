@@ -1,9 +1,9 @@
 import React from 'react'
 import { Menu, Icon, Button, Table } from 'antd'
 
-import { BaseTable, BaseForm } from '@/components/Base'
-import apis from '@/api/cms/category'
-import utils from '@/utils/utils'
+import { BaseTable, BaseForm } from '@admin/components/Base'
+import apis from '@admin/api/cms/category'
+import utils from '@admin/utils/utils'
 
 class Category extends React.Component {
   constructor(props) {

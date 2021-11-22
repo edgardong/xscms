@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, Icon, Button } from 'antd'
-import style from '@/assets/less/content.less'
-import RootRoutes from '@/router/routes'
+import style from '@admin/assets/less/content.less'
+import RootRoutes from '@admin/router/routes'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Menu, Icon, Button, Table } from 'antd'
 
-import { BaseTable, BaseForm } from '@/components/Base'
-import roleApi from '@/api/system/role'
-import utils from '@/utils/utils'
+import { BaseTable, BaseForm } from '@admin/components/Base'
+import roleApi from '@admin/api/system/role'
+import utils from '@admin/utils/utils'
 
 class SystemRole extends React.Component {
   constructor(props) {

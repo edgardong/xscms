@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom'
 import { Tabs, Menu, Tooltip, Button, Tree, List, Checkbox } from 'antd'
 import style from './style.less'
 
-import menuApi from '@/api/system/menu'
-import roleApi from '@/api/system/role'
-import baseApi from '@/api/system/base'
+import menuApi from '@admin/api/system/menu'
+import roleApi from '@admin/api/system/role'
+import baseApi from '@admin/api/system/base'
 
 const OPERATE = 'operate'
 

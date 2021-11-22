@@ -1,10 +1,10 @@
 import React from 'react'
-import BaseForm from '@/components/Base/Form/form'
+import BaseForm from '@admin/components/Base/Form/form'
 import { Button } from 'antd'
 
-import BlogBaseAPI from '@/api/cms/base'
-import utils from '@/utils/utils'
-import { uploadBlogFile } from '@/api/common'
+import BlogBaseAPI from '@admin/api/cms/base'
+import utils from '@admin/utils/utils'
+import { uploadBlogFile } from '@admin/api/common'
 
 class BlogBase extends React.Component {
   constructor(props) {

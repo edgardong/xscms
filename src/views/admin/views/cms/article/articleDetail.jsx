@@ -3,9 +3,9 @@ import { Button, Input, Form, Tree, Tag, Card, Divider } from 'antd'
 // import CKEditor from 'ckeditor4-react'
 // CKEditor.editorUrl = '/static/ckeditor/ckeditor.js'
 import E from 'wangeditor'
-import { getArticle, saveArticle, publishArticle } from '@/api/cms/article'
-import categoryAPI from '@/api/cms/category'
-import utils from '@/utils/utils'
+import { getArticle, saveArticle, publishArticle } from '@admin/api/cms/article'
+import categoryAPI from '@admin/api/cms/category'
+import utils from '@admin/utils/utils'
 import style from './style.less'
 
 let editor = null

@@ -42,9 +42,7 @@
     |   |       |-- role.jsx
     |   |       |-- user.jsx
     |   |-- assets
-    |   |   |-- .DS_Store
     |   |   |-- image
-    |   |   |   |-- .DS_Store
     |   |   |   |-- 404.png
     |   |   |   |-- 4041.png
     |   |   |   |-- login-bg.jpeg

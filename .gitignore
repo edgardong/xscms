@@ -3,3 +3,5 @@ logs/
 dist/
 .idea/
 config/config.js
+package.json.lock
+yarn.lock

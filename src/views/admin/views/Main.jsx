@@ -1,6 +1,6 @@
 import React from 'react'
-import { TopNav, LeftNav, Content, Bread } from '@/components/Layout'
-import style from '@/assets/less/main.less'
+import { TopNav, LeftNav, Content, Bread } from '@admin/components/Layout'
+import style from '@admin/assets/less/main.less'
 
 export default class Main extends React.Component {
   constructor(props) {

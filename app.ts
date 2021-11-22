@@ -81,7 +81,7 @@ const proxyTable = {
     target: 'http://localhost:9333',
     changeOrigin: true,
     pathRewrite: {
-      '^/admin': '/'
+      '^/admin': '/admin'
     }
   }
 }

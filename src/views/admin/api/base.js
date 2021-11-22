@@ -5,7 +5,7 @@ import {
   post,
   put,
   del
-} from '@/utils/request'
+} from '@admin/utils/request'
 
 export default class BaseApi {
 

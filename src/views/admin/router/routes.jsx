@@ -1,19 +1,19 @@
-import Home from '@/views/Home'
-import Detail from '@/views/Detail'
-import UserList from '@/views/system/users/userList'
-import Menu from '@/views/system/menu'
-import Role from '@/views/system/role'
-import Permission from '@/views/system/permission'
-import NotFound from '@/views/system/core/NotFound'
+import Home from '@admin/views/Home'
+import Detail from '@admin/views/Detail'
+import UserList from '@admin/views/system/users/userList'
+import Menu from '@admin/views/system/menu'
+import Role from '@admin/views/system/role'
+import Permission from '@admin/views/system/permission'
+import NotFound from '@admin/views/system/core/NotFound'
 
-import SystemBase from '@/views/system/base'
+import SystemBase from '@admin/views/system/base'
 
 // 博客模块
-import ArticleList from '@/views/cms/article/articleList'
-import ArticleDetail from '@/views/cms/article/articleDetail'
-import ArticleCategory from '@/views/cms/category/categoryList'
-import BlogBase from '@/views/cms/base'
-import BlogPage from '@/views/cms/page'
+import ArticleList from '@admin/views/cms/article/articleList'
+import ArticleDetail from '@admin/views/cms/article/articleDetail'
+import ArticleCategory from '@admin/views/cms/category/categoryList'
+import BlogBase from '@admin/views/cms/base'
+import BlogPage from '@admin/views/cms/page'
 
 const getRoute = (path, component) => ({
   path,

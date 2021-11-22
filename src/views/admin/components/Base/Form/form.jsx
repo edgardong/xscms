@@ -12,7 +12,7 @@ import {
   Row,
   Col,
 } from 'antd'
-import common from '@/assets/less/common.less'
+import common from '@admin/assets/less/common.less'
 
 import moment from 'moment'
 
