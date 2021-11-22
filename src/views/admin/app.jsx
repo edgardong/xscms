@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import BaseRouter from './router'
-import '@/global.less'
+import '@admin/global.less'
 import zhCN from 'antd/es/locale-provider/zh_CN'
 import { ConfigProvider } from 'antd'
 import { createStore, applyMiddleware } from 'redux'
@@ -16,7 +16,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)

@@ -2,9 +2,9 @@ import React from 'react'
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import AuthRoute from './AuthRoute'
-import Main from '@/views/Main'
-import Login from '@/views/Login'
-import Install from '@/views/Install'
+import Main from '@admin/views/Main'
+import Login from '@admin/views/Login'
+import Install from '@admin/views/Install'
 
 export default class BaseRoute extends React.Component {
   constructor(props) {

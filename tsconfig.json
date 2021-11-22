@@ -19,7 +19,7 @@
   "include": [
     "./src/**/*",
     "src/views",
-    "admin/api"
+    "src/views/admin/api"
   ],
   "exclude": [
     "node_modules"

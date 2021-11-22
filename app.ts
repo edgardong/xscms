@@ -11,13 +11,21 @@ import "reflect-metadata"
 import * as Koa from 'koa'
 import * as xmlParser from 'koa-xml-body'
 import * as koaStatic from 'koa-static'
-
 import * as views from 'koa-views'
 import * as koaBody from 'koa-body'
 
 import catchError from './src/middlewares/exception'
 import InitManager from './src/core/init'
+
 const app = new Koa()
+
+import  {createProxyMiddleware} from 'http-proxy-middleware'
+import * as koaConnect from 'koa2-connect'
+
+
+import config from './config/config'
+
+
 app.use(async (ctx, next) => {
   // ctx.set('Access-Control-Allow-Origin', ctx.headers.origin) // 很奇怪的是，使用 * 会出现一些其他问题
   ctx.set('Access-Control-Allow-Origin', '*') // 很奇怪的是，使用 * 会出现一些其他问题
@@ -46,27 +54,54 @@ app.use(
   })
 )
 
+
+// 代理兼容封装
+const proxy = function (context, options) {
+  if (typeof options === 'string') {
+    options = {
+      target: options
+    }
+  }
+  return async function (ctx, next) {
+    await koaConnect(createProxyMiddleware(context, options))(ctx, next)
+  }
+}
+
+
+
 InitManager.initCore(app)
 
 // 接口文档相关配置
 import swagger from './swagger'
-// import { koaSwagger } from 'koa2-swagger-ui'
+
+
+// 代理配置
+const proxyTable = {
+  '/admin': {
+    target: 'http://localhost:9333',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/admin': '/'
+    }
+  }
+}
+
+Object.keys(proxyTable).map(context => {
+  const options = proxyTable[context]
+  // 使用代理
+  app.use(proxy(context, options))
+})
 
 // 接口文档配置
 app.use((swagger as any).routes())
 app.use((swagger as any).allowedMethods())
-// app.use(koaSwagger({
-//   routePrefix: '/swagger', // 接口文档访问地址
-//   swaggerOptions: {
-//     url: '/swagger.json', // example path to json 其实就是之后swagger-jsdoc生成的文档地址
-//   }
-// }))
 
 /**
  * 设置静态资源目录
  */
 app.use(koaStatic(__dirname + '/static'))
 app.use(koaStatic(__dirname + '/public'))
-app.use(koaStatic(__dirname + '/admin'))
+// app.use(koaStatic(__dirname + '/admin'))
+
 
 app.listen(8030)

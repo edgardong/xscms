@@ -9,35 +9,37 @@
 
 import KoaRouter from '../app/api/Router'
 import utils from '../core/util'
-import config from '../config/config'
-import * as proxy from 'koa-proxy'
+
 const router = new KoaRouter({
   prefix: '/',
 })
 import { renderFile } from 'pug'
+// import server from '../../admin/server/index.jsx'
+// import {content} from '../../admin/server/app'
 // import { getShowData, getMainCategory } from '../../models/blog/category'
 // import { getReadingRank, findByPk, getByCategory } from '../../models/blog/article'
 
 /**
  * 重定向到管理员页面
  */
-router.get('admin', async (ctx, next) => {
-  let hasDist = await utils.fileExist('public/admin/index.html')
-  // 不存在，使用模版文件，否则访问已存在的文件
-  if (!hasDist) {
-    await (ctx as any).render('src/template/admin/index.pug', {})
-  } else {
-    ctx.redirect('admin/index.html')
-  }
-})
-// router.get('admin', proxy({
-//   url: config.host + '9333'
-// }))
+// router.get('admin', async (ctx, next) => {
+//   // let hasDist = await utils.fileExist('public/admin/index.html')
+//   // // 不存在，使用模版文件，否则访问已存在的文件
+//   // if (!hasDist) {
+//   //   await (ctx as any).render('src/template/admin/index.pug', {})
+//   // } else {
+//   //   ctx.redirect('admin/index.html')
+//     // ctx.redirect('http://localhost:9333')
+//   // }
+//   // ctx.body= '正在访问'
+// })
+
+
 
 /**
  * 格式化代码
- * @param data 
- * @returns 
+ * @param data
+ * @returns
  */
 function parseModel2Json(data: any[]) {
   let tmpData = data.map((v) => v.dataValues)

@@ -1,12 +1,12 @@
 import { WecException } from '../../wec-tools'
 
-const catchError = async (ctx: { body: { msg: any; error_code: any; request: string }; method: any; path: any; status: number }, next: () => any) => {
+const catchError = async (ctx: { body: { msg: any; error_code: any; request: string,error?:any }; method: any; path: any; status: number }, next: () => any) => {
   try {
     await next()
   } catch (error) {
     // throw error
     const isHttpException = error instanceof WecException
-    const isDev = global.config.enviroment === 'dev'
+    const isDev = global.config.default.enviroment === 'dev'
     if (isDev && !isHttpException) {
       throw error
     }
@@ -22,6 +22,7 @@ const catchError = async (ctx: { body: { msg: any; error_code: any; request: str
     } else {
       ctx.body = {
         msg: ctx,
+        error:error,
         error_code: 50001,
         request: `${ctx.method} ${ctx.path}`
       }

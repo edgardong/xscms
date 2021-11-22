@@ -9,9 +9,9 @@ import NotFound from '@/views/system/core/NotFound'
 import SystemBase from '@/views/system/base'
 
 // 博客模块
-import ArticleList from '@/views/blog/article/articleList'
-import ArticleDetail from '@/views/blog/article/articleDetail'
-import ArticleCategory from '@/views/blog/category/categoryList'
+import ArticleList from '@/views/cms/article/articleList'
+import ArticleDetail from '@/views/cms/article/articleDetail'
+import ArticleCategory from '@/views/cms/category/categoryList'
 import BlogBase from '@/views/cms/base'
 import BlogPage from '@/views/cms/page'
 

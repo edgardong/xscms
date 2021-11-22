@@ -4,7 +4,7 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   entry: {
-    app: './src/views/app.jsx',
+    app: './src/views/admin/app.jsx',
     vendor: [
       'react',
       'react-dom',
@@ -17,10 +17,11 @@ module.exports = {
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, '../admin'),
+    publicPath: "/admin/"
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/template/admin/index.html',
+      template: './src/views/admin/index.html',
       filename: 'index.html',
       favicon: './src/template/admin/favicon.ico',
     }),
@@ -81,6 +82,8 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.scss', '.styl'],
     alias: {
       '@': path.join(__dirname, '../src/views'),
+      '@admin': path.join(__dirname, '../src/views/admin'),
+      // '~': path.join(__dirname, '../src/views'),
     },
   },
 }

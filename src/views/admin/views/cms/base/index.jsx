@@ -2,7 +2,7 @@ import React from 'react'
 import BaseForm from '@/components/Base/Form/form'
 import { Button } from 'antd'
 
-import BlogBaseAPI from '@/api/blog/base'
+import BlogBaseAPI from '@/api/cms/base'
 import utils from '@/utils/utils'
 import { uploadBlogFile } from '@/api/common'
 

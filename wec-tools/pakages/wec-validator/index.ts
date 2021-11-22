@@ -29,7 +29,7 @@ class WecValidator {
    * @param {Object} ctx 需要校验的对象上下文
    * @param {Object} alias 别名对象(仅支持属性替换) {校验规则属性:字段属性}
    */
-  async validate(ctx: any, alias?: any) {
+  async validate(ctx: any, alias?: any): Promise<any> {
     // 获取所有参数,组成一个集合
     this.data = Object.assign(ctx.request.header, ctx.params, ctx.request.query, ctx.request.body)
     this.data = this.exceptBaseAttr(this.data)
@@ -37,8 +37,6 @@ class WecValidator {
     this.validators.funs = this.getAllMethodNames(this)
     // 所有的自定义属性
     this.validators.vals = this.getAllProperties(this, alias)
-
-    // console.log('validate.js/index.js', this.validators.vals, this.errors, this.data)
     // 处理校验
     await this.handleCheck(alias)
     if (Object.keys(this.errors).length > 0) {

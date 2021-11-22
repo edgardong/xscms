@@ -9,8 +9,8 @@
 declare global {
   namespace NodeJS {
     interface Global {
-      config: { miniProgram: { loginUrl: any; appid: any; appSecret: any }; pay: { wechat: { mch_id: any; mch_key: any; notify_url: any } }; security: { secretKey: Secret; expiresIn: any }; enviroment: string },
-      errs: { AuthFailed: new (arg0: string) => any; Forbidden: new (arg0: string | undefined) => any }
+      config: { miniProgram: { loginUrl: any; appid: any; appSecret: any }; pay: { wechat: { mch_id: any; mch_key: any; notify_url: any } }; security: { secretKey: Secret; expiresIn: any }; enviroment: string;default:any; },
+      errs: { AuthFailed: new (arg0: string) => any; Forbidden: new (arg0: string | undefined) => any,Success: new () => any; }
     }
   }
 }
@@ -103,7 +103,7 @@ class InitManager {
    * @param {*} path
    */
   static loadConfig(path: any = '') {
-    const configPath = path || process.cwd() + '/src/config/config.ts'
+    const configPath = path || process.cwd() + '/config/config.ts'
     const config = require(configPath)
     global.config = config
   }

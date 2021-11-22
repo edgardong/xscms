@@ -10,7 +10,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Spin, Icon } from 'antd'
-import BaseConfig from '../../config/index'
+import BaseConfig from '../../../../config/index'
 import store from '../app'
 import { Base64 } from 'js-base64'
 

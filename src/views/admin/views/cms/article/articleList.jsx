@@ -2,7 +2,7 @@ import React from 'react'
 import { Table, Button, Switch, Spin, Divider, Input } from 'antd'
 
 import { withRouter } from 'react-router-dom'
-import { getArticleList, delArticle } from '@/api/blog/article'
+import { getArticleList, delArticle } from '@/api/cms/article'
 import { BaseTable, BaseForm } from '@/components/Base'
 
 @withRouter

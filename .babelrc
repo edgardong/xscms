@@ -24,7 +24,6 @@
       {
         "legacy": true
       }
-    ],
-    ["transform-decorators-legacy"]
+    ]
   ]
 }
