@@ -13,6 +13,8 @@ import { Spin, Icon } from 'antd'
 import BaseConfig from '../../../../config/index'
 import store from '../app'
 import { Base64 } from 'js-base64'
+import { removeToken } from '../redux/user.redux'
+import {errorToast} from './utils'
 
 // 添加请求拦截器
 axios.interceptors.request.use(
@@ -32,8 +34,8 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Basic ${baseCode}`
       // config.headers.Authorization = `Bearer ${token}`
       config.headers.version = '0.0.1'
-      config.headers.os = localStorage.getItem('os')
-      config.headers.platform = localStorage.getItem('platform')
+      config.headers.os = localStorage.getItem('os')||''
+      config.headers.platform = localStorage.getItem('platform')||''
     } else {
       config.headers.source = 'web'
       config.headers.token = ''
@@ -53,10 +55,15 @@ axios.interceptors.response.use(
     // 对响应数据做点什么
     Spin.spinning = false
     // 公用报错处理
-    // if (response.data.errCode != 0) {
-    //   // 这里需要弹出公用错误
-    //   return Promise.reject(response.data.msg)
-    // }
+    if (response.data.error_code == 40003) {
+      // 这里需要弹出公用错误
+      removeToken()
+      console.log(response.data)
+      // store.dispatch({type:'REMOVE_TOKEN'})
+    }
+    if(response.data.error_code!==0){
+      errorToast(response.data.msg)
+    }
     // 把接口的返回值传递给页面
     return response.data
   },

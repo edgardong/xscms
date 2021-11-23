@@ -13,18 +13,13 @@ import * as xmlParser from 'koa-xml-body'
 import * as koaStatic from 'koa-static'
 import * as views from 'koa-views'
 import * as koaBody from 'koa-body'
+import  {createProxyMiddleware} from 'http-proxy-middleware'
+import * as koaConnect from 'koa2-connect'
 
 import catchError from './src/middlewares/exception'
 import InitManager from './src/core/init'
 
 const app = new Koa()
-
-import  {createProxyMiddleware} from 'http-proxy-middleware'
-import * as koaConnect from 'koa2-connect'
-
-
-import config from './config/config'
-
 
 app.use(async (ctx, next) => {
   // ctx.set('Access-Control-Allow-Origin', ctx.headers.origin) // 很奇怪的是，使用 * 会出现一些其他问题
@@ -54,7 +49,6 @@ app.use(
   })
 )
 
-
 // 代理兼容封装
 const proxy = function (context, options) {
   if (typeof options === 'string') {
@@ -67,13 +61,10 @@ const proxy = function (context, options) {
   }
 }
 
-
-
 InitManager.initCore(app)
 
 // 接口文档相关配置
 import swagger from './swagger'
-
 
 // 代理配置
 const proxyTable = {
@@ -102,6 +93,5 @@ app.use((swagger as any).allowedMethods())
 app.use(koaStatic(__dirname + '/static'))
 app.use(koaStatic(__dirname + '/public'))
 // app.use(koaStatic(__dirname + '/admin'))
-
 
 app.listen(8030)

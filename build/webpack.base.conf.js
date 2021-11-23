@@ -83,6 +83,7 @@ module.exports = {
     alias: {
       '@': path.join(__dirname, '../src/views'),
       '@admin': path.join(__dirname, '../src/views/admin'),
+      '@xscms': path.join(__dirname,'../src/app')
       // '~': path.join(__dirname, '../src/views'),
     },
   },

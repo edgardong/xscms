@@ -1,18 +1,14 @@
-// const Router = require('koa-router')
+import KoaRouter from "../../Router";
 
-// const Entitys = require('../../../models/system/base')
+// import Entitys from '../../../models/system/base'
 
 // const { getEntityColumns } = require('../../../models/system/baseUtils')
 
-// const {
-//   PaginationValidator,
-//   PositiveIntegerValidator,
-//   WecValidator,
-// } = require('../../../validators/validator').default
+// import validators from '@xscms/validators/validator'
 
-// const router = new Router({
-//   prefix: '/api/system/v1/base',
-// })
+const router = new KoaRouter({
+  prefix: '/api/system/v1/base',
+})
 
 // /**
 //  * 获取用户列表
@@ -29,20 +25,20 @@
 //   }
 // })
 
-// router.get('/all', async (ctx, next) => {
-//   const params = await new WecValidator().validate(ctx)
-//   const entity = Entitys[params.model]
-//   // console.log(params)
-//   const data = await entity.getAll(
-//     params.where || {},
-//     {
-//       order: params.order,
-//     } || {}
-//   )
-//   ctx.body = {
-//     data,
-//   }
-// })
+router.get('/all', async (ctx, next) => {
+  // const params = await new validators.WecValidator().validate(ctx)
+  // const entity = Entitys[params.model]
+  // // console.log(params)
+  // const data = await entity.getAll(
+  //   params.where || {},
+  //   {
+  //     order: params.order,
+  //   } || {}
+  // )
+  ctx.body = {
+    ctx,
+  }
+})
 
 // /**
 //  * 获取基本实体的列
