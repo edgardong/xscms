@@ -1,8 +1,9 @@
 import React from 'react'
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import {
   Tabs,
   Button,
-  Form,
   Input,
   Switch,
   Upload,
@@ -11,7 +12,7 @@ import {
   DatePicker,
   Row,
   Col,
-} from 'antd'
+} from 'antd';
 import common from '@admin/assets/less/common.less'
 
 import moment from 'moment'

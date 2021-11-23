@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Button, Table } from 'antd'
+import { Menu, Button, Table } from 'antd';
 
 import { BaseTable, BaseForm } from '@admin/components/Base'
 import roleApi from '@admin/api/system/role'

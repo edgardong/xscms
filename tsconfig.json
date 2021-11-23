@@ -8,6 +8,11 @@
       "es5",
       "es2015.promise"
     ],
+    "paths": {
+        "*": ["types/*"]
+    },
+    "baseUrl": "types",
+    "typeRoots": ["types"],
     "moduleResolution": "node",
     "outDir": "./dist",
     "allowJs": true,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Button } from 'antd'
+import { Menu, Button } from 'antd';
 import style from '@admin/assets/less/content.less'
 import RootRoutes from '@admin/router/routes'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Button, Modal } from 'antd'
+import { Menu, Button, Modal } from 'antd';
 import BaseForm from './form'
 
 export default class FormModal extends React.Component {

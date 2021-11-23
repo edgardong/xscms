@@ -13,10 +13,12 @@ import * as xmlParser from 'koa-xml-body'
 import * as koaStatic from 'koa-static'
 import * as views from 'koa-views'
 import * as koaBody from 'koa-body'
-import  {createProxyMiddleware} from 'http-proxy-middleware'
-import * as koaConnect from 'koa2-connect'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+// import * as koaConnect from 'koa2-connect'
+// const koaConnect = require('koa2-connect');
 
 import catchError from './src/middlewares/exception'
+import koaConnect from './src/middlewares/koa-connect'
 import InitManager from './src/core/init'
 
 const app = new Koa()

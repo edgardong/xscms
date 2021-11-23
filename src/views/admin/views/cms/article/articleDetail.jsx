@@ -1,5 +1,7 @@
 import React from 'react'
-import { Button, Input, Form, Tree, Tag, Card, Divider } from 'antd'
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input, Tree, Tag, Card, Divider } from 'antd';
 // import CKEditor from 'ckeditor4-react'
 // CKEditor.editorUrl = '/static/ckeditor/ckeditor.js'
 import E from 'wangeditor'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Button, Modal } from 'antd'
+import { Menu, Button, Modal } from 'antd';
 import style from '@admin/assets/less/topnav.less'
 import logo from '@admin/assets/image/logo.png'
 import { withRouter } from 'react-router'

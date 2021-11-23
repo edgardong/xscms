@@ -1,5 +1,6 @@
 import React from 'react'
-import { Menu, Icon, Button } from 'antd'
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Menu, Button } from 'antd';
 import style from '@admin/assets/less/left.less'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -84,7 +85,7 @@ class LeftNav extends React.Component {
                   key={m.code}
                   title={
                     <span>
-                      {m.icon ? <Icon type={m.icon}></Icon> : null}
+                      {m.icon ? <LegacyIcon type={m.icon}></LegacyIcon> : null}
                       <span>{m.name}</span>
                     </span>
                   }
@@ -98,7 +99,7 @@ class LeftNav extends React.Component {
               ))}
         </Menu>
       </div>
-    )
+    );
   }
 }
 

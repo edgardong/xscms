@@ -1,4 +1,5 @@
 import React from 'react'
+import { BarsOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Button, AutoComplete } from 'antd'
 
 export default class WecTable extends React.Component {
@@ -119,21 +120,21 @@ export default class WecTable extends React.Component {
       <Button.Group>
         <Button
           onClick={this.props.add}
-          icon="plus"
+          icon={<PlusOutlined />}
           size="small"
           type="primary"
         >
           添加
         </Button>
-        <Button onClick={this.props.view} icon="edit" size="small">
+        <Button onClick={this.props.view} icon={<EditOutlined />} size="small">
           单选
         </Button>
-        <Button onClick={this.props.mutiChoose} icon="bars" size="small">
+        <Button onClick={this.props.mutiChoose} icon={<BarsOutlined />} size="small">
           多选
         </Button>
         {this.props.listOp}
       </Button.Group>
-    )
+    );
   }
 
   render() {

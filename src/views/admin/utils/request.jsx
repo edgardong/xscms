@@ -9,19 +9,20 @@
 
 import React from 'react'
 import axios from 'axios'
-import { Spin, Icon } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 import BaseConfig from '../../../../config/index'
 import store from '../app'
 import { Base64 } from 'js-base64'
 import { removeToken } from '../redux/user.redux'
-import {errorToast} from './utils'
+import utils from './utils'
 
 // 添加请求拦截器
 axios.interceptors.request.use(
   function (config) {
     config.url = BaseConfig.BASE_URL + config.url
     Spin.setDefaultIndicator(
-      <Icon type="loading" style={{ fontSize: 24 }} spin />
+      <LoadingOutlined style={{ fontSize: 24 }} spin />
     )
     let token = store.getState().user.token
 
@@ -34,8 +35,8 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Basic ${baseCode}`
       // config.headers.Authorization = `Bearer ${token}`
       config.headers.version = '0.0.1'
-      config.headers.os = localStorage.getItem('os')||''
-      config.headers.platform = localStorage.getItem('platform')||''
+      config.headers.os = localStorage.getItem('os') || ''
+      config.headers.platform = localStorage.getItem('platform') || ''
     } else {
       config.headers.source = 'web'
       config.headers.token = ''
@@ -61,8 +62,8 @@ axios.interceptors.response.use(
       console.log(response.data)
       // store.dispatch({type:'REMOVE_TOKEN'})
     }
-    if(response.data.error_code!==0){
-      errorToast(response.data.msg)
+    if (response.data.error_code !== 0) {
+      utils.errorToast(response.data.msg)
     }
     // 把接口的返回值传递给页面
     return response.data
